@@ -5,7 +5,7 @@ import sistema.Estadisticas
 
 @Accessors abstract class Calificacion {
 	
-	var int valor
+	var int valor //valor
 	
 	def abstract Calificacion actualizar(Estadisticas estadisticas)
 	
