@@ -28,12 +28,9 @@ import java.util.Random
 	
 	def actualizarPuntaje(){
 		var int cantPeleasGanadas = 0
-		var int totalDeCalificaciones = 0 
-		for (Personaje p : this.personajesUsados){
-			totalDeCalificaciones += p.getEstadisticas().getCalificacion().getValor()
+		for (Personaje p : this.personajesUsados)
 			cantPeleasGanadas += p.getEstadisticas().getCantGanado() + p.getEstadisticas().getKills()
-		}
-		this.puntaje += ((totalDeCalificaciones/this.personajesUsados.size()) - this.obtenerPesoDeDenuncias()) * cantPeleasGanadas
+		this.puntaje += this.obtenerPesoDeDenuncias() * cantPeleasGanadas
 	}
 	
 	def obtenerPesoDeDenuncias(){

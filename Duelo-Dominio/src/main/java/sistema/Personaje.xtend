@@ -15,8 +15,8 @@ import posicion.Posicion
 	var int poderDeAtaque
 	var Boolean activado
 	
-	new(){
-		
+	new(String nombre){
+		this.nombre = nombre
 	}
 	
 	def activar(){
@@ -28,7 +28,8 @@ import posicion.Posicion
 	}
 	
 	def actualizarPoderDeAtaque(){
-		this.poderDeAtaque = estadisticas.getCalificacion().getValor() + (estadisticas.getKills() + estadisticas.getAssists() /2 - estadisticas.getDeads()) * estadisticas.getCantUsado()
+		var int factor = Math.round(Math.random()*1).intValue
+		this.poderDeAtaque = (estadisticas.getCalificacion().getValor() + (estadisticas.getKills() + estadisticas.getAssists() /2 - estadisticas.getDeads()) * estadisticas.getCantUsado())* factor
 	}
 	
 	def actualizarEstadisticas(Duelo duelo) {

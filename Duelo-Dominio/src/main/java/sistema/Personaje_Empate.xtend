@@ -1,6 +1,6 @@
 package sistema
 
-class Personaje_MR_X extends Personaje{
+class Personaje_Empate extends Personaje{
 	
 	new(String nombre) {
 		super(nombre)

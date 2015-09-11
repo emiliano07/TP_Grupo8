@@ -10,35 +10,12 @@ class CentroDeCalificaciones {
 	new(){
 	}
 	
-	def agregarCalificacion (Calificacion calificacion){	//Se puede ordenar automaticamente de alguna forma?
-		var ArrayList<Calificacion> calificacionesPosiblesAux = this.calificacionesPosibles
-		var ArrayList<Calificacion> calificacionesPosiblesFinal	= new ArrayList<Calificacion>()
-		while(!calificacionesPosiblesAux.isEmpty()){
-			if(calificacionesPosiblesAux.get(0).getValor()>calificacion.getValor()){
-				calificacionesPosiblesFinal.add(calificacionesPosiblesAux.get(0))
-				calificacionesPosiblesAux.remove(calificacionesPosiblesAux.get(0))
-			}
-			else{
-				calificacionesPosiblesFinal.add(calificacion)
-				calificacionesPosiblesFinal.addAll(calificacionesPosiblesAux)
-				calificacionesPosiblesAux.removeAll()
-			}
-		}
-		this.calificacionesPosibles = calificacionesPosiblesFinal
+	def agregarCalificacion (Calificacion calificacion){	
+		this.calificacionesPosibles.add(calificacion)
 	}
-	/*
-	def agregarCalificacion2 (Calificacion calificacion){	//Se puede ordenar automaticamente de alguna forma?
-		Collections.sort(this.calificacionesPosibles,new Comparator(){
-			override compare(Calificacion c1, Calificacion c2) {
-				return new Integer(c1.getValor()).compareTo(new Integer(c2.getValor()))
-			}
-			
-		})
-	}
-	*/
+	
 	def eliminarCalificacion (Calificacion calificacion){
-		this.calificacionesPosibles.remove(calificacion)
-		//this.calificacionesPosibles.sortBy[c|calificacion.getValor()]		
+		this.calificacionesPosibles.remove(calificacion)	
 	}
 	
 	def getCalificacion(){

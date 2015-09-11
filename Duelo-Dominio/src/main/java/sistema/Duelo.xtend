@@ -21,7 +21,7 @@ import posicion.Posicion
 		this.personaje1 = personaje1;
 		this.personaje1.setPosicionActual(posicion)
 	}
-	
+
 	def buscarContrincante(){
 		var escalon = sistema.escalonDondeEstoy(jugador1)
 		var int seleccion = new Random(escalon.size()).nextInt
@@ -29,18 +29,18 @@ import posicion.Posicion
 			this.jugador2 = escalon.get(seleccion)
 			this.personaje2 = jugador2.getPersonajeAlazar()
 		}
-		//si no hay se tira excepcion -> luchar con el bot o descansar
+		else {
+			//si no hay se tira excepcion -> luchar con el bot o descansar
+		}
 	}
 	
-	def luchar(){		//VER FACTOR RANDOM - QUE PASA SI SON IGUALES LOS PODERES DE ATAQUE - COMO ICATACTERISTICA??
-		if (this.personaje1.getPoderDeAtaque()>this.personaje2.getPoderDeAtaque())
-			this.ganador = this.personaje1
-		else{
-			if(this.personaje2.getPoderDeAtaque()>this.personaje1.getPoderDeAtaque())
-				this.ganador = this.personaje2
-		}
-		//No_Jugador o un objeto Empate??
+	def luchar(){		
+		switch  personaje1{
+		case personaje1.getPoderDeAtaque()>this.personaje2.getPoderDeAtaque() : this.ganador = this.personaje1
+		case personaje1.getPoderDeAtaque()<this.personaje2.getPoderDeAtaque(): this.ganador = this.personaje2
+		case personaje1.getPoderDeAtaque()== this.personaje2.getPoderDeAtaque(): this.ganador = new Personaje_Empate("Personaje Empate")
 	}
+}
 	
 	def actualizarEstadisticas(){
 		this.personaje1.actualizarEstadisticas(this)
@@ -55,8 +55,7 @@ import posicion.Posicion
 	def actualizarRanking(){
 		this.jugador1.actualizarPuntaje()
 		this.jugador2.actualizarPuntaje()
-		this.sistema.actualizarJugador(this.jugador1)
-		this.sistema.actualizarJugador(this.jugador2)
+		this.sistema.actualizarRanking()
 	}
 	
 	def jugar(Personaje personaje1, Posicion posicion){
