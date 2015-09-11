@@ -1,14 +1,16 @@
 package sistema
 
 import java.util.ArrayList
+import org.eclipse.xtend.lib.annotations.Accessors
 
-class Sistema {
+@Accessors class Sistema {
 	
 	var ArrayList<Jugador> ranking
 	var ArrayList<Personaje> personajesActivados
 	
 	new(){
-		
+		this.ranking = new ArrayList<Jugador>
+		this.personajesActivados = new ArrayList<Personaje>()
 	}
 	
 	def agregarPersonaje(Personaje personaje){

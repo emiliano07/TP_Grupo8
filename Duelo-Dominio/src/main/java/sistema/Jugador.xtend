@@ -14,14 +14,15 @@ import java.util.Random
 	var int puntaje
 	var CentralDeDenuncias centralDeDenuncias
 	
-	new(){
+	new(String nombre){
+		this.nombre = nombre;
 		this.personajesUsados = new ArrayList<Personaje>()
 		this.denuncias = new ArrayList<Denuncia>()
 		this.puntaje = 0
 	}
 	
 	def getPersonajeAlazar() {
-		var int seleccion = new Random(100).nextInt //escalon.size()
+		var int seleccion = new Random(this.personajesUsados.size()).nextInt 
 		return this.personajesUsados.get(seleccion)
 	}
 	
@@ -32,7 +33,7 @@ import java.util.Random
 			totalDeCalificaciones += p.getEstadisticas().getCalificacion().getValor()
 			cantPeleasGanadas += p.getEstadisticas().getCantGanado() + p.getEstadisticas().getKills()
 		}
-		this.puntaje = ((totalDeCalificaciones/this.personajesUsados.size()) - this.obtenerPesoDeDenuncias()) * cantPeleasGanadas
+		this.puntaje += ((totalDeCalificaciones/this.personajesUsados.size()) - this.obtenerPesoDeDenuncias()) * cantPeleasGanadas
 	}
 	
 	def obtenerPesoDeDenuncias(){
