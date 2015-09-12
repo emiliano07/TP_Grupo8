@@ -1,4 +1,4 @@
-
+package example
 
 import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.WindowOwner
