@@ -5,26 +5,17 @@ import posicion.Posicion
 
 @Accessors class Personaje {
 	
+	var Jugador jugadorAlQuePertenece
 	var String nombre
 	var Estadisticas estadisticas
 	var String especialidades
 	var String debilidades
 	var Posicion posicionIdeal
-	
 	var Posicion posicionActual
 	var int poderDeAtaque
-	var Boolean activado
 	
 	new(String nombre){
 		this.nombre = nombre
-	}
-	
-	def activar(){
-		this.activado = true
-	}
-	
-	def desactivar(){
-		this.activado = false
 	}
 	
 	def actualizarPoderDeAtaque(){

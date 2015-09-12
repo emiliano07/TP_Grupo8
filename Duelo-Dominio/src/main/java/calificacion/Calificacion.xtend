@@ -1,12 +1,16 @@
 package calificacion
 
 import org.eclipse.xtend.lib.annotations.Accessors
-import sistema.Estadisticas
+import sistema.Personaje
 
 @Accessors abstract class Calificacion {
 	
-	var int valor 
+	var int valor
 	
-	def abstract Calificacion actualizar(Estadisticas estadisticas)
+	new(int valor){
+		this.valor = valor
+	}
+	
+	def abstract Calificacion actualizar(Personaje personaje)
 	
 }

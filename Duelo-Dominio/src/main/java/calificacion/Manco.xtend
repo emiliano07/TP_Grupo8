@@ -1,14 +1,20 @@
 package calificacion
 
-import sistema.Estadisticas
+import java.util.Random
+import sistema.Personaje
 
 class Manco extends Calificacion {
 	
-	override actualizar(Estadisticas estadisticas) {
-		if(estadisticas.getPerdidosEnPosicionIdeal > 0)
+	new(){
+		super(15)
+	}
+	
+	override actualizar(Personaje personaje) {
+		var int numero = new Random(100).nextInt
+		if(personaje.getEstadisticas().luchoCantidadDeVecesEnPosicion(personaje.getPosicionIdeal()) >= 1 && numero > 30)
 			return this
 		return null
 	}
 }
 
-//Pasa cuando el Jugador pierde el Duelo pero juega en la Posicion ideal
+//Manco es cuando tiene un Duelo realizado en la mejor posicion y además saco un numero al azar mayor a 30

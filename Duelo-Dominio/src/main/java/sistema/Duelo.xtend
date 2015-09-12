@@ -1,6 +1,5 @@
 package sistema
 
-import java.util.Random
 import org.eclipse.xtend.lib.annotations.Accessors
 import posicion.Posicion
 
@@ -9,38 +8,57 @@ import posicion.Posicion
 	var Sistema sistema
 	var Jugador jugador1		//Jugador que inicio el Duelo
 	var Jugador jugador2		//Jugador contrincante
-	var Personaje personaje1
-	var Personaje personaje2
-	var Personaje ganador
+	var Personaje personaje1	//Personaje del Jugador 1
+	var Personaje personaje2	//Personaje del Jugador 2
+	var int ganador				//0 -> Comienza //1 o 2 -> Dependendiendo quien gano el duelo // 3 -> En caso de empate
 	
 	new(Jugador jugador1){
 		this.jugador1 = jugador1
+		this.jugador2 = null
+		this.personajeGanador = 0
+		this.personaje1 = null
+		this.personaje2 = null
 	}
 	
-	def seleccionarPersonajeYPosicion(Personaje personaje1, Posicion posicion){
+	def seleccionarPersonaje(Personaje personaje1){
 		this.personaje1 = personaje1;
+	}
+	
+	def seleccionarPosicion(Posicion posicion){
 		this.personaje1.setPosicionActual(posicion)
+		this.sistema.buscarContrincante(this)
+		this.jugar()
+	}
+	
+	def void cancelarDuelo(){
+		this.sistema.terminoDuelo(this)
+	}
+	
+	def retarAMRX(){
+		this.jugador2 = new Jugador_MR_X("MR_X", this.sistema)
+		this.personaje2 = this.jugador2.getPersonajeAlazar()
+		this.jugar()
 	}
 
-	def buscarContrincante(){
-		var escalon = sistema.escalonDondeEstoy(jugador1)
-		var int seleccion = new Random(escalon.size()).nextInt
-		if(!escalon.isEmpty()){
-			this.jugador2 = escalon.get(seleccion)
-			this.personaje2 = jugador2.getPersonajeAlazar()
-		}
-		else {
-			//si no hay se tira excepcion -> luchar con el bot o descansar
-		}
-	}
-	
 	def luchar(){		
 		switch  personaje1{
-		case personaje1.getPoderDeAtaque()>this.personaje2.getPoderDeAtaque() : this.ganador = this.personaje1
-		case personaje1.getPoderDeAtaque()<this.personaje2.getPoderDeAtaque(): this.ganador = this.personaje2
-		case personaje1.getPoderDeAtaque()== this.personaje2.getPoderDeAtaque(): this.ganador = new Personaje_Empate("Personaje Empate")
+		case personaje1.getPoderDeAtaque()>this.personaje2.getPoderDeAtaque() : this.personajeGanador = 1
+		case personaje1.getPoderDeAtaque()<this.personaje2.getPoderDeAtaque(): this.personajeGanador = 2
+		case personaje1.getPoderDeAtaque()== this.personaje2.getPoderDeAtaque(): this.personajeGanador = 3
 	}
 }
+	def jugar(){
+		this.luchar()
+		this.actualizarHistorialesDeResultados()
+		this.actualizarEstadisticas()
+		this.actualizarPoderDeAtaque()
+		this.actualizarRanking()
+	}
+	
+	def actualizarHistorialesDeResultados(){
+		this.jugador1.agregarNuevoResultado(new Resultado(true,this.personaje1,this.personaje1.getPosicionActual(),this.personajeGanador))
+		this.jugador2.agregarNuevoResultado(new Resultado(false,this.personaje2,this.personaje2.getPosicionActual(),this.personajeGanador))
+	}
 	
 	def actualizarEstadisticas(){
 		this.personaje1.actualizarEstadisticas(this)
@@ -56,14 +74,5 @@ import posicion.Posicion
 		this.jugador1.actualizarPuntaje()
 		this.jugador2.actualizarPuntaje()
 		this.sistema.actualizarRanking()
-	}
-	
-	def jugar(Personaje personaje1, Posicion posicion){
-		this.seleccionarPersonajeYPosicion(personaje1, posicion)
-		this.buscarContrincante()
-		this.luchar()
-		this.actualizarEstadisticas()
-		this.actualizarPoderDeAtaque()
-		this.actualizarRanking()
 	}
 }

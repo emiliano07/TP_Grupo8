@@ -1,17 +1,18 @@
 package calificacion
 
-import java.util.ArrayList
+import java.util.List
 import sistema.Estadisticas
 
 class CentroDeCalificaciones {
 	
-	var ArrayList<Calificacion> calificacionesPosibles			//Ordenada de mayor valor de Calificacion a menor valor
+	var List<Calificacion> calificacionesPosibles	//Ordenada de mayor valor de Calificacion a menor valor
 	
 	new(){
 	}
 	
 	def agregarCalificacion (Calificacion calificacion){	
 		this.calificacionesPosibles.add(calificacion)
+		this.calificacionesPosibles = this.calificacionesPosibles.sortInplaceBy[valor].reverse
 	}
 	
 	def eliminarCalificacion (Calificacion calificacion){
@@ -25,8 +26,8 @@ class CentroDeCalificaciones {
 	def actualizarCalificacion(Calificacion calificacion, Estadisticas estadisticas){
 		var Calificacion calificacionFinal = calificacion
 		for (Calificacion c : this.calificacionesPosibles){
-			if(calificacionFinal.getValor() < c.getValor() && c.actualizar(estadisticas) != null)
-				calificacionFinal = c.actualizar(estadisticas)
+			if(calificacionFinal.getValor() < c.getValor() && c.actualizar(estadisticas.getPersonajeAlQuePertenece()) != null)
+				calificacionFinal = c.actualizar(estadisticas.getPersonajeAlQuePertenece())
 		}
 		return calificacionFinal
 	}

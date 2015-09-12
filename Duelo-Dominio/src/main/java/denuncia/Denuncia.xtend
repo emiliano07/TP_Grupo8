@@ -14,7 +14,15 @@ import org.eclipse.xtend.lib.annotations.Accessors
 	}
 	
 	def esValida() {
+		return this.noSuperaLosVeinteCaracteres() || this.tieneMasDeTresPalabras()
+	}
+	
+	def Boolean tieneMasDeTresPalabras(){
 		var StringTokenizer st = new StringTokenizer(this.descripcion)
-		return this.descripcion.length() <= 20 || st.countTokens < 3
+		return st.countTokens > 3
+	}
+	
+	def Boolean noSuperaLosVeinteCaracteres(){
+		return this.descripcion.length() <= 20
 	}
 }

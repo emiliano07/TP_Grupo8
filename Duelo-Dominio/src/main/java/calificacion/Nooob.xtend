@@ -1,14 +1,16 @@
 package calificacion
 
-import sistema.Estadisticas
+import sistema.Personaje
 
 class Nooob extends Calificacion {
 	
-	override actualizar(Estadisticas estadisticas) {
-		if(estadisticas.getPerdidosEnPosicionNoIdeal > 0)
+	new(){
+		super(5)
+	}
+	
+	override actualizar(Personaje personaje) {
 			return this
-		return null
 	}
 }
 
-//Pasa cuando el Jugador pierde el Duelo y eligió jugar con el Personaje en una Posición que no era la ideal
+//Noob es en cualquier caso

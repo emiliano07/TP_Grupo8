@@ -2,28 +2,24 @@ package sistema
 
 import calificacion.Calificacion
 import calificacion.CentroDeCalificaciones
+import calificacion.Nooob
 import java.util.ArrayList
 import org.eclipse.xtend.lib.annotations.Accessors
 import posicion.Posicion
 
 @Accessors class Estadisticas {
 	
-	var Personaje personaje
+	var Personaje personajeAlQuePertenece
 	var CentroDeCalificaciones centroDeCalificaciones
 	
 	var int cantUsado					//Cantidad de veces que lo uso para iniciar un Duelo
-	var int cantGanado //IDEAL???		//Cantidad de veces que gano un Duelo
+	var int cantGanado 					//Cantidad de veces que gano un Duelo
 	var int kills						//Cantidad de Duelos que gano que no fueron inicializados por el Jugador
 	var int deads						//Cantidad de Duelos que perdio que no fueron inicializados por el Jugador
 	var int assists						//Cantidad de Duelos que empato (iniciados o no por el Jugador)
 	var ArrayList<Posicion> posiciones	//Posiciones en las que un Jugador inicio un Duelo
 	var Posicion mejorUbicacion			//La ultima Posicion en la que gano un Duelo
 	var Calificacion calificacion		//Ultima Calificacion obtenida por el Personaje en un Duelo
-	
-	var int ganadosEnPosicionIdeal
-	var int perdidosEnPosicionIdeal
-	var int ganadosEnPosicionNoIdeal
-	var int perdidosEnPosicionNoIdeal
 	
 	new(){
 		this.cantUsado = 0
@@ -32,28 +28,57 @@ import posicion.Posicion
 		this.deads = 0
 		this.assists = 0
 		this.posiciones = new ArrayList<Posicion>()
-		this.mejorUbicacion = null					//No_Posicion?
-		this.calificacion = null					//Np_Calificacion?
+		this.mejorUbicacion = null					
+		this.calificacion = new Nooob()
 	}
 	
-	def actualizarEstadisticas(Duelo duelo) {
-		if(duelo.getPersonaje1()==this.personaje){
+	def actualizarCantUsado(Duelo duelo) {
+		if(duelo.getJugador1()==this.personajeAlQuePertenece.getJugadorAlQuePertenece())
 			this.cantUsado ++
-			this.posiciones.add(this.personaje.getPosicionActual())
-			if(duelo.getGanador()==this){
+	}
+	
+	def actualizarCantGanado(Duelo duelo) {
+		if(duelo.getJugador1()==this.personajeAlQuePertenece.getJugadorAlQuePertenece() && )
+			this.cantUsado ++
+	}
+	
+	def actualizarEstadisticas02(Duelo duelo) {
+		if(duelo.getGanador()==this){
 				this.cantGanado ++
-				this.mejorUbicacion = this.personaje.getPosicionActual()
+				this.mejorUbicacion = this.personajeAlQuePertenece.getPosicionActual()
 			}
-		}else{
+		}
+	
+	def actualizarEstadisticas03(Duelo duelo) {
 			if(duelo.getGanador()==this){
 				this.kills ++
-				this.mejorUbicacion = this.personaje.getPosicionActual()
-			}
-			else
+				this.mejorUbicacion = this.personajeAlQuePertenece.getPosicionActual()
+			}else
 				this.deads ++
 		}
-		if(duelo.getGanador==null)
+		
+	def actualizarEstadisticas04(Duelo duelo) {
+		if(duelo.getGanador==null){
 			this.assists ++
-		this.calificacion = this.centroDeCalificaciones.actualizarCalificacion(this.calificacion, this)
+			this.calificacion = this.centroDeCalificaciones.actualizarCalificacion(this.calificacion, this)
+		}
+	}
+	
+	
+	def int luchoCantidadDeVecesEnPosicion(Posicion posicion){
+		var int cantidad = 0
+		for(Posicion p : this.posiciones){
+			if(p.getNombre() == posicion.getNombre())
+				cantidad++
+		}
+		return cantidad
+	}
+	
+	def int luchoCantidadDeVecesEnPosicionConTodosLosPersonajes(Posicion posicion){
+		var int cantidad = 0
+		for(Personaje p : this.personajeAlQuePertenece.getJugadorAlQuePertenece.personajesUsados){
+				cantidad += p.getEstadisticas().luchoCantidadDeVecesEnPosicion(posicion)
+		}
+		return cantidad
 	}
 }
