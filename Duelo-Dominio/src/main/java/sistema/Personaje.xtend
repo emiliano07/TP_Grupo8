@@ -19,8 +19,12 @@ import posicion.Posicion
 	}
 	
 	def actualizarPoderDeAtaque(){
+		this.poderDeAtaque = estadisticas.getCalificacion().getValor() + (estadisticas.getKills() + estadisticas.getAssists() /2 - estadisticas.getDeads()) * estadisticas.getCantUsado()
+	}
+	
+	def poderDeAtaque(){
 		var int factor = Math.round(Math.random()*1).intValue
-		this.poderDeAtaque = (estadisticas.getCalificacion().getValor() + (estadisticas.getKills() + estadisticas.getAssists() /2 - estadisticas.getDeads()) * estadisticas.getCantUsado())* factor
+		return (this.poderDeAtaque * factor)
 	}
 	
 	def actualizarEstadisticas(Duelo duelo) {

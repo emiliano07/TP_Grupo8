@@ -1,13 +1,22 @@
 package denuncia
 
 import sistema.Jugador
+import sistema.Sistema
 
 class CentralDeDenuncias {
 	
+	var Sistema sistemaAlQuePertenece
+	
 	def void analizarDenuncia(Jugador jugadorDenunciante, Jugador jugadorDenunciado, Denuncia denuncia) {
-		if(denuncia.esValida())
+		if(denuncia.esValida()){
 			jugadorDenunciado.agregarNuevaDenuncia(denuncia)
-		else
-			jugadorDenunciante.agregarNuevaDenuncia(new AbusoDelSistemaDeDenuncias("El jugador intenta denunciar a: " + jugadorDenunciado.getNombre() + ". Por abuso del Sistema de Denuncias, sin tener una justificación suficiente: " + denuncia.getDescripcion()))	
+			jugadorDenunciado.actualizarPuntaje()
+			this.sistemaAlQuePertenece.actualizarRanking()
+		}
+		else{
+			jugadorDenunciante.agregarNuevaDenuncia(new AbusoDelSistemaDeDenuncias("El jugador intenta denunciar a: " + jugadorDenunciado.getNombre() + ". Por abuso del Sistema de Denuncias, sin tener una justificaciï¿½n suficiente: " + denuncia.getDescripcion()))	
+			jugadorDenunciante.actualizarPuntaje()
+			this.sistemaAlQuePertenece.actualizarRanking()
+		}
 	}
 }

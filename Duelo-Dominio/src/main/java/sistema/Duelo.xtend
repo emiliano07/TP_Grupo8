@@ -6,16 +6,16 @@ import posicion.Posicion
 @ Accessors class Duelo {
 	
 	var Sistema sistema
-	var Jugador jugador1		//Jugador que inicio el Duelo
-	var Jugador jugador2		//Jugador contrincante
-	var Personaje personaje1	//Personaje del Jugador 1
-	var Personaje personaje2	//Personaje del Jugador 2
-	var int ganador				//0 -> Comienza //1 o 2 -> Dependendiendo quien gano el duelo // 3 -> En caso de empate
+	var Jugador jugador1			//Jugador que inicio el Duelo
+	var Jugador jugador2			//Jugador contrincante
+	var Personaje personaje1		//Personaje del Jugador 1
+	var Personaje personaje2		//Personaje del Jugador 2
+	var Personaje personajeGanador	//Personaje que resulta ganador, en caso de empate queda en null
 	
 	new(Jugador jugador1){
 		this.jugador1 = jugador1
 		this.jugador2 = null
-		this.personajeGanador = 0
+		this.personajeGanador = null
 		this.personaje1 = null
 		this.personaje2 = null
 	}
@@ -42,22 +42,17 @@ import posicion.Posicion
 
 	def luchar(){		
 		switch  personaje1{
-		case personaje1.getPoderDeAtaque()>this.personaje2.getPoderDeAtaque() : this.personajeGanador = 1
-		case personaje1.getPoderDeAtaque()<this.personaje2.getPoderDeAtaque(): this.personajeGanador = 2
-		case personaje1.getPoderDeAtaque()== this.personaje2.getPoderDeAtaque(): this.personajeGanador = 3
+		case personaje1.poderDeAtaque()>this.personaje2.poderDeAtaque() : this.personajeGanador = this.personaje1
+		case personaje1.poderDeAtaque()<this.personaje2.poderDeAtaque(): this.personajeGanador = this.personaje2
+		case personaje1.poderDeAtaque()== this.personaje2.poderDeAtaque(): this.personajeGanador = null
+		}
 	}
-}
-	def jugar(){
+	
+	def void jugar(){
 		this.luchar()
-		this.actualizarHistorialesDeResultados()
 		this.actualizarEstadisticas()
 		this.actualizarPoderDeAtaque()
 		this.actualizarRanking()
-	}
-	
-	def actualizarHistorialesDeResultados(){
-		this.jugador1.agregarNuevoResultado(new Resultado(true,this.personaje1,this.personaje1.getPosicionActual(),this.personajeGanador))
-		this.jugador2.agregarNuevoResultado(new Resultado(false,this.personaje2,this.personaje2.getPosicionActual(),this.personajeGanador))
 	}
 	
 	def actualizarEstadisticas(){
