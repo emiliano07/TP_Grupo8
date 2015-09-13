@@ -2,52 +2,81 @@ package ar.edu.unq.ciu.dueloDeLeyendas.ui
 
 import denuncia.Denuncia
 import org.uqbar.arena.layout.ColumnLayout
-import org.uqbar.arena.layout.VerticalLayout
 import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.widgets.Label
 import org.uqbar.arena.widgets.Panel
+import org.uqbar.arena.widgets.Selector
 import org.uqbar.arena.widgets.TextBox
-import org.uqbar.arena.windows.MainWindow
+import org.uqbar.arena.windows.SimpleWindow
+import org.uqbar.arena.windows.Window
+import org.uqbar.arena.windows.WindowOwner
+import sistema.Jugador
 
-class HacerDenuncia extends MainWindow<Denuncia>{
+class HacerDenunciaWindow extends SimpleWindow<Jugador>{
 	
-	new() {
-		super(new Denuncia)
+	new(WindowOwner owner, Jugador jugador) {
+		super(owner, jugador)
+		
+		title = "Hacer denuncia"
+		taskDescription = "" //Quiero sacarlo
 	}
 	
-	override createContents(Panel mainPanel) {
-		this.title = "Hacer denuncia"
-		mainPanel.layout = new VerticalLayout
+	override protected createFormPanel(Panel mainPanel) {
 		
-		new Label(mainPanel).text = "Estas queriendo denunciar a: " + "PERSONJAJE - VER COMO SE HACE???"
+		mainPanel.layout = new ColumnLayout(1)
+		
+		new Label(mainPanel).text = "Estas queriendo denunciar a: " //+ modelObject.getJugadorADenunciar().getNombre()
 		
 		var secondPanel = new Panel(mainPanel)
 		secondPanel.setLayout(new ColumnLayout(2))
 		
-		new Label (secondPanel) => [
-			text = "Motivo:"
+		new Label (secondPanel).setText("Motivo:")
+		
+		new Selector(secondPanel) => [
+			allowNull = false
+			width = 250
+			bindItemsToProperty("denunciasPosibles") //queremos que aparezca el listado de denuncias posibles
+			bindValueToProperty("tipoDeDenuncia")
 		]
 		
-		//agregar el listado de denuncias
+		new Label (secondPanel).setText("Detalles:")
 		
-		new Label (secondPanel) => [
-			text = "Detalles:"
+		new TextBox(secondPanel) => [
+			width = 400
+            height = 150
+			bindValueToProperty("textoDeDenuncia")
 		]
-		
-		new TextBox(secondPanel) //.bindValueToProperty("aca va la descripcion de la denuncia")
-		
-		new Button(secondPanel) => [
+	}
+	
+	override protected addActions(Panel actionPanel) {
+		new Button(actionPanel) => [
 			caption = "Denunciar"
-			onClick = "VER QUE HACEMOS"
 			setAsDefault
+			onClick = [ | this.denunciar() ]
 			disableOnError
 		]
 		
-		new Button(secondPanel) => [
+		new Button(actionPanel) => [
 			caption = "Cancelar"
-			onClick = "VER QUE HACEMOS"
+			onClick = [| this.close()]
 			setAsDefault
 			disableOnError
 		]
 	}
+	
+	def void denunciar(){
+		var Denuncia denuncia
+		denuncia =	modelObject.getTipoDeDenuncia()
+		denuncia.setDescripcion(modelObject.getTextoDeDenuncia())
+		modelObject.denunciar(modelObject.getJugadorADenunciar(), denuncia)
+		if(denuncia.esValida())
+			this.openWindow(new HemosSancionadoWindow(this, modelObject))
+		else
+			this.openWindow(new HasSidoSancionadoWindow(this, modelObject))
+	}
+	
+	def openWindow(Window<?> window) {
+		window.open
+	}
+	
 }
