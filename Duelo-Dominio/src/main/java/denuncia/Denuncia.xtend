@@ -4,13 +4,19 @@ import java.util.StringTokenizer
 import org.eclipse.xtend.lib.annotations.Accessors
 
 @Accessors abstract class Denuncia {
+	override toString(){
+		this.class.simpleName
+		//var String nombre = this.class.simpleName
+		//var String[] nombreFinal = nombre.split("_")
+		//return nombreFinal.toString
+	}
 	
 	var int peso
 	var String descripcion
 	
-	new(int peso, String descripcion){
+	new(int peso){
 		this.peso = peso
-		this.descripcion = descripcion
+		this.descripcion = ""
 	}
 	
 	def esValida() {

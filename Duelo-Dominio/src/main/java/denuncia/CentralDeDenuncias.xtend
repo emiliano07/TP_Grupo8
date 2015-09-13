@@ -14,7 +14,10 @@ class CentralDeDenuncias {
 			this.sistemaAlQuePertenece.actualizarRanking()
 		}
 		else{
-			jugadorDenunciante.agregarNuevaDenuncia(new AbusoDelSistemaDeDenuncias("El jugador intenta denunciar a: " + jugadorDenunciado.getNombre() + ". Por abuso del Sistema de Denuncias, sin tener una justificaci�n suficiente: " + denuncia.getDescripcion()))	
+			var Denuncia denunciaNueva = new AbusoDelSistemaDeDenuncias()
+			denuncia.setDescripcion("El jugador intenta denunciar a: " + jugadorDenunciado.getNombre() + ". Por abuso del Sistema de Denuncias, sin tener una justificaci�n suficiente: " + denuncia.getDescripcion())
+			jugadorDenunciante.agregarNuevaDenuncia(denunciaNueva)	
+			
 			jugadorDenunciante.actualizarPuntaje()
 			this.sistemaAlQuePertenece.actualizarRanking()
 		}

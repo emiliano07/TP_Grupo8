@@ -2,7 +2,7 @@ package denuncia
 
 class FeedIntencional extends Denuncia{
 	
-	new(String descripcion){
-		super(10,descripcion)
+	new(){
+		super(10)
 	}
 }

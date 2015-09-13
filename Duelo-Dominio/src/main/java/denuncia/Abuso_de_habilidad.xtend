@@ -1,8 +1,8 @@
 package denuncia
 
-class AbusoDeHabilidad extends Denuncia{
+class Abuso_de_habilidad extends Denuncia{
 	
-	new(String descripcion){
-		super(5,descripcion)
+	new(){
+		super(5)
 	}
 }

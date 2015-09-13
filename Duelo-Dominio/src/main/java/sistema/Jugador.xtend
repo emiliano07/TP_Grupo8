@@ -1,7 +1,10 @@
 package sistema
 
+import denuncia.Abuso_de_habilidad
 import denuncia.CentralDeDenuncias
+import denuncia.ComunicacionAbusiva
 import denuncia.Denuncia
+import denuncia.FeedIntencional
 import java.util.ArrayList
 import java.util.Random
 import org.eclipse.xtend.lib.annotations.Accessors
@@ -15,6 +18,13 @@ import posicion.Posicion
 	var ArrayList<Denuncia> denuncias
 	var int puntaje
 	var CentralDeDenuncias centralDeDenuncias
+	
+	//PREGUNTAR SI ES NECESARIO PARA ARENA
+	var Denuncia tipoDeDenuncia
+	var String textoDeDenuncia
+	var Jugador jugadorADenunciar
+	new(){}
+	var Duelo dueloActivo
 	
 	new(String nombre, Sistema sistema){
 		this.sistema = sistema
@@ -73,5 +83,10 @@ import posicion.Posicion
 	
 	def retarAMRX(Duelo duelo){
 		duelo.retarAMRX()
+	}
+	
+	//PARA ARENA
+	def getDenunciasPosibles(){
+		#[new Abuso_de_habilidad, new ComunicacionAbusiva, new FeedIntencional]
 	}
 }
