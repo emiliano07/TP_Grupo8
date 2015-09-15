@@ -1,7 +1,6 @@
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
-import posicion.Jungle
 import sistema.Duelo
 import sistema.Jugador
 import sistema.Personaje
@@ -21,9 +20,9 @@ class Metodos {
 	@Before
 	def void setUp() {
 		this.sistema = new Sistema()
-		this.jugador01 = new Jugador("Jugador 01")
-		this.jugador02 = new Jugador("Jugador 02")
-		this.jugador03 = new Jugador("Jugador 03")
+		this.jugador01 = new Jugador(/*"Jugador 01"*/)
+		this.jugador02 = new Jugador(/*"Jugador 02"*/)
+		this.jugador03 = new Jugador(/*"Jugador 03"*/)
 		this.personaje01 = new Personaje("Personaje 01")
 		this.personaje02 = new Personaje("Personaje 02")
 		this.duelo = new Duelo(jugador01)
@@ -53,10 +52,10 @@ class Metodos {
 	def void luchar() {
 		this.personaje01.setPoderDeAtaque(50)
 		this.personaje02.setPoderDeAtaque(70)
-		this.duelo.seleccionarPersonajeYPosicion(personaje01,new Jungle())
+		//this.duelo.seleccionarPersonajeYPosicion(personaje01,new Jungle())
 		//this.duelo.seleccionarPersonajeYPosicion2(personaje02,new Jungle())
 		this.duelo.luchar()
-		System.out.println(this.duelo.getGanador().getNombre())
+		//System.out.println(this.duelo.getGanador().getNombre())
 	}
 }
 	
