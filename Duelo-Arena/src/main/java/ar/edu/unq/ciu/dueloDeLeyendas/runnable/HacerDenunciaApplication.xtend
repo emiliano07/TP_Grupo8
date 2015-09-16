@@ -3,6 +3,7 @@ package ar.edu.unq.ciu.dueloDeLeyendas.runnable
 import ar.edu.unq.ciu.dueloDeLeyendas.ui.HacerDenunciaWindow
 import org.uqbar.arena.Application
 import sistema.Jugador
+import sistema.Sistema
 
 class HacerDenunciaApplication extends Application{
 	
@@ -11,6 +12,8 @@ class HacerDenunciaApplication extends Application{
 	}
 	
 	override createMainWindow() {
-		new HacerDenunciaWindow(this, new Jugador())
+		
+		
+		new HacerDenunciaWindow(this, new Jugador("asd",new Sistema()))
 	}
 }

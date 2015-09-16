@@ -23,8 +23,9 @@ import posicion.Posicion
 	var Denuncia tipoDeDenuncia
 	var String textoDeDenuncia
 	var Jugador jugadorADenunciar
-	new(){}
 	var Duelo dueloActivo
+	new(){}
+	
 	
 	new(String nombre, Sistema sistema){
 		this.sistema = sistema
@@ -59,7 +60,7 @@ import posicion.Posicion
 		var int cantPeleasGanadas = 0
 		for (Personaje p : this.personajesUsados)
 			cantPeleasGanadas += p.getEstadisticas().getCantGanado() + p.getEstadisticas().getKills()
-		this.puntaje == this.obtenerPesoDeDenuncias() * cantPeleasGanadas
+		this.puntaje = this.obtenerPesoDeDenuncias() * cantPeleasGanadas
 	}
 	
 	def obtenerPesoDeDenuncias(){

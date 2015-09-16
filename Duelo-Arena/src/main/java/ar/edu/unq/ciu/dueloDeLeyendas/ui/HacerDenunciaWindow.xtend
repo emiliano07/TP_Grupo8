@@ -11,6 +11,7 @@ import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.Window
 import org.uqbar.arena.windows.WindowOwner
 import sistema.Jugador
+import org.uqbar.arena.bindings.PropertyAdapter
 
 class HacerDenunciaWindow extends SimpleWindow<Jugador>{
 	
@@ -18,7 +19,7 @@ class HacerDenunciaWindow extends SimpleWindow<Jugador>{
 		super(owner, jugador)
 		
 		title = "Hacer denuncia"
-		taskDescription = "" //Quiero sacarlo
+		taskDescription = "Ingrese el motivo por el que realiza la denuncia" //Quiero sacarlo
 	}
 	
 	override protected createFormPanel(Panel mainPanel) {
@@ -35,7 +36,7 @@ class HacerDenunciaWindow extends SimpleWindow<Jugador>{
 		new Selector(secondPanel) => [
 			allowNull = false
 			width = 250
-			bindItemsToProperty("denunciasPosibles") //queremos que aparezca el listado de denuncias posibles
+			bindItemsToProperty("denunciasPosibles").adapter = new PropertyAdapter(Denuncia,"descripcion") //queremos que aparezca el listado de denuncias posibles
 			bindValueToProperty("tipoDeDenuncia")
 		]
 		

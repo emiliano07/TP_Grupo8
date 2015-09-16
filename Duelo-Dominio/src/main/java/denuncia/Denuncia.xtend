@@ -31,4 +31,6 @@ import org.eclipse.xtend.lib.annotations.Accessors
 	def Boolean noSuperaLosVeinteCaracteres(){
 		return this.descripcion.length() <= 20
 	}
+	
+	def abstract String getDescripcion()
 }
