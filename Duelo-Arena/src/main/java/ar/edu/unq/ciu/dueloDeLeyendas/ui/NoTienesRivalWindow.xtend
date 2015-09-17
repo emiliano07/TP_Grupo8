@@ -15,14 +15,18 @@ class NoTienesRivalWindow extends SimpleWindow<Jugador> {
 		super(owner, jugador)
 
 		title = "No tienes rival!!!!"
-		taskDescription = "" //Quiero sacarlo
+		taskDescription = " Lamentablemente no hemos encontrado un rival para vos" 
 	}
 	
 	override protected createFormPanel(Panel mainPanel) {
 		
 		mainPanel.layout = new VerticalLayout
 		
-		new Label(mainPanel).text = "NO HAY QUIEN SE TE ANIME EN TU RANKING ACTUAL.\nPuedes optar por retar al bot del nivel y tratar de avanzar de nivel en el ranking o disfrutar de tu gloria y descansar ¿Qué queres hacer?"
+		new Label(mainPanel).text = 
+'''
+NO HAY QUIEN SE TE ANIME EN TU RANKING ACTUAL.
+Puedes optar por retar al bot del nivel y tratar de avanzar de nivel en el ranking o disfrutar de tu gloria y descansar ¿Qué queres hacer?
+'''
 }
 	
 	override protected addActions(Panel actionPanel) {

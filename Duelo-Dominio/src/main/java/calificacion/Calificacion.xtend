@@ -1,7 +1,7 @@
 package calificacion
 
+import juego.Personaje
 import org.eclipse.xtend.lib.annotations.Accessors
-import sistema.Personaje
 
 @Accessors abstract class Calificacion {
 	

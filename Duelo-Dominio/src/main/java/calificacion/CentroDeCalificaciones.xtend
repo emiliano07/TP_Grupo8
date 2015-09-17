@@ -1,7 +1,7 @@
 package calificacion
 
 import java.util.List
-import sistema.Estadisticas
+import juego.Estadisticas
 
 class CentroDeCalificaciones {
 	

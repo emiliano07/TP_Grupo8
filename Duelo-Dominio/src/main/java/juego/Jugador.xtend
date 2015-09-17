@@ -1,21 +1,21 @@
-package sistema
+package juego
 
-import denuncia.Abuso_de_habilidad
 import denuncia.CentralDeDenuncias
-import denuncia.ComunicacionAbusiva
 import denuncia.Denuncia
-import denuncia.FeedIntencional
 import java.util.ArrayList
+import java.util.List
 import java.util.Random
 import org.eclipse.xtend.lib.annotations.Accessors
+import org.uqbar.commons.utils.Observable
 import posicion.Posicion
 
+@Observable
 @Accessors class Jugador {
 	
-	var Sistema sistema
+	var Juego juego
 	var String nombre
-	var ArrayList<Personaje> personajesUsados
-	var ArrayList<Denuncia> denuncias
+	var List<Personaje> personajesUsados
+	var List<Denuncia> denuncias
 	var int puntaje
 	var CentralDeDenuncias centralDeDenuncias
 	
@@ -24,11 +24,9 @@ import posicion.Posicion
 	var String textoDeDenuncia
 	var Jugador jugadorADenunciar
 	var Duelo dueloActivo
-	new(){}
-	
-	
-	new(String nombre, Sistema sistema){
-		this.sistema = sistema
+
+	new(String nombre, Juego juego){
+		this.juego = juego
 		this.nombre = nombre;
 		this.personajesUsados = new ArrayList<Personaje>()
 		this.denuncias = new ArrayList<Denuncia>()
@@ -36,7 +34,7 @@ import posicion.Posicion
 	}
 	
 	def iniciarDuelo(){
-		sistema.nuevoDuelo(new Duelo(this))
+		juego.nuevoDuelo(new Duelo(this))
 	}
 	
 	def seleccionarPersonaje(Duelo duelo, Personaje personaje){
@@ -50,8 +48,8 @@ import posicion.Posicion
 	def getPersonajeAlazar() {
 		var int seleccion1 = new Random(this.personajesUsados.size()).nextInt 
 		if(this.personajesUsados.isEmpty){
-			var int seleccion2 = new Random(this.sistema.getPersonajesActivados().size()).nextInt
-			return sistema.getPersonajesActivados().get(seleccion2)
+			var int seleccion2 = new Random(this.juego.getPersonajesActivados().size()).nextInt
+			return juego.getPersonajesActivados().get(seleccion2)
 		}
 		return this.personajesUsados.get(seleccion1)
 	}
@@ -69,13 +67,14 @@ import posicion.Posicion
 			peso += denuncia.getPeso()
 		return peso
 	}
-
-	def denunciar(Jugador jugador, Denuncia denuncia){
-		this.centralDeDenuncias.analizarDenuncia(this, jugador, denuncia)
+/*
+	def denunciar(Denuncia denuncia){
+		this.centralDeDenuncias.denunciar(denuncia)
 	}
-	
+*/	
 	def agregarNuevaDenuncia(Denuncia denuncia) {
 		this.denuncias.add(denuncia)
+		this.actualizarPuntaje()
 	}
 	
 	def descansarEnMiGloria(Duelo duelo){
@@ -86,8 +85,5 @@ import posicion.Posicion
 		duelo.retarAMRX()
 	}
 	
-	//PARA ARENA
-	def getDenunciasPosibles(){
-		#[new Abuso_de_habilidad, new ComunicacionAbusiva, new FeedIntencional]
-	}
+	
 }

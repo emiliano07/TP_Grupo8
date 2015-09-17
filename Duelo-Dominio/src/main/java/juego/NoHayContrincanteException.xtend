@@ -1,4 +1,4 @@
-package sistema
+package juego
 
 class NoHayContrincanteException extends Exception {
 	

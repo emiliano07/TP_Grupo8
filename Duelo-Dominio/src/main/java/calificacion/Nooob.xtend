@@ -1,6 +1,6 @@
 package calificacion
 
-import sistema.Personaje
+import juego.Personaje
 
 class Nooob extends Calificacion {
 	

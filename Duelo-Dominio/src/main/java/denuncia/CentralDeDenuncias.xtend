@@ -1,25 +1,23 @@
 package denuncia
 
-import sistema.Jugador
-import sistema.Sistema
+import juego.Jugador
+import org.uqbar.commons.utils.Observable
 
+@Observable
 class CentralDeDenuncias {
 	
-	var Sistema sistemaAlQuePertenece
-	
-	def void analizarDenuncia(Jugador jugadorDenunciante, Jugador jugadorDenunciado, Denuncia denuncia) {
+	def Jugador denunciar(Denuncia denuncia) {
+		var Jugador denunciado = null
 		if(denuncia.esValida()){
-			jugadorDenunciado.agregarNuevaDenuncia(denuncia)
-			jugadorDenunciado.actualizarPuntaje()
-			this.sistemaAlQuePertenece.actualizarRanking()
+			denunciado = denuncia.denunciado
+			denunciado.agregarNuevaDenuncia(denuncia)
 		}
 		else{
+			denunciado = denuncia.denunciante
 			var Denuncia denunciaNueva = new AbusoDelSistemaDeDenuncias()
-			denuncia.setDescripcion("El jugador intenta denunciar a: " + jugadorDenunciado.getNombre() + ". Por abuso del Sistema de Denuncias, sin tener una justificaci�n suficiente: " + denuncia.getDescripcion())
-			jugadorDenunciante.agregarNuevaDenuncia(denunciaNueva)	
-			
-			jugadorDenunciante.actualizarPuntaje()
-			this.sistemaAlQuePertenece.actualizarRanking()
+			denuncia.setDescripcion("El jugador intenta denunciar a: " + denuncia.denunciante.getNombre() + ". Por abuso del Sistema de Denuncias, sin tener una justificaci�n suficiente: " + denuncia.getDescripcion())
+			denuncia.denunciante.agregarNuevaDenuncia(denunciaNueva)	
 		}
+		denunciado
 	}
 }

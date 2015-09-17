@@ -1,22 +1,38 @@
 package denuncia
 
 import java.util.StringTokenizer
+import juego.Jugador
 import org.eclipse.xtend.lib.annotations.Accessors
+import org.uqbar.commons.utils.Observable
 
+@Observable
 @Accessors abstract class Denuncia {
-	override toString(){
-		this.class.simpleName
-		//var String nombre = this.class.simpleName
-		//var String[] nombreFinal = nombre.split("_")
-		//return nombreFinal.toString
-	}
 	
 	var int peso
 	var String descripcion
+	var Jugador denunciante
+	var Jugador denunciado
 	
 	new(int peso){
 		this.peso = peso
-		this.descripcion = ""
+		this.denunciante = null
+		this.denunciado = null
+		this.descripcion = " "
+	}
+	
+	def Jugador analizarDenuncia() {
+		var Jugador denunciado = null
+		if(this.esValida()){
+			denunciado = denunciado
+			denunciado.agregarNuevaDenuncia(this)
+		}
+		else{
+			denunciado = denunciante
+			var Denuncia denunciaNueva = new AbusoDelSistemaDeDenuncias()
+			this.setDescripcion("El jugador intenta denunciar a: " + denunciante.getNombre() + ". Por abuso del Sistema de Denuncias, sin tener una justificacion suficiente: " + descripcion)
+			denunciante.agregarNuevaDenuncia(denunciaNueva)	
+		}
+		denunciado
 	}
 	
 	def esValida() {

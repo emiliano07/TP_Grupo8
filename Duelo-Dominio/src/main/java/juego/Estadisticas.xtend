@@ -1,9 +1,9 @@
-package sistema
+package juego
 
 import calificacion.Calificacion
 import calificacion.CentroDeCalificaciones
 import calificacion.Nooob
-import java.util.ArrayList
+import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
 import posicion.Posicion
 
@@ -17,7 +17,7 @@ import posicion.Posicion
 	var int kills						//Cantidad de Duelos que gano que no fueron inicializados por el Jugador
 	var int deads						//Cantidad de Duelos que perdio que no fueron inicializados por el Jugador
 	var int assists						//Cantidad de Duelos que empato (iniciados o no por el Jugador)
-	var ArrayList<Posicion> posiciones	//Posiciones en las que un Jugador inicio un Duelo
+	var List<Posicion> posiciones	//Posiciones en las que un Jugador inicio un Duelo
 	var Posicion mejorUbicacion			//La ultima Posicion en la que gano un Duelo
 	var Calificacion calificacion		//Ultima Calificacion obtenida por el Personaje en un Duelo
 	
@@ -27,7 +27,7 @@ import posicion.Posicion
 		this.kills = 0
 		this.deads = 0
 		this.assists = 0
-		this.posiciones = new ArrayList<Posicion>()
+		this.posiciones = newArrayList
 		this.mejorUbicacion = null					
 		this.calificacion = new Nooob()
 	}

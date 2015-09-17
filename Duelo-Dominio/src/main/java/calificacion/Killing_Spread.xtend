@@ -1,15 +1,15 @@
 package calificacion
 
 import java.util.Random
-import sistema.Personaje
+import juego.Personaje
 
-class Killing_Spread extends Calificacion {
+	class Killing_Spread extends Calificacion {
 	
 	new(){
 		super(60)
 	}
 	
-override actualizar(Personaje personaje) {
+	override actualizar(Personaje personaje) {
 		var int numero = new Random(100).nextInt
 		if(personaje.getEstadisticas().luchoCantidadDeVecesEnPosicionConTodosLosPersonajes(personaje.getPosicionIdeal()) >= 2 && numero > 50)
 			return this

@@ -1,7 +1,7 @@
 package calificacion
 
 import java.util.Random
-import sistema.Personaje
+import juego.Personaje
 
 class Manco extends Calificacion {
 	

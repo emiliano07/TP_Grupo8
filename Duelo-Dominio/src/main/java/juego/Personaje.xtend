@@ -1,8 +1,10 @@
-package sistema
+package juego
 
 import org.eclipse.xtend.lib.annotations.Accessors
+import org.uqbar.commons.utils.Observable
 import posicion.Posicion
 
+@Observable
 @Accessors class Personaje {
 	
 	var Jugador jugadorAlQuePertenece

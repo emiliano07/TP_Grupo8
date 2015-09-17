@@ -14,14 +14,19 @@ class HasSidoSancionadoWindow extends SimpleWindow<Jugador> {
 		super(owner, jugador)
 
 		title = "Has sido sancionado!"
-		taskDescription = "" //Quiero sacarlo
+		taskDescription = "Estas sansionado"
 	}
 	
 	override protected createFormPanel(Panel mainPanel) {
 		
 		mainPanel.layout = new VerticalLayout
 		
-		new Label(mainPanel).text = "Hemos detectado que tu denuncia no tiene fundamentos sólidos.\nEn duelo de leyendas desalentamos este tipo de actitudes y somos partidarios del fair play.\nCon lo que has recibido una sanción por tu actitud antideportiva, esperamos que reflexiones sobre tu actitud"
+		new Label(mainPanel).text = 
+''' 
+Hemos detectado que tu denuncia no tiene fundamentos sólidos.
+En duelo de leyendas desalentamos este tipo de actitudes y somos partidarios del fair play.
+Con lo que has recibido una sanción por tu actitud antideportiva, esperamos que reflexiones sobre tu actitud
+'''
 	}
 	
 	override protected addActions(Panel actionPanel) {

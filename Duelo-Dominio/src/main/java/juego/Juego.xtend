@@ -1,21 +1,25 @@
-package sistema
+package juego
 
 import java.util.ArrayList
 import java.util.List
 import java.util.Random
 import org.eclipse.xtend.lib.annotations.Accessors
 
-@Accessors class Sistema {
+@Accessors class Juego {
 	 
-	var List<Jugador> ranking = newArrayList
-	private var ArrayList<Personaje> personajes		//Todos los Personajes que existen en el Sistema
-	var ArrayList<Personaje> personajesActivados	//Personajes habilitados para que el Jugador utilice en un Duelo
-	var ArrayList<Duelo> duelosActivos
+	var List<Jugador> jugadores = newArrayList
+	private var List<Personaje> personajes		//Todos los Personajes que existen en el Sistema
+	var List<Personaje> personajesActivados	//Personajes habilitados para que el Jugador utilice en un Duelo
+	var List<Duelo> duelosActivos
 	
 	new(){
-		this.ranking = new ArrayList<Jugador>
-		this.personajes = new ArrayList<Personaje>()
-		this.personajesActivados = new ArrayList<Personaje>()
+		this.jugadores= newArrayList
+		this.personajes = newArrayList
+		this.personajesActivados = newArrayList
+	}
+	
+	def List<Jugador> getRanking(){
+		jugadores.sortBy[puntaje].reverse
 	}
 	
 	def agregarPersonaje(Personaje personaje){
@@ -48,10 +52,6 @@ import org.eclipse.xtend.lib.annotations.Accessors
 	
 	def eliminarJugador(Jugador jugador){
 		this.ranking.remove(jugador)
-	}
-	
-	def actualizarRanking(){
-		this.ranking = this.getRanking().sortInplaceBy[puntaje].reverse
 	}
 	
 	def void buscarContrincante(Duelo duelo){

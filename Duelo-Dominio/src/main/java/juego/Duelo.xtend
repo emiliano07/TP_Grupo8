@@ -1,11 +1,11 @@
-package sistema
+package juego
 
 import org.eclipse.xtend.lib.annotations.Accessors
 import posicion.Posicion
 
 @ Accessors class Duelo {
 	
-	var Sistema sistema
+	var Juego juego
 	var Jugador jugador1			//Jugador que inicio el Duelo
 	var Jugador jugador2			//Jugador contrincante
 	var Personaje personaje1		//Personaje del Jugador 1
@@ -26,16 +26,16 @@ import posicion.Posicion
 	
 	def seleccionarPosicion(Posicion posicion){
 		this.personaje1.setPosicionActual(posicion)
-		this.sistema.buscarContrincante(this)
+		this.juego.buscarContrincante(this)
 		this.jugar()
 	}
 	
 	def void cancelarDuelo(){
-		this.sistema.terminoDuelo(this)
+		this.juego.terminoDuelo(this)
 	}
 	
 	def retarAMRX(){
-		this.jugador2 = new Jugador_MR_X("MR_X", this.sistema)
+		this.jugador2 = new Jugador_MR_X("MR_X", this.juego)
 		this.personaje2 = this.jugador2.getPersonajeAlazar()
 		this.jugar()
 	}
@@ -68,6 +68,5 @@ import posicion.Posicion
 	def actualizarRanking(){
 		this.jugador1.actualizarPuntaje()
 		this.jugador2.actualizarPuntaje()
-		this.sistema.actualizarRanking()
 	}
 }

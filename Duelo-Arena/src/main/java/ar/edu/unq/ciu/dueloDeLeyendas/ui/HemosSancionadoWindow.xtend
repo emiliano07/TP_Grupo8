@@ -14,14 +14,18 @@ class HemosSancionadoWindow  extends SimpleWindow<Jugador> {
 		super(owner, jugador)
 		
 		title = "Hemos sancionado a: " //+ modelObject.getJugadorADenunciar().getNombre()
-		taskDescription = "" //Quiero sacarlo
+		taskDescription = " Decidimos sansionarte" 
 	}
 	
 	override protected createFormPanel(Panel mainPanel) {
 		
 		mainPanel.layout = new VerticalLayout
 		
-		new Label(mainPanel).text = "En duelo de leyendas somos partidarios del fair play.\nGracias por ayudarnos a mantenernos así!!!"
+		new Label(mainPanel).text = 
+'''
+En duelo de leyendas somos partidarios del fair play.
+Gracias por ayudarnos a mantenernos así!!!
+'''
 	}
 	
 	override protected addActions(Panel actionPanel) {
