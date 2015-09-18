@@ -1,6 +1,7 @@
 package ar.edu.unq.ciu.dueloDeLeyendas.ui
 
 import denuncia.Denuncia
+import juego.ApplicacionModel
 import org.uqbar.arena.bindings.PropertyAdapter
 import org.uqbar.arena.layout.ColumnLayout
 import org.uqbar.arena.widgets.Button
@@ -10,7 +11,6 @@ import org.uqbar.arena.widgets.Selector
 import org.uqbar.arena.widgets.TextBox
 import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.WindowOwner
-import sistema.ApplicacionModel
 
 class HacerDenunciaWindow extends SimpleWindow<ApplicacionModel>{
 	

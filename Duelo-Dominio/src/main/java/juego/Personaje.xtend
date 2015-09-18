@@ -16,8 +16,16 @@ import posicion.Posicion
 	var Posicion posicionActual
 	var int poderDeAtaque
 	
-	new(String nombre){
+	new(String nombre, String debilidades, String especialidades, Posicion posicionIdeal, Estadisticas estadisticas){
+		this.jugadorAlQuePertenece = null
+		this.estadisticas = estadisticas
+		this.debilidades = debilidades
+		this.especialidades = especialidades
 		this.nombre = nombre
+		this.posicionIdeal = posicionIdeal
+		this.posicionActual = null
+		this.poderDeAtaque = 0
+		
 	}
 	
 	def actualizarPoderDeAtaque(){
@@ -26,7 +34,7 @@ import posicion.Posicion
 	
 	def poderDeAtaque(){
 		var int factor = Math.round(Math.random()*1).intValue
-		return (this.poderDeAtaque * factor)
+		return this.poderDeAtaque * factor
 	}
 	
 	def actualizarEstadisticas(Duelo duelo) {

@@ -1,13 +1,11 @@
 package juego
 
-import java.util.ArrayList
 import java.util.List
-import java.util.Random
 import org.eclipse.xtend.lib.annotations.Accessors
 
 @Accessors class Juego {
 	 
-	var List<Jugador> jugadores = newArrayList
+	var List<Jugador> jugadores 
 	private var List<Personaje> personajes		//Todos los Personajes que existen en el Sistema
 	var List<Personaje> personajesActivados	//Personajes habilitados para que el Jugador utilice en un Duelo
 	var List<Duelo> duelosActivos
@@ -16,22 +14,23 @@ import org.eclipse.xtend.lib.annotations.Accessors
 		this.jugadores= newArrayList
 		this.personajes = newArrayList
 		this.personajesActivados = newArrayList
+		this.duelosActivos = newArrayList
 	}
 	
 	def List<Jugador> getRanking(){
-		jugadores.sortBy[puntaje].reverse
+		jugadores.sortInplaceBy[puntaje].reverse
 	}
 	
 	def agregarPersonaje(Personaje personaje){
 		this.personajes.add(personaje)
 	}
 	
-	def nuevoDuelo(Duelo duelo){
+	def void nuevoDuelo(Duelo duelo){
 		this.duelosActivos.add(duelo)
 	}
 	
 	def terminoDuelo(Duelo duelo){
-		this.duelosActivos.remove(duelo)
+		duelosActivos.remove(duelo)
 	}
 
 	def eliminarPersonaje(Personaje personaje){
@@ -47,16 +46,16 @@ import org.eclipse.xtend.lib.annotations.Accessors
 	}
 	
 	def void agregarJugador (Jugador jugador){
-		 this.ranking.add(jugador)
+		 this.jugadores.add(jugador)
 	}
 	
 	def eliminarJugador(Jugador jugador){
-		this.ranking.remove(jugador)
+		this.jugadores.remove(jugador)
 	}
 	
 	def void buscarContrincante(Duelo duelo){
 		var posiblesRivales = this.posiblesRivales(duelo.getJugador1())
-		var int seleccion = new Random(posiblesRivales.size()).nextInt
+		var int seleccion = Math.round(Math.random()*(posiblesRivales.size()-1)).intValue
 		if(!posiblesRivales.isEmpty()){
 			duelo.setJugador2(posiblesRivales.get(seleccion))
 			duelo.setPersonaje2(duelo.getJugador2().getPersonajeAlazar())
@@ -67,8 +66,8 @@ import org.eclipse.xtend.lib.annotations.Accessors
 	}
 	
 	def posiblesRivales(Jugador jug){
-		var ArrayList<Jugador> posiblesRivales = new ArrayList<Jugador>()
-		for (Jugador jugador : this.ranking){
+		var List<Jugador> posiblesRivales = newArrayList
+		for (Jugador jugador : this.jugadores){
 			if(Math.abs(jugador.getPuntaje() - jug.getPuntaje()) <= 100)
 				posiblesRivales.add(jugador)
 		}

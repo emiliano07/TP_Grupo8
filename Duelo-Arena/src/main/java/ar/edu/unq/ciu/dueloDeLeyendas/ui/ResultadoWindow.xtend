@@ -1,9 +1,9 @@
 package ar.edu.unq.ciu.dueloDeLeyendas.ui
 
+import juego.Jugador
 import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.WindowOwner
-import sistema.Jugador
 
 class ResultadoWindow extends SimpleWindow<Jugador>{
 	

@@ -6,7 +6,7 @@ class AbusoDelSistemaDeDenuncias extends Denuncia {
 		super(25)
 	}
 	
-	override getDescripcion() {
+	override getNombre() {
 		"Abuso del Sistema de Denuncias"
 	}
 	

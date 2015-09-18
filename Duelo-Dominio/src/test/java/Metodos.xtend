@@ -1,7 +1,7 @@
-import sistema.Duelo
-import sistema.Juego
-import sistema.Jugador
-import sistema.Personaje
+import juego.Duelo
+import juego.Juego
+import juego.Jugador
+import juego.Personaje
 
 class Metodos {
 	

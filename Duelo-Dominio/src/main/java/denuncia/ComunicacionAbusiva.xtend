@@ -6,7 +6,7 @@ class ComunicacionAbusiva extends Denuncia{
 		super(7)
 	}
 	
-	override getDescripcion() {
+	override getNombre() {
 		"Comunicacion Abusiva"
 	}
 	

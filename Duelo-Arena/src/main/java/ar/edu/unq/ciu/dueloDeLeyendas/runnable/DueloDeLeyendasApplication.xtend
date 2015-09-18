@@ -2,11 +2,11 @@ package ar.edu.unq.ciu.dueloDeLeyendas.runnable
 
 import ar.edu.unq.ciu.dueloDeLeyendas.ui.HacerDenunciaWindow
 import denuncia.FeedIntencional
+import juego.ApplicacionModel
+import juego.Juego
+import juego.Jugador
+import juego.Personaje
 import org.uqbar.arena.Application
-import sistema.ApplicacionModel
-import sistema.Juego
-import sistema.Jugador
-import sistema.Personaje
 
 class DueloDeLeyendasApplication extends Application{
 	var Jugador jugador01

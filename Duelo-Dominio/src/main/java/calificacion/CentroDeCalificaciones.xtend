@@ -2,12 +2,14 @@ package calificacion
 
 import java.util.List
 import juego.Estadisticas
+import org.eclipse.xtend.lib.annotations.Accessors
 
-class CentroDeCalificaciones {
+@Accessors class CentroDeCalificaciones {
 	
 	var List<Calificacion> calificacionesPosibles	//Ordenada de mayor valor de Calificacion a menor valor
 	
 	new(){
+		this.calificacionesPosibles = newArrayList
 	}
 	
 	def agregarCalificacion (Calificacion calificacion){	

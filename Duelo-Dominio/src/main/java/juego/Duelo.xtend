@@ -12,7 +12,8 @@ import posicion.Posicion
 	var Personaje personaje2		//Personaje del Jugador 2
 	var Personaje personajeGanador	//Personaje que resulta ganador, en caso de empate queda en null
 	
-	new(Jugador jugador1){
+	new(Jugador jugador1, Juego juego){
+		this.juego = juego
 		this.jugador1 = jugador1
 		this.jugador2 = null
 		this.personajeGanador = null
@@ -31,10 +32,10 @@ import posicion.Posicion
 	}
 	
 	def void cancelarDuelo(){
-		this.juego.terminoDuelo(this)
+		juego.terminoDuelo(this)
 	}
 	
-	def retarAMRX(){
+	def void retarAMRX(){
 		this.jugador2 = new Jugador_MR_X("MR_X", this.juego)
 		this.personaje2 = this.jugador2.getPersonajeAlazar()
 		this.jugar()
@@ -44,15 +45,15 @@ import posicion.Posicion
 		switch  personaje1{
 		case personaje1.poderDeAtaque()>this.personaje2.poderDeAtaque() : this.personajeGanador = this.personaje1
 		case personaje1.poderDeAtaque()<this.personaje2.poderDeAtaque(): this.personajeGanador = this.personaje2
-		case personaje1.poderDeAtaque()== this.personaje2.poderDeAtaque(): this.personajeGanador = null
+		case personaje1.poderDeAtaque()== this.personaje2.poderDeAtaque(): this.personajeGanador = this.personaje1 //En caso de empate devolve el personaje que inicio el Duelo
 		}
 	}
 	
 	def void jugar(){
 		this.luchar()
-		this.actualizarEstadisticas()
+		//this.actualizarEstadisticas()
 		this.actualizarPoderDeAtaque()
-		this.actualizarRanking()
+		this.actualizarLaPosicionEnElRanking()
 	}
 	
 	def actualizarEstadisticas(){
@@ -65,8 +66,9 @@ import posicion.Posicion
 		this.personaje2.actualizarPoderDeAtaque()
 	}
 	
-	def actualizarRanking(){
+	def actualizarLaPosicionEnElRanking(){
 		this.jugador1.actualizarPuntaje()
 		this.jugador2.actualizarPuntaje()
+		this.juego.ranking
 	}
 }

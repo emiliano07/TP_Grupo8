@@ -6,4 +6,7 @@ import org.eclipse.xtend.lib.annotations.Accessors
 	
 	var String nombre
 	
+	new(String nombre){
+		this.nombre = nombre
+	}
 }

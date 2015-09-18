@@ -17,22 +17,22 @@ import org.uqbar.commons.utils.Observable
 		this.peso = peso
 		this.denunciante = null
 		this.denunciado = null
-		this.descripcion = " "
+		this.descripcion = ""
 	}
 	
 	def Jugador analizarDenuncia() {
-		var Jugador denunciado = null
+		var Jugador jugadorDenunciado = null
 		if(this.esValida()){
-			denunciado = denunciado
-			denunciado.agregarNuevaDenuncia(this)
+			jugadorDenunciado = denunciado
+			jugadorDenunciado.agregarNuevaDenuncia(this)
 		}
 		else{
-			denunciado = denunciante
+			jugadorDenunciado = denunciante
 			var Denuncia denunciaNueva = new AbusoDelSistemaDeDenuncias()
-			this.setDescripcion("El jugador intenta denunciar a: " + denunciante.getNombre() + ". Por abuso del Sistema de Denuncias, sin tener una justificacion suficiente: " + descripcion)
+			denunciaNueva.setDescripcion("El jugador intenta denunciar a: " + denunciante.getNombre() + ". Por abuso del Sistema de Denuncias, sin tener una justificacion suficiente: " + descripcion)
 			denunciante.agregarNuevaDenuncia(denunciaNueva)	
 		}
-		denunciado
+		jugadorDenunciado
 	}
 	
 	def esValida() {
@@ -41,12 +41,12 @@ import org.uqbar.commons.utils.Observable
 	
 	def Boolean tieneMasDeTresPalabras(){
 		var StringTokenizer st = new StringTokenizer(this.descripcion)
-		return st.countTokens > 3
+		return st.countTokens < 3
 	}
 	
 	def Boolean noSuperaLosVeinteCaracteres(){
 		return this.descripcion.length() <= 20
 	}
 	
-	def abstract String getDescripcion()
+	def abstract String getNombre()
 }

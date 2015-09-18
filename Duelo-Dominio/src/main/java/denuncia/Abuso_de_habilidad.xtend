@@ -6,7 +6,7 @@ class Abuso_de_habilidad extends Denuncia{
 		super(5)
 	}
 	
-	override getDescripcion() {
+	override getNombre() {
 		"Abuso de Habilidad"
 	}
 	

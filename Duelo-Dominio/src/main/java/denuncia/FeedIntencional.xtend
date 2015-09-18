@@ -6,7 +6,7 @@ class FeedIntencional extends Denuncia{
 		super(10)
 	}
 	
-	override getDescripcion() {
+	override getNombre() {
 		"Feed Intencional"
 	}
 	
