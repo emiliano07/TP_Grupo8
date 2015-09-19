@@ -1,5 +1,7 @@
-package juego
+package applicationModel
 
+import juego.Duelo
+import juego.Estadisticas
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.utils.Observable
 

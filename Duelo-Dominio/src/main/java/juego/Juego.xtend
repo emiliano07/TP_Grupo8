@@ -7,7 +7,7 @@ import org.eclipse.xtend.lib.annotations.Accessors
 	 
 	var List<Jugador> jugadores 
 	private var List<Personaje> personajes		//Todos los Personajes que existen en el Sistema
-	var List<Personaje> personajesActivados	//Personajes habilitados para que el Jugador utilice en un Duelo
+	var List<Personaje> personajesActivados		//Personajes habilitados para que el Jugador utilice en un Duelo
 	var List<Duelo> duelosActivos
 	
 	new(){
@@ -67,11 +67,11 @@ import org.eclipse.xtend.lib.annotations.Accessors
 	
 	def posiblesRivales(Jugador jug){
 		var List<Jugador> posiblesRivales = newArrayList
-		for (Jugador jugador : this.jugadores){
+		for (Jugador jugador : this.getRanking()){
 			if(Math.abs(jugador.getPuntaje() - jug.getPuntaje()) <= 100)
 				posiblesRivales.add(jugador)
 		}
+		posiblesRivales.remove(jug)
 		return posiblesRivales
 	}
-
 }

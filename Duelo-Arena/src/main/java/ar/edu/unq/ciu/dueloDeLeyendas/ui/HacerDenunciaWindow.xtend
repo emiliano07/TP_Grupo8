@@ -1,9 +1,9 @@
 package ar.edu.unq.ciu.dueloDeLeyendas.ui
 
+import applicationModel.DenunciaApplicacionModel
 import ar.edu.unq.ciu.dueloDeLeyendas.ui.AplicarDenuncia.HasSidoSancionadoWindow
 import ar.edu.unq.ciu.dueloDeLeyendas.ui.AplicarDenuncia.HemosSancionadoWindow
 import denuncia.Denuncia
-import juego.DenunciaApplicacionModel
 import org.uqbar.arena.bindings.PropertyAdapter
 import org.uqbar.arena.layout.ColumnLayout
 import org.uqbar.arena.widgets.Button

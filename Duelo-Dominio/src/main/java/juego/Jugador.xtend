@@ -58,11 +58,11 @@ import posicion.Posicion
 			peso += denuncia.getPeso()
 		return peso
 	}
-/*
+
 	def denunciar(Denuncia denuncia){
-		this.centralDeDenuncias.denunciar(denuncia)
+		denuncia.analizarDenuncia()
 	}
-*/	
+	
 	def agregarNuevaDenuncia(Denuncia denuncia) {
 		this.denuncias.add(denuncia)
 		this.actualizarPuntaje()

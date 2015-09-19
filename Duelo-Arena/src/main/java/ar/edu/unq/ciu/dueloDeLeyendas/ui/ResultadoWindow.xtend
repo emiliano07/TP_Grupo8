@@ -1,9 +1,9 @@
 package ar.edu.unq.ciu.dueloDeLeyendas.ui
 
+import applicationModel.DenunciaApplicacionModel
+import applicationModel.DueloApplicationModel
 import denuncia.FeedIntencional
 import java.awt.Color
-import juego.DenunciaApplicacionModel
-import juego.DueloApplicationModel
 import org.uqbar.arena.layout.ColumnLayout
 import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.widgets.Label

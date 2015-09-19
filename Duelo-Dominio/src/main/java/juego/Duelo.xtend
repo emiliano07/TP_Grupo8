@@ -10,7 +10,7 @@ import posicion.Posicion
 	var Jugador jugador2			//Jugador contrincante
 	var Personaje personaje1		//Personaje del Jugador 1
 	var Personaje personaje2		//Personaje del Jugador 2
-	var Jugador jugadorGanador	//Jugador que resulta ganador, en caso de empate queda en null
+	var Jugador jugadorGanador		//Jugador que resulta ganador, en caso de empate aparece un No_Jugador
 	
 	new(Jugador jugador1, Juego juego){
 		this.juego = juego
@@ -45,15 +45,15 @@ import posicion.Posicion
 		switch  personaje1{
 		case personaje1.poderDeAtaque()>this.personaje2.poderDeAtaque() : this.jugadorGanador = this.jugador1
 		case personaje1.poderDeAtaque()<this.personaje2.poderDeAtaque(): this.jugadorGanador = this.jugador2
-		case personaje1.poderDeAtaque()== this.personaje2.poderDeAtaque(): this.jugadorGanador = this.jugador1 //En caso de empate devolve el personaje que inicio el Duelo
+		case personaje1.poderDeAtaque()== this.personaje2.poderDeAtaque(): this.jugadorGanador = new No_Jugador("Jugador creado en caso de empate", this.jugador1.getJuego()) //En caso de empate devuelve un No_Jugador
 		}
 	}
 	
 	def void jugar(){
 		this.luchar()
-		//this.actualizarEstadisticas()
+		this.actualizarEstadisticas()
 		this.actualizarPoderDeAtaque()
-		this.actualizarLaPosicionEnElRanking()
+		this.actualizarLaPuntajes()
 	}
 	
 	def actualizarEstadisticas(){
@@ -66,9 +66,8 @@ import posicion.Posicion
 		this.personaje2.actualizarPoderDeAtaque()
 	}
 	
-	def actualizarLaPosicionEnElRanking(){
+	def actualizarLaPuntajes(){
 		this.jugador1.actualizarPuntaje()
 		this.jugador2.actualizarPuntaje()
-		this.juego.ranking
 	}
 }

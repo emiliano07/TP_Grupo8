@@ -1,9 +1,10 @@
-package juego
+package applicationModel
 
 import denuncia.Abuso_de_habilidad
 import denuncia.ComunicacionAbusiva
 import denuncia.Denuncia
 import denuncia.FeedIntencional
+import juego.Jugador
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.utils.Observable
 
