@@ -2,7 +2,9 @@ package juego
 
 import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
+import org.uqbar.commons.utils.Observable
 
+@Observable
 @Accessors class Juego {
 	 
 	var List<Jugador> jugadores 

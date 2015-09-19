@@ -1,5 +1,6 @@
-package ar.edu.unq.ciu.dueloDeLeyendas.ui.AplicarDenuncia
+package ar.edu.unq.ciu.dueloDeLeyendas.ui
 
+import ar.edu.unq.ciu.dueloDeLeyendas.ui.Denunciador
 import juego.Jugador
 import org.uqbar.arena.windows.WindowOwner
 

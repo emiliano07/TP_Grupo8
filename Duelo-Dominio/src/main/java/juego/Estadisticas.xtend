@@ -23,8 +23,8 @@ import posicion.Posicion
 	var Posicion mejorUbicacion			//La ultima Posicion en la que gano un Duelo
 	var Calificacion calificacion		//Ultima Calificacion obtenida por el Personaje en un Duelo
 	
-	new(/*Personaje personajeAlQuePertenece,*/ CentroDeCalificaciones  centroDeCalificaciones){
-		this.personajeAlQuePertenece = null
+	new(Personaje personajeAlQuePertenece, CentroDeCalificaciones  centroDeCalificaciones){
+		this.personajeAlQuePertenece = personajeAlQuePertenece
 		this.centroDeCalificaciones = centroDeCalificaciones
 		this.cantUsado = 0
 		this.cantGanado = 0

@@ -1,9 +1,8 @@
 package ar.edu.unq.ciu.dueloDeLeyendas.ui
 
 import applicationModel.DenunciaApplicacionModel
-import ar.edu.unq.ciu.dueloDeLeyendas.ui.AplicarDenuncia.HasSidoSancionadoWindow
-import ar.edu.unq.ciu.dueloDeLeyendas.ui.AplicarDenuncia.HemosSancionadoWindow
 import denuncia.Denuncia
+import java.awt.Color
 import org.uqbar.arena.bindings.PropertyAdapter
 import org.uqbar.arena.layout.ColumnLayout
 import org.uqbar.arena.widgets.Button
@@ -19,17 +18,23 @@ class HacerDenunciaWindow extends SimpleWindow<DenunciaApplicacionModel>{
 	new(WindowOwner owner, DenunciaApplicacionModel model) {
 		super(owner, model)
 		
-		title = "Hacer denuncia"
+		title = "Duelo De Leyendas"
 		taskDescription = "Ingrese el motivo por el que realiza la denuncia" 
 	}
 	
 	override protected createFormPanel(Panel mainPanel) {
 		
-		var firstPanel = new Panel(mainPanel)
-		firstPanel.setLayout(new ColumnLayout(2))
+		new Label(mainPanel) => [
+			text = "Hacer denuncia"
+			foreground = Color.WHITE
+			background = Color.BLACK
+			fontSize = 25
+		]
 		
-		new Label(firstPanel).setText("Estas queriendo denunciar a:") 
-		new Label(firstPanel).bindValueToProperty("denuncia.denunciado.nombre")
+		new Label(mainPanel) => [
+			text = "Estas queriendo denunciar a: " + modelObject.jugadorDenunciado.nombre
+			foreground = Color.GREEN
+			] 
 		
 		var secondPanel = new Panel(mainPanel)
 		secondPanel.setLayout(new ColumnLayout(2))
@@ -55,7 +60,10 @@ class HacerDenunciaWindow extends SimpleWindow<DenunciaApplicacionModel>{
 			caption = "Denunciar"
 			setAsDefault
 			onClick = [ |mostrarResultado()]
-			disableOnError
+			
+			//setAsDefault()							//Que aparezca deshabilitado hasta elegir un motivo
+			//bindEnabledToProperty("puedeDenunciar")
+			//disableOnError
 		]
 		
 		new Button(actionPanel) => [
@@ -68,9 +76,9 @@ class HacerDenunciaWindow extends SimpleWindow<DenunciaApplicacionModel>{
 	
 	def mostrarResultado() {
 		modelObject.denunciar()
-		if(modelObject.sancionReportadaHaciaOtro())
-			new HemosSancionadoWindow(this,modelObject.jugadorDenunciado).open()
+		if(modelObject.sancionADenunciado())
+			new HemosSancionadoWindow(this,modelObject.jugadorSancionado).open()
 		else
-			new HasSidoSancionadoWindow(this,modelObject.jugadorDenunciado).open()
+			new HasSidoSancionadoWindow(this,modelObject.jugadorSancionado).open()
 		}
 }

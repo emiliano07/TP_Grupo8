@@ -22,10 +22,13 @@ import posicion.Posicion
 		this.personajesUsados = newArrayList
 		this.denuncias = newArrayList
 		this.puntaje = 0
+		this.dueloActivo = null
 	}
 	
 	def iniciarDuelo(){
-		juego.nuevoDuelo(new Duelo(this,juego))
+		var Duelo duelo = new Duelo(this,juego)
+		juego.nuevoDuelo(duelo)
+		this.dueloActivo = duelo
 	}
 	
 	def seleccionarPersonaje(Duelo duelo, Personaje personaje){

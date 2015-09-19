@@ -1,9 +1,11 @@
 package denuncia
 
+import juego.Jugador
+
 class AbusoDelSistemaDeDenuncias extends Denuncia {
 	
-	new(){
-		super(25)
+	new(Jugador jugadorDenunciante, Jugador jugadorDenunciado){
+		super(25,jugadorDenunciante,jugadorDenunciado)
 	}
 	
 	override getNombre() {

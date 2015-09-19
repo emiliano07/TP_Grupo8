@@ -1,12 +1,13 @@
 package denuncia
 
+import juego.Jugador
 import org.uqbar.commons.utils.Observable
 
 @Observable
 class Abuso_de_habilidad extends Denuncia{
 	
-	new(){
-		super(5)
+	new(Jugador jugadorDenunciante, Jugador jugadorDenunciado){
+		super(5,jugadorDenunciante,jugadorDenunciado)
 	}
 	
 	override getNombre() {

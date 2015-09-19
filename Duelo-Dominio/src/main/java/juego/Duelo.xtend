@@ -12,6 +12,9 @@ import posicion.Posicion
 	var Personaje personaje2		//Personaje del Jugador 2
 	var Jugador jugadorGanador		//Jugador que resulta ganador, en caso de empate aparece un No_Jugador
 	
+	var int poderDeAtaquePersonje1
+	var int poderDeAtaquePersonje2
+	
 	new(Jugador jugador1, Juego juego){
 		this.juego = juego
 		this.jugador1 = jugador1
@@ -19,15 +22,19 @@ import posicion.Posicion
 		this.jugadorGanador = null
 		this.personaje1 = null
 		this.personaje2 = null
+		this.poderDeAtaquePersonje1 = 0
+		this.poderDeAtaquePersonje2 = 0
 	}
 	
 	def seleccionarPersonaje(Personaje personaje1){
 		this.personaje1 = personaje1;
+		this.poderDeAtaquePersonje1 = this.personaje1.getPoderDeAtaque() * this.numeroAlAzar
 	}
 	
 	def seleccionarPosicion(Posicion posicion){
 		this.personaje1.setPosicionActual(posicion)
 		this.juego.buscarContrincante(this)
+		this.poderDeAtaquePersonje2 = this.personaje2.getPoderDeAtaque() * this.numeroAlAzar
 		this.jugar()
 	}
 	
@@ -43,10 +50,14 @@ import posicion.Posicion
 
 	def luchar(){		
 		switch  personaje1{
-		case personaje1.poderDeAtaque()>this.personaje2.poderDeAtaque() : this.jugadorGanador = this.jugador1
-		case personaje1.poderDeAtaque()<this.personaje2.poderDeAtaque(): this.jugadorGanador = this.jugador2
-		case personaje1.poderDeAtaque()== this.personaje2.poderDeAtaque(): this.jugadorGanador = new No_Jugador("Jugador creado en caso de empate", this.jugador1.getJuego()) //En caso de empate devuelve un No_Jugador
+		case this.poderDeAtaquePersonje1 > this.poderDeAtaquePersonje2 : this.jugadorGanador = this.jugador1
+		case this.poderDeAtaquePersonje1 < this.poderDeAtaquePersonje2 : this.jugadorGanador = this.jugador2
+		case this.poderDeAtaquePersonje1 == this.poderDeAtaquePersonje2 : this.jugadorGanador = new No_Jugador("Jugador creado en caso de empate", this.jugador1.getJuego()) //En caso de empate devuelve un No_Jugador
 		}
+	}
+	
+	def numeroAlAzar(){
+		return Math.round(Math.random()*1).intValue
 	}
 	
 	def void jugar(){

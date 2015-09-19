@@ -1,4 +1,4 @@
-package ar.edu.unq.ciu.dueloDeLeyendas.ui.AplicarDenuncia
+package ar.edu.unq.ciu.dueloDeLeyendas.ui
 
 import juego.Jugador
 import org.uqbar.arena.windows.WindowOwner
@@ -12,6 +12,6 @@ class HemosSancionadoWindow  extends Denunciador {
 			En duelo de leyendas somos partidarios del fair play.
 			Gracias por ayudarnos a mantenernos así!!!
 			'''
-			  , " Hemos sansionado a" + jugador.nombre )
+			  , " Hemos sansionado a " + jugador.nombre )
 	}
 }

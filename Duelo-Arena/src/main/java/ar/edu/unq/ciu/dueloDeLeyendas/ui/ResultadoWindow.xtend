@@ -2,7 +2,6 @@ package ar.edu.unq.ciu.dueloDeLeyendas.ui
 
 import applicationModel.DenunciaApplicacionModel
 import applicationModel.DueloApplicationModel
-import denuncia.FeedIntencional
 import java.awt.Color
 import org.uqbar.arena.layout.ColumnLayout
 import org.uqbar.arena.widgets.Button
@@ -15,36 +14,78 @@ class ResultadoWindow extends SimpleWindow<DueloApplicationModel>{
 	
 	new(WindowOwner parent, DueloApplicationModel duelo) {
 		super(parent, duelo)
-		title = duelo.retador + " vs " + duelo.retado 
-		taskDescription = "En la siguiente planilla se mostrara el resultado del Duelo"
-
+		title =   "Duelo De Leyendas"
+		taskDescription = ""
 	}
 	
 	override protected createFormPanel(Panel mainPanel) {
-		var firstPanel = new Panel(mainPanel)
-		firstPanel.setLayout(new ColumnLayout(2))
-		new Label(firstPanel).setText("Perdiste contra") 
-		new Label(firstPanel) => [ text = "Perdedor"]
-		//new Label(firstPanel).bindValueToProperty("")
-		new Label(firstPanel) => [ text = modelObject.duelo.jugador1.nombre fontSize = 15  foreground = Color.WHITE background = Color.BLUE]
-		new Label(firstPanel) => [ text = modelObject.duelo.jugador2.nombre fontSize = 15  foreground = Color.WHITE background = Color.BLUE]
 		
+		new Label(mainPanel) => [
+			text = modelObject.personajeRetador + " vs " + modelObject.personajeRetado
+			foreground = Color.WHITE
+			background = Color.BLACK
+			fontSize = 25
+		]
+		
+		new Label(mainPanel) => [
+			bindValueToProperty("resultado")
+			foreground = Color.GREEN
+			background = Color.YELLOW
+			fontSize = 15
+		]	
+			
 		var secondPanel = new Panel(mainPanel)
 		secondPanel.setLayout(new ColumnLayout(2))
-		estadisticasRetador(secondPanel)
-		estadisticasRetado(secondPanel)
+		
+		new Label(secondPanel) => [ 
+			text = modelObject.retador
+			fontSize = 15
+			foreground = Color.WHITE
+			background = Color.BLUE
+		]
+		
+		new Label(secondPanel) => [ 
+			text = modelObject.retado
+			fontSize = 15
+			foreground = Color.WHITE
+			background = Color.BLUE
+		]
+		
+		new Label(secondPanel) => [ 
+			text = "Stats - " + modelObject.personajeRetador
+			fontSize = 15
+			foreground = Color.BLUE
+			background = Color.WHITE
+		]
+		
+		new Label(secondPanel) => [ 
+			text = "Stats - " + modelObject.personajeRetado
+			fontSize = 15
+			foreground = Color.BLUE
+			background = Color.WHITE
+		]
+		
+		crearPanelDeEstadisticasRetador(secondPanel)
+		crearPanelDeEstadisticasRetado(secondPanel)
+		
+		new Label(mainPanel) => [ 
+			text = "Ganador: " + modelObject.ganador + "!! - " + modelObject.puntosRetador + " puntos contra " + modelObject.puntosRetado + " puntos"
+			fontSize = 15
+			foreground = Color.BLACK
+			background = Color.YELLOW
+		]
 	}
 	
 	 
-	def estadisticasRetador(Panel panel) {
-		crearParteTemp(panel , "estadisticasRetador")
+	def crearPanelDeEstadisticasRetador(Panel panel) {
+		estadisticPanel(panel, "estadisticasRetador")
 	}	
 	
-	def estadisticasRetado(Panel panel) {
-		crearParteTemp(panel , "estadisticasRetado")
+	def crearPanelDeEstadisticasRetado(Panel panel) {
+		estadisticPanel(panel, "estadisticasRetado")
 	}
 	
-	def crearParteTemp(Panel panel , String estadisticaCorrespondiente) {
+	def estadisticPanel(Panel panel , String estadisticaCorrespondiente) {
 		new Panel(panel) => [
 			layout = new ColumnLayout(2)		
 			crearLabel(it,"Jugadas",estadisticaCorrespondiente +".cantUsado")
@@ -82,8 +123,6 @@ class ResultadoWindow extends SimpleWindow<DueloApplicationModel>{
 	}
 
 	def denunciar(){
-		var feed = new FeedIntencional // para probar si abre la ventana
-		//en este caso el denunciado es el jugador02 osea el que no inicio el duelo
-		new HacerDenunciaWindow(this,new DenunciaApplicacionModel(modelObject.duelo.jugador2,feed)).open()
+		new HacerDenunciaWindow(this,new DenunciaApplicacionModel(modelObject.duelo.getJugador1, modelObject.duelo.getJugador2)).open()
 	}
 }

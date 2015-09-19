@@ -1,9 +1,11 @@
 package denuncia
 
+import juego.Jugador
+
 class FeedIntencional extends Denuncia{
 	
-	new(){
-		super(10)
+	new(Jugador jugadorDenunciante, Jugador jugadorDenunciado){
+		super(10,jugadorDenunciante,jugadorDenunciado)
 	}
 	
 	override getNombre() {

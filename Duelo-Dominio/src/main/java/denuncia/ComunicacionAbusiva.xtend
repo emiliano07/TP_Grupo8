@@ -1,12 +1,13 @@
 package denuncia
 
+import juego.Jugador
 import org.uqbar.commons.utils.Observable
 
 @Observable
 class ComunicacionAbusiva extends Denuncia{
 	
-	new(){
-		super(7)
+	new(Jugador jugadorDenunciante, Jugador jugadorDenunciado){
+		super(7,jugadorDenunciante,jugadorDenunciado)
 	}
 	
 	override getNombre() {

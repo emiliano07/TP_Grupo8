@@ -1,8 +1,8 @@
 package ar.edu.unq.ciu.dueloDeLeyendas.ui
 
 import applicationModel.DueloApplicationModel
+import java.awt.Color
 import juego.Jugador
-import org.uqbar.arena.layout.VerticalLayout
 import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.widgets.Label
 import org.uqbar.arena.widgets.Panel
@@ -14,13 +14,18 @@ class NoTienesRivalWindow extends SimpleWindow<Jugador> {
 	new(WindowOwner owner, Jugador jugador) {
 		super(owner, jugador)
 
-		title = "No tienes rival!!!!"
-		taskDescription = " Lamentablemente no hemos encontrado un rival para usted" 
+		title = "Duelo de Leyendas"
+		taskDescription =  "" 
 	}
-	
+		
 	override protected createFormPanel(Panel mainPanel) {
 		
-		mainPanel.layout = new VerticalLayout
+		new Label(mainPanel) => [
+			text = "No tienes rival!!!"
+			foreground = Color.WHITE
+			background = Color.BLACK
+			fontSize = 25
+			] 
 		
 		new Label(mainPanel).text = 
 '''
