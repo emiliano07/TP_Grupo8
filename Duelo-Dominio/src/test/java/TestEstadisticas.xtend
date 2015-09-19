@@ -28,7 +28,7 @@ class TestEstadisticas {
 		this.jugador01 = new Jugador("Jugador 01",juego)
 		this.personaje01 = new Personaje("Personaje 01","debilidades", "especialidades",posicionIdeal,estadisticas)
 		this.posicionIdeal = new Jungle
-		this.estadisticas = new Estadisticas(personaje01,centroDeCalificaciones)
+		this.estadisticas = new Estadisticas(/*personaje01,*/centroDeCalificaciones)
 		this.duelo = new Duelo(jugador01,juego)
 	}
 	

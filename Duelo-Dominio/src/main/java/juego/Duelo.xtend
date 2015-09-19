@@ -10,13 +10,13 @@ import posicion.Posicion
 	var Jugador jugador2			//Jugador contrincante
 	var Personaje personaje1		//Personaje del Jugador 1
 	var Personaje personaje2		//Personaje del Jugador 2
-	var Personaje personajeGanador	//Personaje que resulta ganador, en caso de empate queda en null
+	var Jugador jugadorGanador	//Jugador que resulta ganador, en caso de empate queda en null
 	
 	new(Jugador jugador1, Juego juego){
 		this.juego = juego
 		this.jugador1 = jugador1
 		this.jugador2 = null
-		this.personajeGanador = null
+		this.jugadorGanador = null
 		this.personaje1 = null
 		this.personaje2 = null
 	}
@@ -43,9 +43,9 @@ import posicion.Posicion
 
 	def luchar(){		
 		switch  personaje1{
-		case personaje1.poderDeAtaque()>this.personaje2.poderDeAtaque() : this.personajeGanador = this.personaje1
-		case personaje1.poderDeAtaque()<this.personaje2.poderDeAtaque(): this.personajeGanador = this.personaje2
-		case personaje1.poderDeAtaque()== this.personaje2.poderDeAtaque(): this.personajeGanador = this.personaje1 //En caso de empate devolve el personaje que inicio el Duelo
+		case personaje1.poderDeAtaque()>this.personaje2.poderDeAtaque() : this.jugadorGanador = this.jugador1
+		case personaje1.poderDeAtaque()<this.personaje2.poderDeAtaque(): this.jugadorGanador = this.jugador2
+		case personaje1.poderDeAtaque()== this.personaje2.poderDeAtaque(): this.jugadorGanador = this.jugador1 //En caso de empate devolve el personaje que inicio el Duelo
 		}
 	}
 	

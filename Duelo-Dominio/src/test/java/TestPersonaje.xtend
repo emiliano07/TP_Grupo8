@@ -24,7 +24,7 @@ class TestPersonaje {
 	@Before
 	def void setUp() {
 		this.posicionIdeal = new Jungle
-		this.estadisticas = new Estadisticas(personaje01,centroDeCalificaciones)
+		this.estadisticas = new Estadisticas(/*personaje01,*/centroDeCalificaciones)
 		this.centroDeCalificaciones = new CentroDeCalificaciones
 		this.juego = new Juego()
 		this.jugador01 = new Jugador("Jugador 01",juego)

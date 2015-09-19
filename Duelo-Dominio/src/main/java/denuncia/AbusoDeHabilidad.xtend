@@ -1,5 +1,8 @@
 package denuncia
 
+import org.uqbar.commons.utils.Observable
+
+@Observable
 class Abuso_de_habilidad extends Denuncia{
 	
 	new(){

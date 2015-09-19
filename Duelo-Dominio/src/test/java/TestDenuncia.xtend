@@ -29,7 +29,7 @@ class TestDenuncia {
 		this.feed = new FeedIntencional
 		this.posicionIdeal = new Jungle
 		this.centroDeCalificaciones = new CentroDeCalificaciones
-		this.estadisticas = new Estadisticas(personaje01,centroDeCalificaciones)
+		this.estadisticas = new Estadisticas(/*personaje01,*/centroDeCalificaciones)
 		this.juego = new Juego()
 		this.jugador01 = new Jugador("Jugador 01",juego)
 		this.jugador02 = new Jugador("Jugador 02",juego)

@@ -27,7 +27,7 @@ class TestJugador {
 	@Before
 	def void setUp() {
 		this.posicionIdeal = new Jungle
-		this.estadisticas = new Estadisticas(personaje01,centroDeCalificaciones)
+		this.estadisticas = new Estadisticas(/*personaje01,*/centroDeCalificaciones)
 		this.centroDeCalificaciones = new CentroDeCalificaciones
 		this.juego = new Juego()
 		this.jugador01 = new Jugador("Jugador 01",juego)
@@ -91,19 +91,27 @@ class TestJugador {
 	}
 	
 	@Test
-	def seleccionarPosicion() {
+	def seleccionarPosicionYJugar() {
+	    this.personaje01.poderDeAtaque = 10
+	    this.personaje02.poderDeAtaque = 20
 		var mid = new Mid
-		this.personaje01.poderDeAtaque = 10
-		this.personaje02.poderDeAtaque = 20
-		this.personaje02.jugadorAlQuePertenece = jugador01
-		this.juego.personajesActivados.add(personaje02)
-		this.juego.jugadores.add(jugador02)
-		this.jugador01.seleccionarPersonaje(duelo,personaje01)
-		this.jugador01.seleccionarPosicion(duelo,mid)
+		this.juego.jugadores.add(jugador02)// agrego al jugador02 a la lista de jugadores
+		this.jugador02.personajesUsados.add(personaje02)//agrego al personaje02 para que se le setee al jugador02 ese personaje
+		this.jugador01.seleccionarPersonaje(duelo,personaje01) //al jugador01 le setee el personaje01 
+		this.jugador01.seleccionarPosicion(duelo,mid)//selecciona la posocion y busca un contrincante para pelear
+		//si se seteo correctacmente al personaje01 la posicion mid en la posicion actual
 		Assert::assertEquals("Mid",this.duelo.personaje1.posicionActual.nombre)
+		//cuando busca contrincante si se setea bien el jugador2 y personaje2
 		Assert::assertEquals(jugador02.nombre,this.duelo.jugador2.nombre)
-		Assert::assertEquals(this.personaje02.nombre,this.duelo.personajeGanador.nombre)
+		Assert::assertEquals(personaje02.nombre,this.duelo.personaje2.nombre)
+		//verifico quien es el ganador de la lucha
+		 Assert::assertEquals(this.personaje02.nombre,this.duelo.getJugadorGanador.nombre)	
 	}
 	
+	/* 
+	   this.personaje02.jugadorAlQuePertenece = jugador01
+	   Assert::assertEquals(jugador02.nombre,this.duelo.jugador2.nombre)
+	   Assert::assertEquals(this.personaje02.nombre,this.duelo.personajeGanador.nombre)
 	
+	*/
 }

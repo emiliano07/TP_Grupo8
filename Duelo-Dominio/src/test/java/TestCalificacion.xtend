@@ -24,7 +24,7 @@ class TestCalificacion {
 	def void setUp() {
 		this.posicionIdeal = new Jungle
 		this.personaje01 = new Personaje("Personaje 01","debilidades", "especialidades",posicionIdeal,estadisticas)
-		this.estadisticas = new Estadisticas(personaje01,centroDeCalificaciones)
+		this.estadisticas = new Estadisticas(/*personaje01,*/centroDeCalificaciones)
 		this.centroDeCalificaciones = new CentroDeCalificaciones
 		this.calificacion01 = new Nooob()
 		this.calificacion02 = new Rampage()

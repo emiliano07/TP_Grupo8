@@ -8,7 +8,7 @@ import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.utils.Observable
 
 @Observable
-@Accessors class ApplicacionModel {
+@Accessors class DenunciaApplicacionModel {
 	
 	var Jugador jugadorDenunciado 
 	var Denuncia denuncia
