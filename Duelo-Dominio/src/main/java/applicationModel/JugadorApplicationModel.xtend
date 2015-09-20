@@ -20,7 +20,7 @@ import posicion.Posicion
 	
 	new(Jugador jugador){
 		this.jugador = jugador
-		this.personajesActivados = this.jugador.juego.personajesActivados
+		this.personajesActivados = this.jugador.personajesUsados//juego.personajesActivados
 		this.personajeSeleccionado = this.personajesActivados.get(0)
 		this.dueloActivo = this.jugador.dueloActivo
 	}

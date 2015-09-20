@@ -3,58 +3,88 @@ package ar.edu.unq.ciu.dueloDeLeyendas.runnable
 import applicationModel.JugadorApplicationModel
 import ar.edu.unq.ciu.dueloDeLeyendas.ui.RetarADueloWindow
 import calificacion.CentroDeCalificaciones
-import denuncia.FeedIntencional
 import juego.Estadisticas
 import juego.Juego
 import juego.Jugador
 import juego.Personaje
 import org.uqbar.arena.Application
+import posicion.Bot
 import posicion.Jungle
-import posicion.Posicion
+import posicion.Mid
+import posicion.Top
 
 class DueloDeLeyendasApplication extends Application{
-	var Jugador jugador01
-	var Jugador jugador02
-	var Juego	juego
-	var Personaje personaje01
-	var Personaje personaje02
-	var FeedIntencional feed
-	var Posicion posicionIdeal
-	var CentroDeCalificaciones centroDeCalificaciones
 	
-	def setUp() {
-		this.posicionIdeal = new Jungle
-		this.juego = new Juego
-		this.centroDeCalificaciones = new CentroDeCalificaciones()
-		this.personaje01 = new Personaje("Iron Man","debilidades", "especialidades",posicionIdeal,new Estadisticas(this.personaje01, centroDeCalificaciones))
-		this.personaje02 = new Personaje("Iron Man","debilidades", "especialidades",posicionIdeal,new Estadisticas(this.personaje02, centroDeCalificaciones))
-		this.jugador01 = new Jugador("Emiliano",juego)
-		this.jugador02 = new Jugador("Lucio",juego)
-					
-		this.juego.agregarJugador(this.jugador01)
-		this.juego.agregarJugador(this.jugador02)
-		this.juego.agregarPersonaje(personaje01)
-		this.juego.agregarPersonaje(personaje02)
-		
-		this.feed = new FeedIntencional(jugador01, jugador02)
-		
-	}
 	
 	def static void main(String[] args){
 		new DueloDeLeyendasApplication().start()
 	}
 	
 	override createMainWindow() {
-		this.setUp
-		this.juego.personajesActivados.add(personaje01)
-		this.jugador01.personajesUsados.add(personaje01)
-		this.jugador01.iniciarDuelo()
-		this.jugador01.seleccionarPersonaje(this.jugador01.dueloActivo, this.personaje01)
-		this.personaje01.estadisticas.setPersonajeAlQuePertenece(this.personaje01)
+		//Posiciones
+		var posicionJungle = new Jungle
+		var posicionMid = new Mid
+		var posicionTop = new Top
+		var posicionBot = new Bot
 		
-		//new HacerDenunciaWindow(this, new DenunciaApplicacionModel(jugador01,jugador02))
-		//new ResultadoWindow(this,new DueloApplicationModel(duelo))
-		//new NoTienesRivalWindow(this,jugador01)
+		//Debilidades Personajes
+		var debilidadesPersonaje01 = "Lento"
+		var debilidadesPersonaje02 = "Poca fuerza al golpear"
+		var debilidadesPersonaje03 = "Agresividad baja"
+		var debilidadesPersonaje04 = "Volar"
+		
+		//Especialidades Personajes
+		var especialidadesPersonaje01 = "Veloz"
+		var especialidadesPersonaje02 = "Golpe letal"
+		var especialidadesPersonaje03 = "Camuflaje"
+		var especialidadesPersonaje04 = "Incapacitación, para dejarlos inútiles"
+		
+		//Juego
+		var juego = new Juego
+		
+		// CentroDeCalificaciones
+		var centroDeCalificaciones = new CentroDeCalificaciones
+		
+		//Estadisticas
+		var estadisticas = new Estadisticas(null,centroDeCalificaciones) //Fijarse si que hacer con el personajeAQuePertenece
+		
+		//Personajes
+		var personaje01 = new Personaje("Mr_X",debilidadesPersonaje01,especialidadesPersonaje01,posicionJungle,estadisticas )
+		var personaje02 = new Personaje("Mr_Y",debilidadesPersonaje02,especialidadesPersonaje02,posicionBot,estadisticas )
+		var personaje03 = new Personaje("Mr_Z",debilidadesPersonaje03,especialidadesPersonaje03,posicionMid,estadisticas )
+		var personaje04 =new Personaje("Mr_T",debilidadesPersonaje04,especialidadesPersonaje04,posicionTop,estadisticas )
+		
+		//Jugadores
+		var jugador01 = new Jugador("Emiliano", juego)
+		var jugador02 = new Jugador("Lucio", juego)
+		var jugador03 = new Jugador("Pedro", juego)
+		var jugador04 = new Jugador("Ezequiel", juego)
+		
+		//Agrego al juego los personajes y jugadores
+		juego.agregarPersonaje(personaje01)
+		juego.agregarPersonaje(personaje02)
+		juego.agregarPersonaje(personaje03)
+		juego.agregarPersonaje(personaje04)
+		juego.agregarJugador(jugador01)
+		juego.agregarJugador(jugador02)
+		juego.agregarJugador(jugador03)
+		juego.agregarJugador(jugador04)
+		
+		//Agrego al juego los personajes activados, es decir, los que los jugadores pueden usar
+		juego.activarPersonaje(personaje01)
+		juego.activarPersonaje(personaje02)
+		juego.activarPersonaje(personaje03)
+		juego.activarPersonaje(personaje04)
+		
+		//Cuando se reta a duelo el que lo hace es el jugador01
+		jugador01.personajesUsados.add(personaje01)
+		jugador01.personajesUsados.add(personaje02)
+		jugador01.personajesUsados.add(personaje03)
+		jugador01.personajesUsados.add(personaje04)
+		jugador01.iniciarDuelo()
+		jugador01.seleccionarPersonaje(jugador01.dueloActivo,personaje01)
+		personaje01.estadisticas.setPersonajeAlQuePertenece(personaje01)//ARREGLAR
+		
 		new RetarADueloWindow(this, new JugadorApplicationModel(jugador01))
 	}
 }

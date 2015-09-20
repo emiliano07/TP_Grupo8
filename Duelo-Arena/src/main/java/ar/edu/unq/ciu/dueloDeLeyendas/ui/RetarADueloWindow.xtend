@@ -5,7 +5,6 @@ import applicationModel.JugadorApplicationModel
 import java.awt.Color
 import juego.NoHayContrincanteException
 import juego.Personaje
-import org.uqbar.arena.bindings.PropertyAdapter
 import org.uqbar.arena.layout.ColumnLayout
 import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.widgets.Label
@@ -30,7 +29,6 @@ class RetarADueloWindow extends SimpleWindow<JugadorApplicationModel>{
 	}
 
 	override protected createFormPanel(Panel mainPanel) {
-		
 		new Label(mainPanel) => [
 			text = "Selecciona tu personaje para el duelo!"
 			foreground = Color.WHITE
@@ -65,7 +63,9 @@ class RetarADueloWindow extends SimpleWindow<JugadorApplicationModel>{
 			fontSize = 20
 		]
 		
-		this.createTable(secondPanel)
+		new Panel(secondPanel) => [
+			createTable(it)
+		]
 		
 		var b2Panel = new Panel(secondPanel)
 		
@@ -193,22 +193,23 @@ class RetarADueloWindow extends SimpleWindow<JugadorApplicationModel>{
 		}
 	}
 	
-	def createTable(Panel panel){
-		var table = new Table<JugadorApplicationModel>(panel, JugadorApplicationModel) => [
-			bindItemsToProperty("personajesActivados").adapter = new PropertyAdapter(Personaje,"nombre") 
+	/////TABLE//////
+	 def createTable(Panel panel){
+		var table = new Table<Personaje>(panel, Personaje) => [
+			bindItemsToProperty("personajesActivados")//.adapter = new PropertyAdapter(Personaje,"nombre") 
 			bindValueToProperty("personajeSeleccionado")
 		]
 		
-		new Column<JugadorApplicationModel>(table) => [
+		new Column<Personaje>(table) => [
 			title = "Personaje"
-			fixedSize = 100
-			bindContentsToProperty("personajeSeleccionado.nombre")
+			fixedSize = 120
+			bindContentsToProperty("nombre")
 		]
 		
-		new Column<JugadorApplicationModel>(table) => [
+		new Column<Personaje>(table) => [
 			title = "Puntaje"
-			fixedSize = 100
-			bindContentsToProperty("personajeSeleccionado.poderDeAtaque")
+			fixedSize = 120
+			bindContentsToProperty("poderDeAtaque")
 		]
 	}
 }
