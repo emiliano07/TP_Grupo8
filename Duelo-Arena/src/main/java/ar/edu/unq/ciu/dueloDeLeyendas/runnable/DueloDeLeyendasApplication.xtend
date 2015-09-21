@@ -82,7 +82,7 @@ class DueloDeLeyendasApplication extends Application{
 		jugador01.personajesUsados.add(personaje03)
 		jugador01.personajesUsados.add(personaje04)
 		jugador01.iniciarDuelo()
-		jugador01.seleccionarPersonaje(jugador01.dueloActivo,personaje01)
+		//jugador01.seleccionarPersonaje(jugador01.dueloActivo,personaje01)
 		personaje01.estadisticas.setPersonajeAlQuePertenece(personaje01)//ARREGLAR
 		
 		new RetarADueloWindow(this, new JugadorApplicationModel(jugador01))

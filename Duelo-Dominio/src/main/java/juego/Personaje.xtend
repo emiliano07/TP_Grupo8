@@ -1,5 +1,6 @@
 package juego
 
+import calificacion.CentroDeCalificaciones
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.utils.Observable
 import posicion.Posicion
@@ -16,9 +17,9 @@ import posicion.Posicion
 	var Posicion posicionActual
 	var int poderDeAtaque
 	
-	new(String nombre, String debilidades, String especialidades, Posicion posicionIdeal, Estadisticas estadisticas){
+	new(String nombre, String debilidades, String especialidades, Posicion posicionIdeal, CentroDeCalificaciones centroDeCalificaciones){
 		this.jugadorAlQuePertenece = null
-		this.estadisticas = estadisticas
+		this.estadisticas = new Estadisticas(this, centroDeCalificaciones)
 		this.debilidades = debilidades
 		this.especialidades = especialidades
 		this.nombre = nombre

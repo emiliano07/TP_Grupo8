@@ -119,12 +119,10 @@ class RetarADueloWindow extends SimpleWindow<JugadorApplicationModel>{
 		b3_2Panel.setLayout(new ColumnLayout(2))
 		
 		new Button(b3_2Panel) => [
-			//val elementSelected = new NotNullObservable("personajeSeleccionado")
 			caption = "TOP"
 			setAsDefault
 			onClick [ | this.seleccionarPosicion(new Top()) ]
 			disableOnError
-			//bindEnabled(elementSelected)
 			width = 75
 			height = 20
 		]
@@ -198,7 +196,7 @@ class RetarADueloWindow extends SimpleWindow<JugadorApplicationModel>{
 	/////TABLE//////
 	 def createTable(Panel panel){
 		var table = new Table<Personaje>(panel, Personaje) => [
-			bindItemsToProperty("personajesActivados")//.adapter = new PropertyAdapter(Personaje,"nombre") 
+			bindItemsToProperty("personajesActivados")
 			bindValueToProperty("personajeSeleccionado")
 		]
 		
