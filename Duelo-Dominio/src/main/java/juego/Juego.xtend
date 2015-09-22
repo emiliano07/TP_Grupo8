@@ -1,6 +1,8 @@
 package juego
 
+import calificacion.CentroDeCalificaciones
 import java.util.List
+import jugador.Jugador
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.utils.Observable
 
@@ -8,14 +10,13 @@ import org.uqbar.commons.utils.Observable
 @Accessors class Juego {
 	 
 	var List<Jugador> jugadores 
-	private var List<Personaje> personajes		//Todos los Personajes que existen en el Sistema
-	var List<Personaje> personajesActivados		//Personajes habilitados para que el Jugador utilice en un Duelo
+	private var List<Personaje> personajes
 	var List<Duelo> duelosActivos
+	var CentroDeCalificaciones centroDeCalificaciones
 	
-	new(){
+	new(CentroDeCalificaciones centroDeCalificaciones){
 		this.jugadores= newArrayList
 		this.personajes = newArrayList
-		this.personajesActivados = newArrayList
 		this.duelosActivos = newArrayList
 	}
 	
@@ -25,26 +26,16 @@ import org.uqbar.commons.utils.Observable
 	
 	def agregarPersonaje(Personaje personaje){
 		this.personajes.add(personaje)
+		for(Jugador jug : this.jugadores){
+			var Personaje p = new Personaje(personaje.nombre,personaje.debilidades,personaje.especialidades,personaje.posicionIdeal,this.centroDeCalificaciones)
+			jug.personajesParaUsar.add(p)
+		}
 	}
 	
-	def void nuevoDuelo(Duelo duelo){
-		this.duelosActivos.add(duelo)
-	}
-	
-	def terminoDuelo(Duelo duelo){
-		duelosActivos.remove(duelo)
-	}
-
 	def eliminarPersonaje(Personaje personaje){
 		this.personajes.remove(personaje)
-	}
-	
-	def activarPersonaje(Personaje personaje){
-		this.personajesActivados.add(personaje)
-	}
-	
-	def desactivarPersonaje(Personaje personaje){
-		this.personajesActivados.remove(personaje)
+		for(Jugador jug : this.jugadores)
+			jug.personajesParaUsar.remove(personaje)
 	}
 	
 	def void agregarJugador (Jugador jugador){
@@ -53,6 +44,14 @@ import org.uqbar.commons.utils.Observable
 	
 	def eliminarJugador(Jugador jugador){
 		this.jugadores.remove(jugador)
+	}
+	
+	def void nuevoDuelo(Duelo duelo){
+		this.duelosActivos.add(duelo)
+	}
+	
+	def terminoDuelo(Duelo duelo){
+		duelosActivos.remove(duelo)
 	}
 	
 	def void buscarContrincante(Duelo duelo){

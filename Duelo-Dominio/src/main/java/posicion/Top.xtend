@@ -5,5 +5,4 @@ class Top extends Posicion{
 	new(){
 		super("Top")
 	}
-	
 }

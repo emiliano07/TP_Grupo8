@@ -2,11 +2,16 @@ package ar.edu.unq.ciu.dueloDeLeyendas.runnable
 
 import applicationModel.JugadorApplicationModel
 import ar.edu.unq.ciu.dueloDeLeyendas.ui.RetarADueloWindow
+import calificacion.Calificacion
 import calificacion.CentroDeCalificaciones
-import juego.Estadisticas
+import calificacion.Dominador
+import calificacion.Killing_Spread
+import calificacion.Manco
+import calificacion.Nooob
+import calificacion.Rampage
 import juego.Juego
-import juego.Jugador
 import juego.Personaje
+import jugador.Jugador
 import org.uqbar.arena.Application
 import posicion.Bot
 import posicion.Jungle
@@ -21,6 +26,14 @@ class DueloDeLeyendasApplication extends Application{
 	}
 	
 	override createMainWindow() {
+		
+		//Calificaciones
+		var Calificacion nooob = new Nooob
+		var Calificacion manco = new Manco
+		var Calificacion killing = new Killing_Spread
+		var Calificacion dominador = new Dominador
+		var Calificacion rampage = new Rampage
+		
 		//Posiciones
 		var posicionJungle = new Jungle
 		var posicionMid = new Mid
@@ -28,31 +41,41 @@ class DueloDeLeyendasApplication extends Application{
 		var posicionBot = new Bot
 		
 		//Debilidades Personajes
-		var debilidadesPersonaje01 = "Lento"
-		var debilidadesPersonaje02 = "Poca fuerza al golpear"
-		var debilidadesPersonaje03 = "Agresividad baja"
-		var debilidadesPersonaje04 = "Volar"
+		var debilidadesPersonaje01 = "Confiado"
+		var debilidadesPersonaje02 = "Orgulloso"
+		var debilidadesPersonaje03 = "Poca confianza"
+		var debilidadesPersonaje04 = "Ingenuo"
 		
 		//Especialidades Personajes
-		var especialidadesPersonaje01 = "Veloz"
-		var especialidadesPersonaje02 = "Golpe letal"
-		var especialidadesPersonaje03 = "Camuflaje"
-		var especialidadesPersonaje04 = "Incapacitación, para dejarlos inútiles"
-		
-		//Juego
-		var juego = new Juego
+		var especialidadesPersonaje01 = "Kame-Kame-Ha"
+		var especialidadesPersonaje02 = "Big Bang Attack"
+		var especialidadesPersonaje03 = "Masenko"
+		var especialidadesPersonaje04 = "Burning Attack"
 		
 		// CentroDeCalificaciones
 		var centroDeCalificaciones = new CentroDeCalificaciones
+	
+		//Agrego al Centro de calificaciones las calificaciones posibles
+		centroDeCalificaciones.agregarCalificacion(nooob)
+		centroDeCalificaciones.agregarCalificacion(manco)
+		centroDeCalificaciones.agregarCalificacion(killing)
+		centroDeCalificaciones.agregarCalificacion(dominador)
+		centroDeCalificaciones.agregarCalificacion(rampage)
 		
-		//Estadisticas
-		var estadisticas = new Estadisticas(null,centroDeCalificaciones) //Fijarse si que hacer con el personajeAQuePertenece
-		
+		//Juego
+		var juego = new Juego(centroDeCalificaciones)
+			
 		//Personajes
-		var personaje01 = new Personaje("Mr_X",debilidadesPersonaje01,especialidadesPersonaje01,posicionJungle,estadisticas )
-		var personaje02 = new Personaje("Mr_Y",debilidadesPersonaje02,especialidadesPersonaje02,posicionBot,estadisticas )
-		var personaje03 = new Personaje("Mr_Z",debilidadesPersonaje03,especialidadesPersonaje03,posicionMid,estadisticas )
-		var personaje04 =new Personaje("Mr_T",debilidadesPersonaje04,especialidadesPersonaje04,posicionTop,estadisticas )
+		var personaje01 = new Personaje("Goku",debilidadesPersonaje01,especialidadesPersonaje01,posicionJungle,centroDeCalificaciones )
+		var personaje02 = new Personaje("Vegeta",debilidadesPersonaje02,especialidadesPersonaje02,posicionBot,centroDeCalificaciones )
+		var personaje03 = new Personaje("Gohan",debilidadesPersonaje03,especialidadesPersonaje03,posicionMid,centroDeCalificaciones )
+		var personaje04 = new Personaje("Trunks",debilidadesPersonaje04,especialidadesPersonaje04,posicionTop,centroDeCalificaciones )
+		
+		//Agrego al juego los personajes
+		juego.agregarPersonaje(personaje01)
+		juego.agregarPersonaje(personaje02)
+		juego.agregarPersonaje(personaje03)
+		juego.agregarPersonaje(personaje04)
 		
 		//Jugadores
 		var jugador01 = new Jugador("Emiliano", juego)
@@ -60,30 +83,14 @@ class DueloDeLeyendasApplication extends Application{
 		var jugador03 = new Jugador("Pedro", juego)
 		var jugador04 = new Jugador("Ezequiel", juego)
 		
-		//Agrego al juego los personajes y jugadores
-		juego.agregarPersonaje(personaje01)
-		juego.agregarPersonaje(personaje02)
-		juego.agregarPersonaje(personaje03)
-		juego.agregarPersonaje(personaje04)
+		//Agrego al juego los jugadores
 		juego.agregarJugador(jugador01)
 		juego.agregarJugador(jugador02)
 		juego.agregarJugador(jugador03)
 		juego.agregarJugador(jugador04)
 		
-		//Agrego al juego los personajes activados, es decir, los que los jugadores pueden usar
-		juego.activarPersonaje(personaje01)
-		juego.activarPersonaje(personaje02)
-		juego.activarPersonaje(personaje03)
-		juego.activarPersonaje(personaje04)
-		
 		//Cuando se reta a duelo el que lo hace es el jugador01
-		jugador01.personajesUsados.add(personaje01)
-		jugador01.personajesUsados.add(personaje02)
-		jugador01.personajesUsados.add(personaje03)
-		jugador01.personajesUsados.add(personaje04)
 		jugador01.iniciarDuelo()
-		//jugador01.seleccionarPersonaje(jugador01.dueloActivo,personaje01)
-		personaje01.estadisticas.setPersonajeAlQuePertenece(personaje01)//ARREGLAR
 		
 		new RetarADueloWindow(this, new JugadorApplicationModel(jugador01))
 	}

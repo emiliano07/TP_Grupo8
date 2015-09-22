@@ -1,18 +1,19 @@
 package calificacion
 
-import juego.Personaje
+import juego.Estadisticas
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.utils.Observable
 
 @Observable
 @Accessors abstract class Calificacion {
 	
+	var String nombre
 	var int valor
 	
-	new(int valor){
+	new(String nombre, int valor){
+		this.nombre = nombre
 		this.valor = valor
 	}
 	
-	def abstract Calificacion actualizar(Personaje personaje)
-	
+	def abstract Boolean puedeActualizar(Estadisticas estadisticas)
 }

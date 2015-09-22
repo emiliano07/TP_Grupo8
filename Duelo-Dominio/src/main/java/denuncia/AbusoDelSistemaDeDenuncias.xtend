@@ -1,6 +1,6 @@
 package denuncia
 
-import juego.Jugador
+import jugador.Jugador
 
 class AbusoDelSistemaDeDenuncias extends Denuncia {
 	
@@ -10,6 +10,5 @@ class AbusoDelSistemaDeDenuncias extends Denuncia {
 	
 	override getNombre() {
 		"Abuso del Sistema de Denuncias"
-	}
-	
+	}	
 }

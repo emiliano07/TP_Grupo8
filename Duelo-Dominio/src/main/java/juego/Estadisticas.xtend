@@ -23,7 +23,7 @@ import posicion.Posicion
 	var Posicion mejorUbicacion			//La ultima Posicion en la que gano un Duelo
 	var Calificacion calificacion		//Ultima Calificacion obtenida por el Personaje en un Duelo
 	
-	new(Personaje personajeAlQuePertenece, CentroDeCalificaciones  centroDeCalificaciones){
+	new(Personaje personajeAlQuePertenece, CentroDeCalificaciones centroDeCalificaciones){
 		this.personajeAlQuePertenece = personajeAlQuePertenece
 		this.centroDeCalificaciones = centroDeCalificaciones
 		this.cantUsado = 0
@@ -36,37 +36,37 @@ import posicion.Posicion
 		this.calificacion = new Nooob()
 	}
 	
-	def actualizarCantUsado(Duelo duelo) {
+	def void actualizarCantUsado(Duelo duelo) {
 		if(duelo.getJugador1() == this.personajeAlQuePertenece.getJugadorAlQuePertenece())
 			this.cantUsado ++
 	}
 	
-	def actualizarCantGanado(Duelo duelo) {
+	def void actualizarCantGanado(Duelo duelo) {
 		if(duelo.getJugadorGanador() == this.personajeAlQuePertenece.getJugadorAlQuePertenece())
 			this.cantGanado ++
 	}
 	
-	def actualizarKills(Duelo duelo) {
+	def void actualizarKills(Duelo duelo) {
 		if(duelo.getJugador2() == this.personajeAlQuePertenece.getJugadorAlQuePertenece() && duelo.getJugadorGanador() == this.personajeAlQuePertenece.getJugadorAlQuePertenece())
 			this.kills ++
 	}
 	
-	def actualizarDeads(Duelo duelo) {
+	def void actualizarDeads(Duelo duelo) {
 			if(duelo.getJugador2() == this.personajeAlQuePertenece.getJugadorAlQuePertenece() && duelo.getJugadorGanador() == duelo.getJugador1())
 			this.deads ++
 	}
 		
-	def actualizarAssists(Duelo duelo) {
+	def void actualizarAssists(Duelo duelo) {
 			if(duelo.getJugadorGanador() != duelo.getJugador1() && duelo.getJugadorGanador() != duelo.getJugador2())
 			this.assists ++
 	}
 	
-	def actualizarPosicionesEnLasQueInicioUnDuelo(Duelo duelo) {
+	def void actualizarPosicionesEnLasQueInicioUnDuelo(Duelo duelo) {
 		if(duelo.getJugador1() == this.personajeAlQuePertenece.getJugadorAlQuePertenece())
 			this.posiciones.add(duelo.getPersonaje1().getPosicionActual())
 	}
 	
-	def actualizarMejorUbicacion(Duelo duelo) {
+	def void actualizarMejorUbicacion(Duelo duelo) {
 		if(duelo.getJugadorGanador() == this.personajeAlQuePertenece.getJugadorAlQuePertenece())
 			if(duelo.getJugador1() == this.personajeAlQuePertenece.getJugadorAlQuePertenece())
 				this.mejorUbicacion = duelo.getPersonaje1().getPosicionActual()
@@ -74,11 +74,11 @@ import posicion.Posicion
 				this.mejorUbicacion = duelo.getPersonaje2().getPosicionActual()
 	}
 	
-	def actualizarCalificacion() {
-		this.centroDeCalificaciones.actualizarCalificacion(this.calificacion, this)
+	def void actualizarCalificacion() {
+		//calificacion = this.centroDeCalificaciones.actualizarCalificacion(this.calificacion, this)
 	}
 	
-	def actualizarEstadisticas(Duelo duelo){
+	def void actualizarEstadisticas(Duelo duelo){
 		this.actualizarCantUsado(duelo)
 		this.actualizarCantGanado(duelo)
 		this.actualizarKills(duelo)

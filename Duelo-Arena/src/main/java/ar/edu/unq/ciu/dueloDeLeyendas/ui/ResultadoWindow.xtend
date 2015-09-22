@@ -28,7 +28,8 @@ class ResultadoWindow extends SimpleWindow<DueloApplicationModel>{
 		]
 		
 		new Label(mainPanel) => [
-			bindValueToProperty("resultado")
+			modelObject.resultadoRetador()
+			text = modelObject.resultado
 			foreground = Color.GREEN
 			background = Color.YELLOW
 			fontSize = 15
@@ -93,16 +94,14 @@ class ResultadoWindow extends SimpleWindow<DueloApplicationModel>{
 			crearLabel(it,"Kills",estadisticaCorrespondiente + ".kills")
 			crearLabel(it,"Deads",estadisticaCorrespondiente + ".deads")
 			crearLabel(it,"Assists",estadisticaCorrespondiente + ".assists")
-			crearLabel(it,"Mejor ubicacion",estadisticaCorrespondiente + ".mejorUbicacion")
-			crearLabel(it,"Puntaje",estadisticaCorrespondiente + ".calificacion.valor")
+			crearLabel(it,"Mejor ubicacion",estadisticaCorrespondiente + ".mejorUbicacion.nombre")
+			crearLabel(it,"Puntaje",estadisticaCorrespondiente + ".calificacion.nombre")
 		]		
 	}
 	
 	def crearLabel(Panel panel, String texto, String property){
 		new Label(panel).setText(texto)      
-	    new Label(panel) => [
-	            bindValueToProperty(property)
-	    ]
+	    new Label(panel).bindValueToProperty(property)
 	}
 	
 	override protected addActions(Panel actionPanel) {
@@ -119,7 +118,6 @@ class ResultadoWindow extends SimpleWindow<DueloApplicationModel>{
 			onClick [ |denunciar() ]
 			disableOnError
 		]
-		
 	}
 
 	def denunciar(){

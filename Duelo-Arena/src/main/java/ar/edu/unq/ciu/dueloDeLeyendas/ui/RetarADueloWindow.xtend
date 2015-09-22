@@ -167,16 +167,14 @@ class RetarADueloWindow extends SimpleWindow<JugadorApplicationModel>{
 			crearLabel(it,"Kills",estadisticaCorrespondiente + ".kills")
 			crearLabel(it,"Deads",estadisticaCorrespondiente + ".deads")
 			crearLabel(it,"Assists",estadisticaCorrespondiente + ".assists")
-			crearLabel(it,"Mejor ubicacion",estadisticaCorrespondiente + ".mejorUbicacion")
-			crearLabel(it,"Puntaje",estadisticaCorrespondiente + ".calificacion.valor")
+			crearLabel(it,"Mejor ubicacion",estadisticaCorrespondiente + ".mejorUbicacion.nombre")
+			crearLabel(it,"Puntaje",estadisticaCorrespondiente + ".calificacion.nombre")
 		]		
 	}
 	
 	def crearLabel(Panel panel, String texto, String property){
 		new Label(panel).setText(texto)      
-	    new Label(panel) => [
-	            bindValueToProperty(property)
-	    ]
+	    new Label(panel).bindValueToProperty(property)
 	}
 	
 	override protected addActions(Panel actionsPanel) {

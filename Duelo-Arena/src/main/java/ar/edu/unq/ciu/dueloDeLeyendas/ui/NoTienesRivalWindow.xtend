@@ -2,7 +2,7 @@ package ar.edu.unq.ciu.dueloDeLeyendas.ui
 
 import applicationModel.DueloApplicationModel
 import java.awt.Color
-import juego.Jugador
+import jugador.Jugador
 import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.widgets.Label
 import org.uqbar.arena.widgets.Panel
@@ -56,6 +56,5 @@ Puedes optar por retar al bot del nivel y tratar de avanzar de nivel en el ranki
 	def retarAMRX() {
 		modelObject.retarAMRX(modelObject.getDueloActivo())
 		new ResultadoWindow(this, new DueloApplicationModel(modelObject.dueloActivo)).open()
-	}
-		
+	}		
 }

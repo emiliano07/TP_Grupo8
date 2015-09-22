@@ -1,7 +1,6 @@
 package ar.edu.unq.ciu.dueloDeLeyendas.ui
 
-import ar.edu.unq.ciu.dueloDeLeyendas.ui.Denunciador
-import juego.Jugador
+import jugador.Jugador
 import org.uqbar.arena.windows.WindowOwner
 
 class HasSidoSancionadoWindow extends Denunciador{

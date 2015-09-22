@@ -6,13 +6,13 @@ import org.eclipse.xtend.lib.annotations.Accessors
 
 @Accessors class CentroDeCalificaciones {
 	
-	var List<Calificacion> calificacionesPosibles	//Ordenada de mayor valor de Calificacion a menor valor
+	var List<Calificacion> calificacionesPosibles	//Ordenada de mayor a menor valor de Calificación
 	
 	new(){
 		this.calificacionesPosibles = newArrayList
 	}
 	
-	def agregarCalificacion (Calificacion calificacion){	
+	def agregarCalificacion (Calificacion calificacion){
 		this.calificacionesPosibles.add(calificacion)
 		this.calificacionesPosibles = this.calificacionesPosibles.sortInplaceBy[valor].reverse
 	}
@@ -21,15 +21,11 @@ import org.eclipse.xtend.lib.annotations.Accessors
 		this.calificacionesPosibles.remove(calificacion)	
 	}
 	
-	def getCalificacion(){
-		return this.calificacionesPosibles
-	}
-	
-	def actualizarCalificacion(Calificacion calificacion, Estadisticas estadisticas){
+	def Calificacion actualizarCalificacion(Calificacion calificacion, Estadisticas estadisticas){
 		var Calificacion calificacionFinal = calificacion
-		for (Calificacion c : this.calificacionesPosibles){
-			if(calificacionFinal.getValor() < c.getValor() && c.actualizar(estadisticas.getPersonajeAlQuePertenece()) != null)
-				calificacionFinal = c.actualizar(estadisticas.getPersonajeAlQuePertenece())
+		for (Calificacion calif : this.calificacionesPosibles){
+			if(calificacionFinal.getValor() < calif.getValor() && calif.puedeActualizar(estadisticas))
+				calificacionFinal = calif
 		}
 		return calificacionFinal
 	}

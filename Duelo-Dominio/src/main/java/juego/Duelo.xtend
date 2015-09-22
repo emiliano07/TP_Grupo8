@@ -1,8 +1,13 @@
 package juego
 
+import jugador.Jugador
+import jugador.Jugador_MR_X
+import jugador.No_Jugador
 import org.eclipse.xtend.lib.annotations.Accessors
+import org.uqbar.commons.utils.Observable
 import posicion.Posicion
 
+@Observable
 @ Accessors class Duelo {
 	
 	var Juego juego
@@ -10,28 +15,27 @@ import posicion.Posicion
 	var Jugador jugador2			//Jugador contrincante
 	var Personaje personaje1		//Personaje del Jugador 1
 	var Personaje personaje2		//Personaje del Jugador 2
+	var int poderDeAtaquePersonje1	//Poder de ataque del Personaje 1
+	var int poderDeAtaquePersonje2	//Poder de ataque del Personaje 2
 	var Jugador jugadorGanador		//Jugador que resulta ganador, en caso de empate aparece un No_Jugador
-	
-	var int poderDeAtaquePersonje1
-	var int poderDeAtaquePersonje2
 	
 	new(Jugador jugador1, Juego juego){
 		this.juego = juego
 		this.jugador1 = jugador1
 		this.jugador2 = null
-		this.jugadorGanador = null
 		this.personaje1 = null
 		this.personaje2 = null
 		this.poderDeAtaquePersonje1 = 0
 		this.poderDeAtaquePersonje2 = 0
+		this.jugadorGanador = null
 	}
 	
-	def seleccionarPersonaje(Personaje personaje1){
+	def void seleccionarPersonaje(Personaje personaje1){
 		this.personaje1 = personaje1;
 		this.poderDeAtaquePersonje1 = this.personaje1.getPoderDeAtaque() * this.numeroAlAzar
 	}
 	
-	def seleccionarPosicion(Posicion posicion){
+	def void seleccionarPosicion(Posicion posicion){
 		this.personaje1.setPosicionActual(posicion)
 		this.juego.buscarContrincante(this)
 		this.poderDeAtaquePersonje2 = this.personaje2.getPoderDeAtaque() * this.numeroAlAzar
@@ -48,7 +52,7 @@ import posicion.Posicion
 		this.jugar()
 	}
 
-	def luchar(){		
+	def void luchar(){		
 		switch  personaje1{
 		case this.poderDeAtaquePersonje1 > this.poderDeAtaquePersonje2 : this.jugadorGanador = this.jugador1
 		case this.poderDeAtaquePersonje1 < this.poderDeAtaquePersonje2 : this.jugadorGanador = this.jugador2
@@ -64,20 +68,26 @@ import posicion.Posicion
 		this.luchar()
 		this.actualizarEstadisticas()
 		this.actualizarPoderDeAtaque()
-		this.actualizarLaPuntajes()
+		this.actualizarPersonajesUsados()
+		this.actualizarLosPuntajes()
 	}
 	
-	def actualizarEstadisticas(){
+	def void actualizarEstadisticas(){
 		this.personaje1.actualizarEstadisticas(this)
 		this.personaje2.actualizarEstadisticas(this)
 	}
 	
-	def actualizarPoderDeAtaque(){
+	def void actualizarPoderDeAtaque(){
 		this.personaje1.actualizarPoderDeAtaque()
 		this.personaje2.actualizarPoderDeAtaque()
 	}
 	
-	def actualizarLaPuntajes(){
+	def actualizarPersonajesUsados(){
+		this.jugador1.actualizarPersonajesUsados(personaje1)
+		this.jugador2.actualizarPersonajesUsados(personaje2)
+	}
+	
+	def void actualizarLosPuntajes(){
 		this.jugador1.actualizarPuntaje()
 		this.jugador2.actualizarPuntaje()
 	}

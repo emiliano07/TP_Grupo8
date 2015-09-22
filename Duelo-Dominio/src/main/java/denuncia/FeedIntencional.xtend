@@ -1,6 +1,6 @@
 package denuncia
 
-import juego.Jugador
+import jugador.Jugador
 
 class FeedIntencional extends Denuncia{
 	
@@ -11,5 +11,4 @@ class FeedIntencional extends Denuncia{
 	override getNombre() {
 		"Feed Intencional"
 	}
-	
 }

@@ -1,4 +1,6 @@
-package juego
+package jugador
+
+import juego.Juego
 
 class Jugador_MR_X extends Jugador{
 	

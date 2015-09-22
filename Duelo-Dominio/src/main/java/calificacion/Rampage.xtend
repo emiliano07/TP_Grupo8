@@ -1,20 +1,24 @@
 package calificacion
 
 import java.util.Random
-import juego.Personaje
+import juego.Estadisticas
 
 class Rampage extends Calificacion {
 	
+	/*
+	Rampage:
+	Es cuando tiene experiencia en al menos 5 Duelos jugando con el Personaje en su Posición ideal 
+	y además saco un número al azar mayor a 90 
+	*/
+	
 	new(){
-		super(100)
+		super("Rampage",100)
 	}
 	
-	override actualizar(Personaje personaje) {
+	override puedeActualizar(Estadisticas estadisticas) {
 		var int numero = new Random(100).nextInt
-		if(personaje.getEstadisticas().luchoCantidadDeVecesEnPosicion(personaje.getPosicionIdeal()) >= 5  && numero > 90)
-			return this
-		return null
+		if(estadisticas.luchoCantidadDeVecesEnPosicion(estadisticas.personajeAlQuePertenece.getPosicionIdeal()) >= 5  && numero > 90)
+			return true
+		return false
 	}
 }
-
-//Rampage es cuando tiene experiencia en al menos 5 Duelos jugando con el Personaje en su Posición ideal y además saco un numero al azar mayor a 90

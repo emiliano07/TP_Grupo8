@@ -1,16 +1,19 @@
 package calificacion
 
-import juego.Personaje
+import juego.Estadisticas
 
 class Nooob extends Calificacion {
 	
+	/*
+	Noob:
+	Es en cualquier caso
+	*/
+	
 	new(){
-		super(5)
+		super("Nooob",5)
 	}
 	
-	override actualizar(Personaje personaje) {
-			return this
+	override puedeActualizar(Estadisticas estadisticas) {
+			return true
 	}
 }
-
-//Noob es en cualquier caso

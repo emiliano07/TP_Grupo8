@@ -1,7 +1,7 @@
 package denuncia
 
 import java.util.StringTokenizer
-import juego.Jugador
+import jugador.Jugador
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.utils.Observable
 

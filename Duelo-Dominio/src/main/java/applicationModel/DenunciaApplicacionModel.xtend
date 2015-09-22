@@ -4,7 +4,7 @@ import denuncia.Abuso_de_habilidad
 import denuncia.ComunicacionAbusiva
 import denuncia.Denuncia
 import denuncia.FeedIntencional
-import juego.Jugador
+import jugador.Jugador
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.ObservableUtils
 import org.uqbar.commons.utils.Observable

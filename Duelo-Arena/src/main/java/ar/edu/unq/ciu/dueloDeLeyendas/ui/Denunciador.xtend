@@ -1,7 +1,7 @@
 package ar.edu.unq.ciu.dueloDeLeyendas.ui
 
 import java.awt.Color
-import juego.Jugador
+import jugador.Jugador
 import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.widgets.Label
 import org.uqbar.arena.widgets.Panel
@@ -43,4 +43,3 @@ class Denunciador extends SimpleWindow<Jugador>{
 		]
 	}
 }
-	

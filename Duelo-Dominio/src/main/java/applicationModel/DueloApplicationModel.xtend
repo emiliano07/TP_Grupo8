@@ -1,10 +1,10 @@
 package applicationModel
 
 import juego.Duelo
-import juego.Estadisticas
-import juego.No_Jugador
 import org.eclipse.xtend.lib.annotations.Accessors
+import org.uqbar.commons.model.ObservableUtils
 import org.uqbar.commons.utils.Observable
+import juego.Estadisticas
 
 @Observable
 @Accessors
@@ -35,12 +35,19 @@ class DueloApplicationModel {
 		this.duelo.personaje2.nombre
 	}
 	
-	def resultadoRetador(){
+	def void resultadoRetador(){
 		var String ganador = this.duelo.getJugadorGanador().getNombre()
-		switch ganador {
-		case ganador == this.getRetador() : this.resultado = "Le ganaste a " + this.getRetado() : this.ganador = ganador
-		case ganador == this.getRetado() : this.resultado = "Perdiste contra " + this.getRetado() : this.ganador = ganador
-		case ganador == new No_Jugador("Jugador creado en caso de empate", this.duelo.getJugador1().getJuego()) : this.resultado = "Empataste con " + this.getRetado() : this.ganador = "Empate"
+		if (ganador == this.getRetador()){
+			this.ganador = ganador
+			this.resultado = "Le ganaste a " + this.getRetado()
+		}else{
+			if(ganador == this.getRetado()){
+				this.ganador = ganador
+				this.resultado = "Perdiste contra " + this.getRetado()
+			}else{
+				this.ganador = "Empate"
+				this.resultado = "Empataste con " + this.getRetado()
+			}
 		}
 	}
 	

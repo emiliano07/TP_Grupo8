@@ -1,7 +1,10 @@
-package juego
+package jugador
 
 import denuncia.Denuncia
 import java.util.List
+import juego.Duelo
+import juego.Juego
+import juego.Personaje
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.utils.Observable
 import posicion.Posicion
@@ -11,18 +14,29 @@ import posicion.Posicion
 	
 	var Juego juego
 	var String nombre
+	var List<Personaje> personajesParaUsar
 	var List<Personaje> personajesUsados
 	var List<Denuncia> denuncias
 	var int puntaje
 	var Duelo dueloActivo
-
+	
 	new(String nombre, Juego juego){
 		this.juego = juego
-		this.nombre = nombre;
+		this.nombre = nombre
+		this.personajesParaUsar = newArrayList
+		this.cargarPersonajesParaUsar()
 		this.personajesUsados = newArrayList
 		this.denuncias = newArrayList
 		this.puntaje = 0
 		this.dueloActivo = null
+	}
+	
+	def cargarPersonajesParaUsar(){
+		for(Personaje per : this.juego.personajes){
+			var Personaje p = new Personaje(per.nombre,per.debilidades,per.especialidades,per.posicionIdeal,juego.centroDeCalificaciones)
+			p.jugadorAlQuePertenece = this
+			this.personajesParaUsar.add(p)
+		}
 	}
 	
 	def iniciarDuelo(){
@@ -42,8 +56,8 @@ import posicion.Posicion
 	def getPersonajeAlazar() {
 		var int seleccion1 = Math.round(Math.random()*(this.personajesUsados.size()-1)).intValue 
 		if(this.personajesUsados.isEmpty){
-			var int seleccion2 = Math.round(Math.random()*(this.juego.getPersonajesActivados().size()-1)).intValue 
-			return juego.getPersonajesActivados().get(seleccion2)
+			var int seleccion2 = Math.round(Math.random()*(this.personajesParaUsar.size()-1)).intValue 
+			return this.personajesParaUsar.get(seleccion2)
 		}
 		return this.personajesUsados.get(seleccion1)
 	}
@@ -53,6 +67,11 @@ import posicion.Posicion
 		for (Personaje p : this.personajesUsados)
 			cantPeleasGanadas += p.getEstadisticas().getCantGanado() + p.getEstadisticas().getKills()
 		this.puntaje = this.obtenerPesoDeDenuncias() * cantPeleasGanadas
+	}
+	
+	def actualizarPersonajesUsados(Personaje personaje){
+		if(!this.personajesUsados.contains(personaje))
+			this.personajesUsados.add(personaje)
 	}
 	
 	def obtenerPesoDeDenuncias(){

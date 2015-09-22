@@ -1,4 +1,6 @@
-package juego
+package jugador
+
+import juego.Juego
 
 class No_Jugador extends Jugador {
 	
