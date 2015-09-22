@@ -30,7 +30,7 @@ class TestEstadisticas {
 		this.manco = new Manco
 		this.centroDeCalificaciones.agregarCalificacion(nooob)
 		this.centroDeCalificaciones.agregarCalificacion(manco)
-		this.juego = new Juego(centroDeCalificaciones)
+		this.juego = new Juego()
 		this.jugador01 = new Jugador("Jugador 01",juego)
 		this.jugador02 = new Jugador("Jugador 02",juego)
 		this.posicionIdeal = new Jungle

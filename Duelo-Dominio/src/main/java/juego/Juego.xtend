@@ -14,10 +14,11 @@ import org.uqbar.commons.utils.Observable
 	var List<Duelo> duelosActivos
 	var CentroDeCalificaciones centroDeCalificaciones
 	
-	new(CentroDeCalificaciones centroDeCalificaciones){
+	new(){
 		this.jugadores= newArrayList
 		this.personajes = newArrayList
 		this.duelosActivos = newArrayList
+		this.centroDeCalificaciones = new CentroDeCalificaciones
 	}
 	
 	def List<Jugador> getRanking(){

@@ -63,7 +63,7 @@ class DueloDeLeyendasApplication extends Application{
 		centroDeCalificaciones.agregarCalificacion(rampage)
 		
 		//Juego
-		var juego = new Juego(centroDeCalificaciones)
+		var juego = new Juego()
 			
 		//Personajes
 		var personaje01 = new Personaje("Goku",debilidadesPersonaje01,especialidadesPersonaje01,posicionJungle,centroDeCalificaciones )

@@ -29,7 +29,7 @@ import posicion.Posicion
 		this.estadisticas = this.personajeSeleccionado.estadisticas
 	}
 	
-	def Estadisticas getEstadisticas(){
+	def Estadisticas estadisticasPersonajeSeleccionado(){
 		this.personajeSeleccionado.estadisticas
 	}
 	

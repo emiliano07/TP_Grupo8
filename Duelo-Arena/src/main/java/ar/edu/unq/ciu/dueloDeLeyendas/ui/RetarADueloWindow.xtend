@@ -156,19 +156,19 @@ class RetarADueloWindow extends SimpleWindow<JugadorApplicationModel>{
 	}
 	 
 	def crearPanelDeEstadisticas(Panel panel) {
-		estadisticPanel(panel, "estadisticas")
+		estadisticPanel(panel)
 	}	
 	
-	def estadisticPanel(Panel panel , String estadisticaCorrespondiente) {
+	def estadisticPanel(Panel panel) {
 		new Panel(panel) => [
 			layout = new ColumnLayout(2)		
-			crearLabel(it,"Jugadas",estadisticaCorrespondiente +".cantUsado")
-			crearLabel(it,"Ganadas",estadisticaCorrespondiente +".cantGanado")
-			crearLabel(it,"Kills",estadisticaCorrespondiente + ".kills")
-			crearLabel(it,"Deads",estadisticaCorrespondiente + ".deads")
-			crearLabel(it,"Assists",estadisticaCorrespondiente + ".assists")
-			crearLabel(it,"Mejor ubicacion",estadisticaCorrespondiente + ".mejorUbicacion.nombre")
-			crearLabel(it,"Puntaje",estadisticaCorrespondiente + ".calificacion.nombre")
+			crearLabel(it,"Jugadas","estadisticasPersonajeSeleccionado.cantUsado")
+			crearLabel(it,"Ganadas","estadisticasPersonajeSeleccionado.cantGanado")
+			crearLabel(it,"Kills","estadisticasPersonajeSeleccionado.kills")
+			crearLabel(it,"Deads","estadisticasPersonajeSeleccionado.deads")
+			crearLabel(it,"Assists","estadisticasPersonajeSeleccionado.assists")
+			crearLabel(it,"Mejor ubicacion","estadisticasPersonajeSeleccionado.mejorUbicacion.nombre")
+			crearLabel(it,"Puntaje","estadisticasPersonajeSeleccionado.calificacion.nombre")
 		]		
 	}
 	

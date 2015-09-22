@@ -22,7 +22,7 @@ class TestPersonaje {
 	def void setUp() {
 		this.posicionIdeal = new Jungle
 		this.centroDeCalificaciones = new CentroDeCalificaciones
-		this.juego = new Juego(centroDeCalificaciones)
+		this.juego = new Juego()
 		this.jugador01 = new Jugador("Jugador 01",juego)
 		this.personaje01 = new Personaje("Personaje 01","debilidades", "especialidades",posicionIdeal,centroDeCalificaciones)
 		this.duelo = new Duelo(jugador01,juego)

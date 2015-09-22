@@ -21,8 +21,8 @@ class TestCalificacion {
 	@Before
 	def void setUp() {
 		this.posicionIdeal = new Top
-		this.personaje01 = new Personaje("Personaje 01","debilidades", "especialidades",posicionIdeal,centroDeCalificaciones)
 		this.centroDeCalificaciones = new CentroDeCalificaciones
+		this.personaje01 = new Personaje("Personaje 01","debilidades", "especialidades",posicionIdeal,centroDeCalificaciones)
 		this.calificacion01 = new Nooob()
 		this.calificacion02 = new Rampage()
 	}
