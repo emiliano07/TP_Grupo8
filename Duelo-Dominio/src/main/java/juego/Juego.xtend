@@ -40,6 +40,7 @@ import org.uqbar.commons.utils.Observable
 	
 	def void agregarJugador (Jugador jugador){
 		 this.jugadores.add(jugador)
+		 jugador.cargarPersonajesParaUsar()
 	}
 	
 	def eliminarJugador(Jugador jugador){

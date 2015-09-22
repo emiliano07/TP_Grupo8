@@ -3,7 +3,9 @@ package calificacion
 import java.util.List
 import juego.Estadisticas
 import org.eclipse.xtend.lib.annotations.Accessors
+import org.uqbar.commons.utils.Observable
 
+@Observable
 @Accessors class CentroDeCalificaciones {
 	
 	var List<Calificacion> calificacionesPosibles	//Ordenada de mayor a menor valor de Calificación
@@ -14,7 +16,7 @@ import org.eclipse.xtend.lib.annotations.Accessors
 	
 	def agregarCalificacion (Calificacion calificacion){
 		this.calificacionesPosibles.add(calificacion)
-		this.calificacionesPosibles = this.calificacionesPosibles.sortInplaceBy[valor].reverse
+		this.calificacionesPosibles.sortInplaceBy[valor].reverse
 	}
 	
 	def eliminarCalificacion (Calificacion calificacion){
@@ -28,5 +30,5 @@ import org.eclipse.xtend.lib.annotations.Accessors
 				calificacionFinal = calif
 		}
 		return calificacionFinal
-	}
+	}	
 }

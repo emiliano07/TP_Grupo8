@@ -1,10 +1,9 @@
 package applicationModel
 
 import juego.Duelo
-import org.eclipse.xtend.lib.annotations.Accessors
-import org.uqbar.commons.model.ObservableUtils
-import org.uqbar.commons.utils.Observable
 import juego.Estadisticas
+import org.eclipse.xtend.lib.annotations.Accessors
+import org.uqbar.commons.utils.Observable
 
 @Observable
 @Accessors
@@ -60,10 +59,10 @@ class DueloApplicationModel {
 	}
 	
 	def puntosRetador(){
-		this.duelo.poderDeAtaquePersonje1
+		this.duelo.poderDeAtaquePersonaje1
 	}
 	
 	def puntosRetado(){
-		this.duelo.poderDeAtaquePersonje2
+		this.duelo.poderDeAtaquePersonaje2
 	}
 }

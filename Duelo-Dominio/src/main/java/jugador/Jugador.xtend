@@ -24,7 +24,6 @@ import posicion.Posicion
 		this.juego = juego
 		this.nombre = nombre
 		this.personajesParaUsar = newArrayList
-		this.cargarPersonajesParaUsar()
 		this.personajesUsados = newArrayList
 		this.denuncias = newArrayList
 		this.puntaje = 0
@@ -54,12 +53,14 @@ import posicion.Posicion
 	}
 	
 	def getPersonajeAlazar() {
-		var int seleccion1 = Math.round(Math.random()*(this.personajesUsados.size()-1)).intValue 
 		if(this.personajesUsados.isEmpty){
-			var int seleccion2 = Math.round(Math.random()*(this.personajesParaUsar.size()-1)).intValue 
-			return this.personajesParaUsar.get(seleccion2)
+			var int seleccion1 = Math.round(Math.random()*(this.personajesParaUsar.size()-1)).intValue 
+			return this.personajesParaUsar.get(seleccion1)
 		}
-		return this.personajesUsados.get(seleccion1)
+		else{
+			var int seleccion2 = Math.round(Math.random()*(this.personajesUsados.size()-1)).intValue
+			return this.personajesUsados.get(seleccion2)
+		}
 	}
 	
 	def actualizarPuntaje(){
@@ -69,7 +70,7 @@ import posicion.Posicion
 		this.puntaje = this.obtenerPesoDeDenuncias() * cantPeleasGanadas
 	}
 	
-	def actualizarPersonajesUsados(Personaje personaje){
+	def void actualizarPersonajesUsados(Personaje personaje){
 		if(!this.personajesUsados.contains(personaje))
 			this.personajesUsados.add(personaje)
 	}

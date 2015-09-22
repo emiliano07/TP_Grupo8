@@ -40,17 +40,17 @@ class DueloDeLeyendasApplication extends Application{
 		var posicionTop = new Top
 		var posicionBot = new Bot
 		
-		//Debilidades Personajes
-		var debilidadesPersonaje01 = "Confiado"
-		var debilidadesPersonaje02 = "Orgulloso"
-		var debilidadesPersonaje03 = "Poca confianza"
-		var debilidadesPersonaje04 = "Ingenuo"
-		
 		//Especialidades Personajes
 		var especialidadesPersonaje01 = "Kame-Kame-Ha"
 		var especialidadesPersonaje02 = "Big Bang Attack"
 		var especialidadesPersonaje03 = "Masenko"
 		var especialidadesPersonaje04 = "Burning Attack"
+		
+		//Debilidades Personajes
+		var debilidadesPersonaje01 = "Confiado"
+		var debilidadesPersonaje02 = "Orgulloso"
+		var debilidadesPersonaje03 = "Poca confianza"
+		var debilidadesPersonaje04 = "Ingenuo"
 		
 		// CentroDeCalificaciones
 		var centroDeCalificaciones = new CentroDeCalificaciones

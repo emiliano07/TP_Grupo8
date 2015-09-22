@@ -1,6 +1,5 @@
 package calificacion
 
-import java.util.Random
 import juego.Estadisticas
 
 class Manco extends Calificacion {
@@ -15,7 +14,7 @@ class Manco extends Calificacion {
 	}
 	
 	override puedeActualizar(Estadisticas estadisticas) {
-		var int numero = new Random(100).nextInt
+		var int numero = Math.round(Math.random()*101).intValue
 		if(estadisticas.luchoCantidadDeVecesEnPosicion(estadisticas.personajeAlQuePertenece.getPosicionIdeal()) >= 1 && numero > 30)
 			return true
 		return false

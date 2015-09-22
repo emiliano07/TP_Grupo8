@@ -35,5 +35,5 @@ import posicion.Posicion
 	
 	def actualizarEstadisticas(Duelo duelo) {
 		this.estadisticas.actualizarEstadisticas(duelo)
-	}
+	}	
 }

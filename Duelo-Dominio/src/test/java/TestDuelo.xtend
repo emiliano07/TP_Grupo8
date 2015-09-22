@@ -1,15 +1,14 @@
+import calificacion.CentroDeCalificaciones
 import juego.Duelo
-import juego.Estadisticas
 import juego.Juego
-import juego.Jugador
 import juego.Personaje
+import jugador.Jugador
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 import posicion.Jungle
 import posicion.Posicion
 import posicion.Top
-import calificacion.CentroDeCalificaciones
 
 class TestDuelo {
 	
@@ -18,34 +17,35 @@ class TestDuelo {
 	var Jugador jugador02
 	var Personaje personaje01
 	var Duelo duelo
-	var Estadisticas estadisticas
 	var Posicion posicionIdeal
 	var CentroDeCalificaciones centroDeCalificaciones
-	
 	
 	@Before
 	def void setUp() {
 		this.posicionIdeal = new Jungle
 		this.centroDeCalificaciones = new CentroDeCalificaciones
-		this.estadisticas = new Estadisticas(/*personaje01,*/centroDeCalificaciones)
-		this.juego = new Juego()
+		this.juego = new Juego(centroDeCalificaciones)
 		this.jugador01 = new Jugador("Jugador 01",juego)
 		this.jugador02 = new Jugador("Jugador 02",juego)
-		this.personaje01 = new Personaje("Personaje 01","debilidades", "especialidades",posicionIdeal,estadisticas)
+		this.personaje01 = new Personaje("Personaje 01","debilidades", "especialidades",posicionIdeal,centroDeCalificaciones)
 		this.duelo = new Duelo(jugador01,juego)
-		
 	}
 	
 	@Test 
 	def seleccionarPosicion() {
 		var top = new Top
-		this.personaje01.poderDeAtaque = 10
-		this.juego.jugadores.add(jugador02)
-		this.juego.personajesActivados.add(personaje01)
+		this.juego.agregarJugador(jugador01)
+		this.juego.agregarJugador(jugador02)
+		this.juego.agregarPersonaje(personaje01)
 		this.duelo.seleccionarPersonaje(personaje01)
+		Assert::assertEquals(jugador01.nombre,this.duelo.jugador1.nombre)
+		Assert::assertEquals(personaje01.nombre,this.duelo.personaje1.nombre)
+		Assert::assertEquals(1,juego.posiblesRivales(jugador01).size())
+		Assert::assertEquals(jugador02.nombre,juego.posiblesRivales(jugador01).get(0).nombre)
 		this.duelo.seleccionarPosicion(top)
 		Assert::assertEquals(top.nombre,this.personaje01.posicionActual.nombre)
+		Assert::assertEquals(jugador02.nombre,duelo.jugador2.nombre)
+		Assert::assertEquals(duelo.personaje2.nombre,personaje01.nombre)
+		Assert::assertEquals(duelo.personaje2.posicionIdeal,duelo.personaje2.posicionActual)
 	}
-	
-	
 }

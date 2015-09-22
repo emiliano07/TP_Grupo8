@@ -1,10 +1,9 @@
 import calificacion.CentroDeCalificaciones
 import denuncia.FeedIntencional
 import juego.Duelo
-import juego.Estadisticas
 import juego.Juego
-import juego.Jugador
 import juego.Personaje
+import jugador.Jugador
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -18,23 +17,20 @@ class TestDenuncia {
 	var Jugador jugador02
 	var Personaje personaje01
 	var Duelo duelo
-	var Estadisticas estadisticas
 	var Posicion posicionIdeal
 	var FeedIntencional feed
 	var CentroDeCalificaciones centroDeCalificaciones
 	
-	
 	@Before
 	def void setUp() {
-		this.feed = new FeedIntencional
 		this.posicionIdeal = new Jungle
 		this.centroDeCalificaciones = new CentroDeCalificaciones
-		this.estadisticas = new Estadisticas(/*personaje01,*/centroDeCalificaciones)
-		this.juego = new Juego()
+		this.juego = new Juego(centroDeCalificaciones)
 		this.jugador01 = new Jugador("Jugador 01",juego)
 		this.jugador02 = new Jugador("Jugador 02",juego)
-		this.personaje01 = new Personaje("Personaje 01","debilidades", "especialidades",posicionIdeal,estadisticas)
+		this.personaje01 = new Personaje("Personaje 01","debilidades", "especialidades",posicionIdeal,centroDeCalificaciones)
 		this.duelo = new Duelo(jugador01,juego)
+		this.feed = new FeedIntencional(jugador01,jugador02)
 		
 	}
 	
@@ -44,7 +40,7 @@ class TestDenuncia {
 		this.feed.denunciado = jugador02
 		this.feed.denunciante = jugador01
 		this.feed.analizarDenuncia()
-		Assert::assertEquals(1,this.jugador02.denuncias.size())
+		Assert::assertEquals(1,this.jugador01.denuncias.size())
 	}
 	
 	@Test
@@ -53,6 +49,6 @@ class TestDenuncia {
 		this.feed.denunciado = jugador02
 		this.feed.denunciante = jugador01
 		this.feed.analizarDenuncia()
-		Assert::assertEquals(1,this.jugador01.denuncias.size())
+		Assert::assertEquals(1,this.jugador02.denuncias.size())
 	}
 }

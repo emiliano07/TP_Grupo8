@@ -32,7 +32,7 @@ import posicion.Posicion
 		this.deads = 0
 		this.assists = 0
 		this.posiciones = newArrayList
-		this.mejorUbicacion = null					
+		this.mejorUbicacion = personajeAlQuePertenece.posicionIdeal
 		this.calificacion = new Nooob()
 	}
 	
@@ -67,15 +67,23 @@ import posicion.Posicion
 	}
 	
 	def void actualizarMejorUbicacion(Duelo duelo) {
-		if(duelo.getJugadorGanador() == this.personajeAlQuePertenece.getJugadorAlQuePertenece())
+		if(duelo.getJugadorGanador() == this.personajeAlQuePertenece.getJugadorAlQuePertenece()){
 			if(duelo.getJugador1() == this.personajeAlQuePertenece.getJugadorAlQuePertenece())
 				this.mejorUbicacion = duelo.getPersonaje1().getPosicionActual()
 			else
 				this.mejorUbicacion = duelo.getPersonaje2().getPosicionActual()
+		}
+	}
+	
+	def void actualizarPosiciones(Duelo duelo) {
+		if(duelo.getJugador1() == this.personajeAlQuePertenece.getJugadorAlQuePertenece())
+				this.posiciones.add(duelo.getPersonaje1().getPosicionActual())
+			else
+				this.posiciones.add(duelo.getPersonaje2().getPosicionActual())
 	}
 	
 	def void actualizarCalificacion() {
-		//calificacion = this.centroDeCalificaciones.actualizarCalificacion(this.calificacion, this)
+		this.calificacion = this.centroDeCalificaciones.actualizarCalificacion(this.calificacion, this)
 	}
 	
 	def void actualizarEstadisticas(Duelo duelo){
@@ -84,6 +92,7 @@ import posicion.Posicion
 		this.actualizarKills(duelo)
 		this.actualizarDeads(duelo)
 		this.actualizarAssists(duelo)
+		this.actualizarPosiciones(duelo)
 		this.actualizarMejorUbicacion(duelo)
 		this.actualizarCalificacion()
 	}
@@ -93,7 +102,7 @@ import posicion.Posicion
 		for(Posicion p : this.posiciones){
 			if(p.getNombre() == posicion.getNombre())
 				cantidad++
-		}
+	}
 		return cantidad
 	}
 	
