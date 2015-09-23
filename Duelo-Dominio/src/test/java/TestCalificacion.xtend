@@ -51,7 +51,8 @@ class TestCalificacion {
 		this.centroDeCalificaciones.agregarCalificacion(new Manco)
 		personaje01.estadisticas.posiciones.add(top01)
 		personaje01.estadisticas.posiciones.add(top02)
+		Assert::assertEquals("Nooob",personaje01.estadisticas.calificacion.nombre)
 		personaje01.estadisticas.actualizarCalificacion()
-		//Assert::assertEquals("Manco",personaje01.estadisticas.calificacion.nombre)
+		Assert::assertEquals("Manco",personaje01.estadisticas.calificacion.nombre)
 	}
 }

@@ -12,10 +12,13 @@ class DueloApplicationModel {
 	Duelo duelo
 	String resultado
 	String ganador
+	String aceptarButton
 	
 	new(Duelo duelo) {
 		this.duelo = duelo
 		this.resultado = ""
+		this.ganador = ""
+		this.aceptarButton = "Aceptar"
 	}
 	
 	def String getRetador() {
@@ -39,13 +42,16 @@ class DueloApplicationModel {
 		if (ganador == this.getRetador()){
 			this.ganador = ganador
 			this.resultado = "Le ganaste a " + this.getRetado()
+			this.aceptarButton = "Aceptar"
 		}else{
 			if(ganador == this.getRetado()){
 				this.ganador = ganador
 				this.resultado = "Perdiste contra " + this.getRetado()
+				this.aceptarButton = "Aceptar derrota con honor"
 			}else{
 				this.ganador = "Empate"
 				this.resultado = "Empataste con " + this.getRetado()
+				this.aceptarButton = "Aceptar"
 			}
 		}
 	}

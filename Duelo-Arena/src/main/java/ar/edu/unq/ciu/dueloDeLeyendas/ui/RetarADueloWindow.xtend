@@ -118,7 +118,7 @@ class RetarADueloWindow extends SimpleWindow<JugadorApplicationModel>{
 		
 		var b3_2Panel = new Panel(b3Panel)
 		b3_2Panel.setLayout(new ColumnLayout(2))
-		val elementSelected = new NotNullObservable("personajeSeleccionado")
+		val elementSelected = new NotNullObservable("personajeSeleccionadoButton")
 		
 		new Button(b3_2Panel) => [
 			caption = "TOP"
@@ -153,31 +153,27 @@ class RetarADueloWindow extends SimpleWindow<JugadorApplicationModel>{
 		]
 	}
 	 
-		
-	
 	def crearLabel(Panel panel, String texto, String property){
 		new Label(panel).setText(texto)      
 	    new Label(panel).bindValueToProperty(property)
 	}
 	
-	def estadisticPanel(Panel panel) {
+	def estadisticPanel(Panel panel, String estadisticaCorrespondiente) {
 		new Panel(panel) => [
 			layout = new ColumnLayout(2)		
-			crearLabel(it,"Jugadas","estadisticasPersonajeSeleccionado.cantUsado")
-			crearLabel(it,"Ganadas","estadisticasPersonajeSeleccionado.cantGanado")
-			crearLabel(it,"Kills","estadisticasPersonajeSeleccionado.kills")
-			crearLabel(it,"Deads","estadisticasPersonajeSeleccionado.deads")
-			crearLabel(it,"Assists","estadisticasPersonajeSeleccionado.assists")
-			crearLabel(it,"Mejor ubicacion","estadisticasPersonajeSeleccionado.mejorUbicacion.nombre")
-			crearLabel(it,"Puntaje","estadisticasPersonajeSeleccionado.calificacion.nombre")
+			crearLabel(it,"Jugadas",estadisticaCorrespondiente +".cantUsado")
+			crearLabel(it,"Ganadas",estadisticaCorrespondiente +".cantGanado")
+			crearLabel(it,"Kills",estadisticaCorrespondiente + ".kills")
+			crearLabel(it,"Deads",estadisticaCorrespondiente + ".deads")
+			crearLabel(it,"Assists",estadisticaCorrespondiente + ".assists")
+			crearLabel(it,"Mejor ubicacion",estadisticaCorrespondiente + ".mejorUbicacion.nombre")
+			crearLabel(it,"Puntaje",estadisticaCorrespondiente + ".calificacion.nombre")
 		]		
 	}
 	
 	def crearPanelDeEstadisticas(Panel panel) {
-		estadisticPanel(panel)
+		estadisticPanel(panel, "estadisticas")
 	}
-	
-	
 	
 	override protected addActions(Panel actionsPanel) {
 	

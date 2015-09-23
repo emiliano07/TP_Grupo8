@@ -26,9 +26,9 @@ import org.uqbar.commons.utils.Observable
 	def Calificacion actualizarCalificacion(Calificacion calificacion, Estadisticas estadisticas){
 		var Calificacion calificacionFinal = calificacion
 		for (Calificacion calif : this.calificacionesPosibles){
-			if(calificacionFinal.getValor() > calif.getValor() && calif.puedeActualizar(estadisticas))
+			if(calificacionFinal.valor < calif.valor && calif.puedeActualizar(estadisticas))
 				calificacionFinal = calif
 		}
 		return calificacionFinal
-	}	
+	}
 }

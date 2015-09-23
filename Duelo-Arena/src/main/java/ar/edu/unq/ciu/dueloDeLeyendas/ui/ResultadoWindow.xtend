@@ -100,13 +100,13 @@ class ResultadoWindow extends SimpleWindow<DueloApplicationModel>{
 	}
 	
 	def crearLabel(Panel panel, String texto, String property){
-		new Label(panel).setText(texto)      
+		new Label(panel).setText(texto)
 	    new Label(panel).bindValueToProperty(property)
 	}
 	
 	override protected addActions(Panel actionPanel) {
 		new Button(actionPanel) => [
-			caption = "Aceptar derrota con honor"
+			bindCaptionToProperty("aceptarButton")
 			setAsDefault
 			onClick [ | this.close() ]
 			disableOnError

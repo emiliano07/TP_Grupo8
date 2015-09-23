@@ -15,6 +15,7 @@ import posicion.Posicion
 	
 	var Jugador jugador
 	var Personaje personajeSeleccionado
+	var Personaje personajeSeleccionadoButton
 	var List<Personaje> personajesActivados
 	var Duelo dueloActivo
 	var String personajeBuscado
@@ -24,13 +25,14 @@ import posicion.Posicion
 		this.jugador = jugador
 		this.personajesActivados = this.jugador.personajesParaUsar
 		this.personajeSeleccionado = this.personajesActivados.get(0)
+		this.personajeSeleccionadoButton = null
 		this.dueloActivo = this.jugador.dueloActivo
 		this.personajeBuscado = ""
 		this.estadisticas = this.personajeSeleccionado.estadisticas
 	}
 	
-	def Estadisticas estadisticasPersonajeSeleccionado(){
-		this.personajeSeleccionado.estadisticas
+	def Estadisticas getEstadisticas(){
+		return this.personajeSeleccionado.estadisticas
 	}
 	
 	def seleccionarPosicion(Posicion posicion){
@@ -56,7 +58,9 @@ import posicion.Posicion
 	}
 	
 	def void setPersonajeSeleccionado(Personaje personaje){
-		this.personajeSeleccionado = personaje
 		this.jugador.seleccionarPersonaje(this.dueloActivo, personaje)
+		this.personajeSeleccionado = personaje
+		this.personajeSeleccionadoButton = personaje
+		this.estadisticas = personaje.estadisticas
 	}
 }

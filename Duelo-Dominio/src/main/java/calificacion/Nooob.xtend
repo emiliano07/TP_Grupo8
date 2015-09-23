@@ -14,6 +14,6 @@ class Nooob extends Calificacion {
 	}
 	
 	override puedeActualizar(Estadisticas estadisticas) {
-			return true
+		return true
 	}
 }
