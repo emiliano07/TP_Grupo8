@@ -3,6 +3,7 @@ package ar.edu.unq.ciu.dueloDeLeyendas.ui
 import applicationModel.DenunciaApplicacionModel
 import denuncia.Denuncia
 import java.awt.Color
+import org.uqbar.arena.bindings.NotNullObservable
 import org.uqbar.arena.bindings.PropertyAdapter
 import org.uqbar.arena.layout.ColumnLayout
 import org.uqbar.arena.widgets.Button
@@ -56,14 +57,11 @@ class HacerDenunciaWindow extends SimpleWindow<DenunciaApplicacionModel>{
 	}
 	
 	override protected addActions(Panel actionPanel) {
+		val elementSelected = new NotNullObservable("denuncia")
 		new Button(actionPanel) => [
 			caption = "Denunciar"
-			setAsDefault
 			onClick = [ |mostrarResultado()]
-			
-			//setAsDefault()							//Que aparezca deshabilitado hasta elegir un motivo
-			//bindEnabledToProperty("puedeDenunciar")
-			//disableOnError
+			bindEnabled(elementSelected)
 		]
 		
 		new Button(actionPanel) => [

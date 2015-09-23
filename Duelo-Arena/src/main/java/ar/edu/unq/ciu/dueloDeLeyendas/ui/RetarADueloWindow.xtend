@@ -5,6 +5,7 @@ import applicationModel.JugadorApplicationModel
 import java.awt.Color
 import juego.NoHayContrincanteException
 import juego.Personaje
+import org.uqbar.arena.bindings.NotNullObservable
 import org.uqbar.arena.layout.ColumnLayout
 import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.widgets.Label
@@ -117,47 +118,47 @@ class RetarADueloWindow extends SimpleWindow<JugadorApplicationModel>{
 		
 		var b3_2Panel = new Panel(b3Panel)
 		b3_2Panel.setLayout(new ColumnLayout(2))
+		val elementSelected = new NotNullObservable("personajeSeleccionado")
 		
 		new Button(b3_2Panel) => [
 			caption = "TOP"
-			setAsDefault
 			onClick [ | this.seleccionarPosicion(new Top()) ]
-			disableOnError
+			bindEnabled(elementSelected)
 			width = 75
 			height = 20
 		]
 		
 		new Button(b3_2Panel) => [
 			caption = "MID"
-			setAsDefault
 			onClick [ | this.seleccionarPosicion(new Mid()) ]
-			disableOnError
+			bindEnabled(elementSelected)
 			width = 75
 			height = 20
 		]
 		
 		new Button(b3_2Panel) => [
 			caption = "BOT"
-			setAsDefault
 			onClick [ | this.seleccionarPosicion(new Bot()) ]
-			disableOnError
+			bindEnabled(elementSelected)
 			width = 75
 			height = 20
 		]
 		
 		new Button(b3_2Panel) => [
 			caption = "JUNGLE"
-			setAsDefault
 			onClick [ | this.seleccionarPosicion(new Jungle()) ]
-			disableOnError
+			bindEnabled(elementSelected)
 			width = 75
 			height = 20
 		]
 	}
 	 
-	def crearPanelDeEstadisticas(Panel panel) {
-		estadisticPanel(panel)
-	}	
+		
+	
+	def crearLabel(Panel panel, String texto, String property){
+		new Label(panel).setText(texto)      
+	    new Label(panel).bindValueToProperty(property)
+	}
 	
 	def estadisticPanel(Panel panel) {
 		new Panel(panel) => [
@@ -172,10 +173,11 @@ class RetarADueloWindow extends SimpleWindow<JugadorApplicationModel>{
 		]		
 	}
 	
-	def crearLabel(Panel panel, String texto, String property){
-		new Label(panel).setText(texto)      
-	    new Label(panel).bindValueToProperty(property)
+	def crearPanelDeEstadisticas(Panel panel) {
+		estadisticPanel(panel)
 	}
+	
+	
 	
 	override protected addActions(Panel actionsPanel) {
 	
@@ -193,7 +195,7 @@ class RetarADueloWindow extends SimpleWindow<JugadorApplicationModel>{
 	
 	/////TABLE//////
 	 def createTable(Panel panel){
-		var table = new Table<Personaje>(panel, Personaje) => [
+		var table = new Table<Personaje>(panel, Personaje ) => [
 			bindItemsToProperty("personajesActivados")
 			bindValueToProperty("personajeSeleccionado")
 		]

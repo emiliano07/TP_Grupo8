@@ -14,19 +14,19 @@ import org.uqbar.commons.utils.Observable
 		this.calificacionesPosibles = newArrayList
 	}
 	
-	def agregarCalificacion (Calificacion calificacion){
+	def void agregarCalificacion (Calificacion calificacion){
 		this.calificacionesPosibles.add(calificacion)
 		this.calificacionesPosibles.sortInplaceBy[valor].reverse
 	}
 	
-	def eliminarCalificacion (Calificacion calificacion){
+	def void eliminarCalificacion (Calificacion calificacion){
 		this.calificacionesPosibles.remove(calificacion)	
 	}
 	
 	def Calificacion actualizarCalificacion(Calificacion calificacion, Estadisticas estadisticas){
 		var Calificacion calificacionFinal = calificacion
 		for (Calificacion calif : this.calificacionesPosibles){
-			if(calificacionFinal.getValor() < calif.getValor() && calif.puedeActualizar(estadisticas))
+			if(calificacionFinal.getValor() > calif.getValor() && calif.puedeActualizar(estadisticas))
 				calificacionFinal = calif
 		}
 		return calificacionFinal
