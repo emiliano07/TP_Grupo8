@@ -1,6 +1,7 @@
 package calificacion
 
-import juego.Estadisticas
+import juego.Personaje
+import jugador.Jugador
 
 class Nooob extends Calificacion {
 	
@@ -13,7 +14,7 @@ class Nooob extends Calificacion {
 		super("Nooob",5)
 	}
 	
-	override puedeActualizar(Estadisticas estadisticas) {
+	override puedeActualizar(Jugador jugador, Personaje personaje, int numeroAlAzar) {
 		return true
 	}
 }

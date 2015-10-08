@@ -1,7 +1,7 @@
 package ar.edu.unq.ciu.dueloDeLeyendas.ui
 
 import applicationModel.DenunciaApplicacionModel
-import denuncia.Denuncia
+import denuncia.Motivo
 import java.awt.Color
 import org.uqbar.arena.bindings.NotNullObservable
 import org.uqbar.arena.bindings.PropertyAdapter
@@ -25,15 +25,10 @@ class HacerDenunciaWindow extends SimpleWindow<DenunciaApplicacionModel>{
 	
 	override protected createFormPanel(Panel mainPanel) {
 		
+		new Titulo(mainPanel, "Hacer denuncia")
+				
 		new Label(mainPanel) => [
-			text = "Hacer denuncia"
-			foreground = Color.WHITE
-			background = Color.BLACK
-			fontSize = 25
-		]
-		
-		new Label(mainPanel) => [
-			text = "Estas queriendo denunciar a: " + modelObject.jugadorDenunciado.nombre
+			text = "Estas queriendo denunciar a: " + modelObject.denuncia.denunciado.nombre
 			foreground = Color.GREEN
 			] 
 		
@@ -44,8 +39,8 @@ class HacerDenunciaWindow extends SimpleWindow<DenunciaApplicacionModel>{
 		new Selector(secondPanel) => [
 			allowNull = false
 			width = 250
-			bindItemsToProperty("denunciasPosibles").adapter = new PropertyAdapter(Denuncia,"nombre") 
-			bindValueToProperty("denuncia")
+			bindItemsToProperty("denunciasPosibles").adapter = new PropertyAdapter(Motivo,"nombre") 
+			bindValueToProperty("denuncia.motivo")
 		]
 		
 		new Label (secondPanel).setText("Detalles:")
@@ -60,7 +55,7 @@ class HacerDenunciaWindow extends SimpleWindow<DenunciaApplicacionModel>{
 		val elementSelected = new NotNullObservable("denuncia")
 		new Button(actionPanel) => [
 			caption = "Denunciar"
-			onClick = [ |mostrarResultado()]
+			onClick = [ |new MostrarResultadoDeDenunciaWindow(this,modelObject.denunciar()).open]
 			bindEnabled(elementSelected)
 		]
 		
@@ -71,12 +66,4 @@ class HacerDenunciaWindow extends SimpleWindow<DenunciaApplicacionModel>{
 			disableOnError
 		]
 	}
-	
-	def mostrarResultado() {
-		modelObject.denunciar()
-		if(modelObject.sancionADenunciado())
-			new HemosSancionadoWindow(this,modelObject.jugadorSancionado).open()
-		else
-			new HasSidoSancionadoWindow(this,modelObject.jugadorSancionado).open()
-		}
 }

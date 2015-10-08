@@ -1,7 +1,8 @@
 package calificacion
 
 import java.util.List
-import juego.Estadisticas
+import juego.Personaje
+import jugador.Jugador
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.utils.Observable
 
@@ -23,10 +24,10 @@ import org.uqbar.commons.utils.Observable
 		this.calificacionesPosibles.remove(calificacion)	
 	}
 	
-	def Calificacion actualizarCalificacion(Calificacion calificacion, Estadisticas estadisticas){
-		var Calificacion calificacionFinal = calificacion
+	def Calificacion actualizarCalificacion(Jugador jugador, Personaje personaje){
+		var Calificacion calificacionFinal = new Nooob
 		for (Calificacion calif : this.calificacionesPosibles){
-			if(calificacionFinal.valor < calif.valor && calif.puedeActualizar(estadisticas))
+			if(calificacionFinal.valor < calif.valor && calif.puedeActualizar(jugador, personaje, calif.numeroAlAzar))
 				calificacionFinal = calif
 		}
 		return calificacionFinal

@@ -2,6 +2,7 @@ package ar.edu.unq.ciu.dueloDeLeyendas.ui
 
 import applicationModel.DenunciaApplicacionModel
 import applicationModel.DueloApplicationModel
+import denuncia.Denuncia
 import java.awt.Color
 import org.uqbar.arena.layout.ColumnLayout
 import org.uqbar.arena.widgets.Button
@@ -20,12 +21,7 @@ class ResultadoWindow extends SimpleWindow<DueloApplicationModel>{
 	
 	override protected createFormPanel(Panel mainPanel) {
 		
-		new Label(mainPanel) => [
-			text = modelObject.personajeRetador + " vs " + modelObject.personajeRetado
-			foreground = Color.WHITE
-			background = Color.BLACK
-			fontSize = 25
-		]
+		new Titulo(mainPanel, modelObject.personajeRetador + " vs " + modelObject.personajeRetado)
 		
 		new Label(mainPanel) => [
 			modelObject.resultadoRetador()
@@ -66,8 +62,8 @@ class ResultadoWindow extends SimpleWindow<DueloApplicationModel>{
 			background = Color.WHITE
 		]
 		
-		crearPanelDeEstadisticasRetador(secondPanel)
-		crearPanelDeEstadisticasRetado(secondPanel)
+		//crearPanelDeEstadisticasRetador(secondPanel)
+		//crearPanelDeEstadisticasRetado(secondPanel)
 		
 		new Label(mainPanel) => [ 
 			text = "Ganador: " + modelObject.ganador + "!! - " + modelObject.puntosRetador + " puntos contra " + modelObject.puntosRetado + " puntos"
@@ -121,6 +117,6 @@ class ResultadoWindow extends SimpleWindow<DueloApplicationModel>{
 	}
 
 	def denunciar(){
-		new HacerDenunciaWindow(this,new DenunciaApplicacionModel(modelObject.duelo.getJugador1, modelObject.duelo.getJugador2)).open()
+		new HacerDenunciaWindow(this,new DenunciaApplicacionModel(new Denuncia(modelObject.duelo.getJugador1, modelObject.duelo.getJugador2))).open()
 	}
 }

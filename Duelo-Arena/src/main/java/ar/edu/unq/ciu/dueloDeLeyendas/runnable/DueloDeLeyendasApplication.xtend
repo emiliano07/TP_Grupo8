@@ -3,7 +3,6 @@ package ar.edu.unq.ciu.dueloDeLeyendas.runnable
 import applicationModel.JugadorApplicationModel
 import ar.edu.unq.ciu.dueloDeLeyendas.ui.RetarADueloWindow
 import calificacion.Calificacion
-import calificacion.CentroDeCalificaciones
 import calificacion.Dominador
 import calificacion.Killing_Spread
 import calificacion.Manco
@@ -19,7 +18,6 @@ import posicion.Mid
 import posicion.Top
 
 class DueloDeLeyendasApplication extends Application{
-	
 	
 	def static void main(String[] args){
 		new DueloDeLeyendasApplication().start()
@@ -52,24 +50,21 @@ class DueloDeLeyendasApplication extends Application{
 		var debilidadesPersonaje03 = "Poca confianza"
 		var debilidadesPersonaje04 = "Ingenuo"
 		
-		// CentroDeCalificaciones
-		var centroDeCalificaciones = new CentroDeCalificaciones
-	
-		//Agrego al Centro de calificaciones las calificaciones posibles
-		centroDeCalificaciones.agregarCalificacion(nooob)
-		centroDeCalificaciones.agregarCalificacion(manco)
-		centroDeCalificaciones.agregarCalificacion(killing)
-		centroDeCalificaciones.agregarCalificacion(dominador)
-		centroDeCalificaciones.agregarCalificacion(rampage)
-		
 		//Juego
 		var juego = new Juego()
-			
+		
+		//Agrego al Centro de calificaciones las calificaciones posibles
+		juego.centroDeCalificaciones.agregarCalificacion(nooob)
+		juego.centroDeCalificaciones.agregarCalificacion(manco)
+		juego.centroDeCalificaciones.agregarCalificacion(killing)
+		juego.centroDeCalificaciones.agregarCalificacion(dominador)
+		juego.centroDeCalificaciones.agregarCalificacion(rampage)
+					
 		//Personajes
-		var personaje01 = new Personaje("Goku",debilidadesPersonaje01,especialidadesPersonaje01,posicionJungle,centroDeCalificaciones )
-		var personaje02 = new Personaje("Vegeta",debilidadesPersonaje02,especialidadesPersonaje02,posicionBot,centroDeCalificaciones )
-		var personaje03 = new Personaje("Gohan",debilidadesPersonaje03,especialidadesPersonaje03,posicionMid,centroDeCalificaciones )
-		var personaje04 = new Personaje("Trunks",debilidadesPersonaje04,especialidadesPersonaje04,posicionTop,centroDeCalificaciones )
+		var personaje01 = new Personaje("Goku",debilidadesPersonaje01,especialidadesPersonaje01,posicionJungle,juego.centroDeCalificaciones)
+		var personaje02 = new Personaje("Vegeta",debilidadesPersonaje02,especialidadesPersonaje02,posicionBot,juego.centroDeCalificaciones)
+		var personaje03 = new Personaje("Gohan",debilidadesPersonaje03,especialidadesPersonaje03,posicionMid,juego.centroDeCalificaciones)
+		var personaje04 = new Personaje("Trunks",debilidadesPersonaje04,especialidadesPersonaje04,posicionTop,juego.centroDeCalificaciones)
 		
 		//Agrego al juego los personajes
 		juego.agregarPersonaje(personaje01)
@@ -96,10 +91,10 @@ class DueloDeLeyendasApplication extends Application{
 		//juego.agregarJugador(jugador01)	
 		/////////////////////////////////////////////////////////////////////////////////////////////
 		/////////////////////////////////////////////////////////////////////////////////////////////
-		
+
 		//Cuando se reta a duelo el que lo hace es el jugador01
 		jugador01.iniciarDuelo()
 		
-		new RetarADueloWindow(this, new JugadorApplicationModel(jugador01))
+		new RetarADueloWindow(this, new JugadorApplicationModel(juego, jugador01))
 	}
 }

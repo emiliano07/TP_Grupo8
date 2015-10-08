@@ -1,6 +1,7 @@
 package calificacion
 
-import juego.Estadisticas
+import juego.Personaje
+import jugador.Jugador
 
 class Rampage extends Calificacion {
 	
@@ -14,10 +15,7 @@ class Rampage extends Calificacion {
 		super("Rampage",100)
 	}
 	
-	override puedeActualizar(Estadisticas estadisticas) {
-		var int numero = Math.round(Math.random()*101).intValue
-		if(estadisticas.luchoCantidadDeVecesEnPosicion(estadisticas.personajeAlQuePertenece.getPosicionIdeal()) >= 5  && numero > 90)
-			return true
-		return false
+	override puedeActualizar(Jugador jugador, Personaje personaje, int numeroAlAzar) {
+	jugador.estadisticas.luchoCantidadDeVecesEnPosicion(jugador, personaje, personaje.getPosicionIdeal()) >= 5  && numeroAlAzar > 90
 	}
 }

@@ -1,6 +1,7 @@
 package calificacion
 
-import juego.Estadisticas
+import juego.Personaje
+import jugador.Jugador
 
 class Killing_Spread extends Calificacion {
 	
@@ -14,10 +15,7 @@ class Killing_Spread extends Calificacion {
 		super("Killing_Spread",60)
 	}
 	
-	override puedeActualizar(Estadisticas estadisticas) {
-		var int numero = Math.round(Math.random()*101).intValue
-		if(estadisticas.luchoCantidadDeVecesEnPosicionConTodosLosPersonajes(estadisticas.personajeAlQuePertenece.getPosicionIdeal()) >= 2 && numero > 50)
-			return true
-		return false
+	override puedeActualizar(Jugador jugador, Personaje personaje, int numeroAlAzar) {
+		jugador.estadisticas.luchoCantidadDeVecesEnPosicionConTodosLosPersonajes(jugador, personaje.getPosicionIdeal()) >= 2 && numeroAlAzar > 50
 	}
 }

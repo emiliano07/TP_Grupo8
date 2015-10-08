@@ -1,6 +1,7 @@
 package calificacion
 
-import juego.Estadisticas
+import juego.Personaje
+import jugador.Jugador
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.utils.Observable
 
@@ -15,5 +16,9 @@ import org.uqbar.commons.utils.Observable
 		this.valor = valor
 	}
 	
-	def abstract Boolean puedeActualizar(Estadisticas estadisticas)
+	def numeroAlAzar(){
+		return Math.round(Math.random()*101).intValue
+	}
+	
+	def abstract Boolean puedeActualizar(Jugador jugador, Personaje personaje, int numeroAlAzar)
 }

@@ -27,21 +27,14 @@ import org.uqbar.commons.utils.Observable
 	
 	def agregarPersonaje(Personaje personaje){
 		this.personajes.add(personaje)
-		for(Jugador jug : this.jugadores){
-			var Personaje p = new Personaje(personaje.nombre,personaje.debilidades,personaje.especialidades,personaje.posicionIdeal,this.centroDeCalificaciones)
-			jug.personajesParaUsar.add(p)
-		}
 	}
 	
 	def eliminarPersonaje(Personaje personaje){
 		this.personajes.remove(personaje)
-		for(Jugador jug : this.jugadores)
-			jug.personajesParaUsar.remove(personaje)
 	}
 	
 	def void agregarJugador (Jugador jugador){
 		 this.jugadores.add(jugador)
-		 jugador.cargarPersonajesParaUsar()
 	}
 	
 	def eliminarJugador(Jugador jugador){

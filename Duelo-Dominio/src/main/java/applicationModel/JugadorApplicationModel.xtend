@@ -2,7 +2,8 @@ package applicationModel
 
 import java.util.List
 import juego.Duelo
-import juego.Estadisticas
+import juego.EstadisticasMomentaneas
+import juego.Juego
 import juego.Personaje
 import jugador.Jugador
 import org.eclipse.xtend.lib.annotations.Accessors
@@ -13,54 +14,47 @@ import posicion.Posicion
 @Observable
 @Accessors class JugadorApplicationModel {
 	
+	var Juego juego
 	var Jugador jugador
 	var Personaje personajeSeleccionado
-	var Personaje personajeSeleccionadoButton
-	var List<Personaje> personajesActivados
-	var Duelo dueloActivo
 	var String personajeBuscado
-	var Estadisticas estadisticas
+	var EstadisticasMomentaneas estadisticasMomentaneas
 	
-	new(Jugador jugador){
+	new(Juego juego,  Jugador jugador){
+		this.juego = juego
 		this.jugador = jugador
-		this.personajesActivados = this.jugador.personajesParaUsar
-		this.personajeSeleccionado = this.personajesActivados.get(0)
-		this.personajeSeleccionadoButton = null
-		this.dueloActivo = this.jugador.dueloActivo
+		this.personajeSeleccionado = null
 		this.personajeBuscado = ""
-		this.estadisticas = this.personajeSeleccionado.estadisticas
+		this.estadisticasMomentaneas = new EstadisticasMomentaneas(this.jugador.estadisticas,new Personaje("","","",null,juego.centroDeCalificaciones),this.jugador,this.juego.centroDeCalificaciones)
 	}
 	
-	def Estadisticas getEstadisticas(){
-		return this.personajeSeleccionado.estadisticas
+	def getPoderDeAtaque(){
+		this.jugador.getPoderDeAtaque(personajeSeleccionado)
 	}
 	
-	def seleccionarPosicion(Posicion posicion){
-		this.jugador.seleccionarPosicion(this.dueloActivo, posicion)
-	}
-	
-	def buscadorDePersonajes(String s){
-		var List<Personaje> personajesBuscados = newArrayList
-		if(this.personajeBuscado == "")
-			this.personajesActivados = this.jugador.personajesParaUsar
+	def List<Personaje> getPersonajesPosibles(){
+		if(this.personajeBuscado=="")
+			this.juego.personajes
 		else{	
-			for (Personaje per : this.jugador.personajesParaUsar){
-				if(per.nombre.startsWith(s))
-					personajesBuscados.add(per)
-			}
-			this.personajesActivados = personajesBuscados
+			this.juego.personajes.filter[it.nombre.startsWith(personajeBuscado)].toList
 		}
 	}
 	
 	def setPersonajeBuscado(String nombre){
 		this.personajeBuscado = nombre
-		ObservableUtils.firePropertyChanged(this, "personajeSeleccionado", this.buscadorDePersonajes(nombre))
+		ObservableUtils.firePropertyChanged(this, "personajesPosibles")
+	}
+	
+	def Duelo iniciarDuelo(Posicion posicion) {
+		jugador.iniciarDuelo()
+		jugador.dueloActivo.seleccionarPersonaje(this.personajeSeleccionado)
+		jugador.dueloActivo.seleccionarPosicion(posicion)
+		return jugador.dueloActivo
 	}
 	
 	def void setPersonajeSeleccionado(Personaje personaje){
-		this.jugador.seleccionarPersonaje(this.dueloActivo, personaje)
 		this.personajeSeleccionado = personaje
-		this.personajeSeleccionadoButton = personaje
-		this.estadisticas = personaje.estadisticas
+		this.estadisticasMomentaneas = new EstadisticasMomentaneas(this.jugador.estadisticas,this.personajeSeleccionado,this.jugador,this.juego.centroDeCalificaciones)
+		ObservableUtils.firePropertyChanged(this, "estadisticasMomentaneas", personajesPosibles)
 	}
 }

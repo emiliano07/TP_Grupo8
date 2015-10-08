@@ -30,12 +30,7 @@ class RetarADueloWindow extends SimpleWindow<JugadorApplicationModel>{
 	}
 
 	override protected createFormPanel(Panel mainPanel) {
-		new Label(mainPanel) => [
-			text = "Selecciona tu personaje para el duelo!"
-			foreground = Color.WHITE
-			background = Color.BLACK
-			fontSize = 25
-		]
+		new Titulo(mainPanel, "Selecciona tu personaje para el duelo!")
 		
 		var secondPanel = new Panel(mainPanel)
 		secondPanel.setLayout(new ColumnLayout(3))
@@ -58,11 +53,7 @@ class RetarADueloWindow extends SimpleWindow<JugadorApplicationModel>{
 			fontSize = 20
 		]
 		
-		new Label(secondPanel) => [
-			text = "Stats"
-			foreground = Color.BLUE
-			fontSize = 20
-		]
+		crearLabelTituloSecundario(secondPanel, "Stats")
 		
 		new Panel(secondPanel) => [
 			createTable(it)
@@ -70,38 +61,12 @@ class RetarADueloWindow extends SimpleWindow<JugadorApplicationModel>{
 		
 		var b2Panel = new Panel(secondPanel)
 		
-		new Label(b2Panel) => [
-			text = "Especialidades:"
-			foreground = Color.GREEN
-			fontSize = 15
-		]
-		
-		new Label(b2Panel) => [
-			bindValueToProperty("personajeSeleccionado.especialidades")
-			fontSize = 13
-		]
-		
-		new Label(b2Panel) => [
-			text = "Debilidad:"
-			foreground = Color.GREEN
-			fontSize = 15
-		]
-		
-		new Label(b2Panel) => [
-			bindValueToProperty("personajeSeleccionado.debilidades")
-			fontSize = 13
-		]
-		
-		new Label(b2Panel) => [
-			text = "Mejor Posición:"
-			foreground = Color.GREEN
-			fontSize = 15
-		]
-		
-		new Label(b2Panel) => [
-			bindValueToProperty("personajeSeleccionado.posicionIdeal.nombre")
-			fontSize = 13
-		]
+		crearLabelTituloCaracteristica(b2Panel, "Especialidades:")
+		crearLabelCaracteristica(b2Panel, "personajeSeleccionado.especialidades")
+		crearLabelTituloCaracteristica(b2Panel, "Debilidad:")
+		crearLabelCaracteristica(b2Panel, "personajeSeleccionado.debilidades")
+		crearLabelTituloCaracteristica(b2Panel, "Mejor Posición:")
+		crearLabelCaracteristica(b2Panel, "personajeSeleccionado.posicionIdeal.nombre")
 		
 		var b3Panel = new Panel(secondPanel)
 	
@@ -110,89 +75,84 @@ class RetarADueloWindow extends SimpleWindow<JugadorApplicationModel>{
 		
 		crearPanelDeEstadisticas(b3_1Panel)
 		
-		new Label(b3Panel) => [
-			text = "Jugar"
-			foreground = Color.BLUE
-			fontSize = 20
-		]
+		crearLabelTituloSecundario(b3Panel, "Jugar")
 		
 		var b3_2Panel = new Panel(b3Panel)
 		b3_2Panel.setLayout(new ColumnLayout(2))
-		val elementSelected = new NotNullObservable("personajeSeleccionadoButton")
 		
-		new Button(b3_2Panel) => [
-			caption = "TOP"
-			onClick [ | this.seleccionarPosicion(new Top()) ]
-			bindEnabled(elementSelected)
-			width = 75
-			height = 20
-		]
-		
-		new Button(b3_2Panel) => [
-			caption = "MID"
-			onClick [ | this.seleccionarPosicion(new Mid()) ]
-			bindEnabled(elementSelected)
-			width = 75
-			height = 20
-		]
-		
-		new Button(b3_2Panel) => [
-			caption = "BOT"
-			onClick [ | this.seleccionarPosicion(new Bot()) ]
-			bindEnabled(elementSelected)
-			width = 75
-			height = 20
-		]
-		
-		new Button(b3_2Panel) => [
-			caption = "JUNGLE"
-			onClick [ | this.seleccionarPosicion(new Jungle()) ]
+		crearButton(b3_2Panel, "TOP", new Top)
+		crearButton(b3_2Panel, "MID", new Mid)
+		crearButton(b3_2Panel, "BOT", new Bot)
+		crearButton(b3_2Panel, "JUNGLE", new Jungle)
+	}
+	
+	/////////////////////////
+	// BOTONES DE POSICIÓN //
+	/////////////////////////
+	def crearButton(Panel panel, String titulo, Posicion posicion){
+		val elementSelected = new NotNullObservable("personajeSeleccionado")
+		new Button(panel) => [
+			caption = titulo
+			onClick [ | this.jugar(posicion) ]
 			bindEnabled(elementSelected)
 			width = 75
 			height = 20
 		]
 	}
-	 
+	
+	/////////////////////////
+	///////// LABELS ////////
+	/////////////////////////
+	def crearLabelTituloSecundario(Panel panel, String titulo){
+		new Label(panel) => [
+			text = titulo
+			foreground = Color.BLUE
+			fontSize = 20
+		]
+	}
+	
+	def crearLabelTituloCaracteristica(Panel panel, String titulo){
+		new Label(panel) => [
+			text = titulo
+			foreground = Color.GREEN
+			fontSize = 15
+		]
+	}
+	
+	def crearLabelCaracteristica(Panel panel, String property){
+		new Label(panel) => [
+			bindValueToProperty(property)
+			fontSize = 13
+		]
+	}
+
+	/////////////////////////
+	///// ESTADISTICAS //////
+	/////////////////////////
 	def crearLabel(Panel panel, String texto, String property){
 		new Label(panel).setText(texto)      
 	    new Label(panel).bindValueToProperty(property)
 	}
-	
-	def estadisticPanel(Panel panel, String estadisticaCorrespondiente) {
-		new Panel(panel) => [
-			layout = new ColumnLayout(2)		
-			crearLabel(it,"Jugadas",estadisticaCorrespondiente +".cantUsado")
-			crearLabel(it,"Ganadas",estadisticaCorrespondiente +".cantGanado")
-			crearLabel(it,"Kills",estadisticaCorrespondiente + ".kills")
-			crearLabel(it,"Deads",estadisticaCorrespondiente + ".deads")
-			crearLabel(it,"Assists",estadisticaCorrespondiente + ".assists")
-			crearLabel(it,"Mejor ubicacion",estadisticaCorrespondiente + ".mejorUbicacion.nombre")
-			crearLabel(it,"Puntaje",estadisticaCorrespondiente + ".calificacion.nombre")
-		]		
-	}
-	
+
 	def crearPanelDeEstadisticas(Panel panel) {
-		estadisticPanel(panel, "estadisticas")
+		new Panel(panel) => [
+			layout = new ColumnLayout(2)	
+			crearLabel(it,"Jugadas","estadisticasMomentaneas.cantUsado")
+			crearLabel(it,"Ganadas","estadisticasMomentaneas.cantGanado")
+			crearLabel(it,"Kills","estadisticasMomentaneas.kills")
+			crearLabel(it,"Deads","estadisticasMomentaneas.deads")
+			crearLabel(it,"Assists","estadisticasMomentaneas.assists")
+			crearLabel(it,"Mejor ubicacion","estadisticasMomentaneas.mejorUbicacion.nombre")
+			crearLabel(it,"Puntaje","estadisticasMomentaneas.calificacion.nombre")
+		]
 	}
-	
-	override protected addActions(Panel actionsPanel) {
-	
-	}
-	
-	def seleccionarPosicion(Posicion posicion){
-		try{
-			modelObject.seleccionarPosicion(posicion)
-			new ResultadoWindow(this,new DueloApplicationModel(modelObject.dueloActivo)).open()
-		}
-		catch(NoHayContrincanteException e){
-			new NoTienesRivalWindow(this, modelObject.jugador).open()
-		}
-	}
-	
-	/////TABLE//////
+
+	/////////////////////////
+	///////// TABLA /////////
+	/////////////////////////
 	 def createTable(Panel panel){
-		var table = new Table<Personaje>(panel, Personaje ) => [
-			bindItemsToProperty("personajesActivados")
+		var table = new Table<Personaje>(panel, Personaje) => [
+			bindItemsToProperty("personajesPosibles")
 			bindValueToProperty("personajeSeleccionado")
 		]
 		
@@ -202,10 +162,25 @@ class RetarADueloWindow extends SimpleWindow<JugadorApplicationModel>{
 			bindContentsToProperty("nombre")
 		]
 		
-		new Column<Personaje>(table) => [
-			title = "Puntaje"
-			fixedSize = 120
-			bindContentsToProperty("poderDeAtaque")
-		]
+//		new Column<Personaje>(table) => [
+//			title = "Puntaje"
+//			fixedSize = 120
+//			bindContentsToProperty("poderDeAtaque")
+//		]
+	}
+	/////////////////////////
+	/////////////////////////
+	
+	override protected addActions(Panel actionsPanel) {
+	
+	}
+	
+	def jugar(Posicion posicion){
+		try{
+			new ResultadoWindow(this,new DueloApplicationModel(modelObject.iniciarDuelo(posicion))).open()
+		}
+		catch(NoHayContrincanteException e){
+			new NoTienesRivalWindow(this, modelObject.jugador).open()
+		}
 	}
 }

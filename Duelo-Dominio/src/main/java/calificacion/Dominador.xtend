@@ -1,6 +1,7 @@
 package calificacion
 
-import juego.Estadisticas
+import juego.Personaje
+import jugador.Jugador
 
 class Dominador extends Calificacion {
 	
@@ -14,10 +15,7 @@ class Dominador extends Calificacion {
 		super("Dominador",75)
 	}
 	
-	override puedeActualizar(Estadisticas estadisticas) {
-		var int numero = Math.round(Math.random()*101).intValue
-		if(estadisticas.luchoCantidadDeVecesEnPosicionConTodosLosPersonajes(estadisticas.personajeAlQuePertenece.getPosicionIdeal()) >= 2 && numero > 70)
-			return true
-		return false
+	override puedeActualizar(Jugador jugador, Personaje personaje, int numeroAlAzar) {
+		jugador.estadisticas.luchoCantidadDeVecesEnPosicionConTodosLosPersonajes(jugador, personaje.getPosicionIdeal) >= 2 && numeroAlAzar > 70
 	}
 }

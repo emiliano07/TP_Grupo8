@@ -1,7 +1,6 @@
 package ar.edu.unq.ciu.dueloDeLeyendas.ui
 
 import applicationModel.DueloApplicationModel
-import java.awt.Color
 import jugador.Jugador
 import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.widgets.Label
@@ -20,12 +19,7 @@ class NoTienesRivalWindow extends SimpleWindow<Jugador> {
 		
 	override protected createFormPanel(Panel mainPanel) {
 		
-		new Label(mainPanel) => [
-			text = "No tienes rival!!!"
-			foreground = Color.WHITE
-			background = Color.BLACK
-			fontSize = 25
-			] 
+		new Titulo(mainPanel, "No tienes rival!!!")
 		
 		new Label(mainPanel).text = 
 '''

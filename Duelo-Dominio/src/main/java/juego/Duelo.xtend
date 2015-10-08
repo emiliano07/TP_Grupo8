@@ -2,7 +2,6 @@ package juego
 
 import jugador.Jugador
 import jugador.Jugador_MR_X
-import jugador.No_Jugador
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.utils.Observable
 import posicion.Posicion
@@ -17,7 +16,10 @@ import posicion.Posicion
 	var Personaje personaje2		//Personaje del Jugador 2
 	var int poderDeAtaquePersonaje1	//Poder de ataque del Personaje 1
 	var int poderDeAtaquePersonaje2	//Poder de ataque del Personaje 2
-	var Jugador jugadorGanador		//Jugador que resulta ganador, en caso de empate aparece un No_Jugador
+	var Posicion posicionPersonaje1	//Posición del Personaje 1
+	var Posicion posicionPersonaje2	//Posición del Personaje 2
+	var Resultado resultadoJugador1	//Resultado del Duelo para el Jugador1
+	var Resultado resultadoJugador2	//Resultado del Duelo para el Jugador2
 	
 	new(Jugador jugador1, Juego juego){
 		this.juego = juego
@@ -27,7 +29,8 @@ import posicion.Posicion
 		this.personaje2 = null
 		this.poderDeAtaquePersonaje1 = 0
 		this.poderDeAtaquePersonaje2 = 0
-		this.jugadorGanador = null
+		this.resultadoJugador1 = null
+		this.resultadoJugador2 = null
 	}
 	
 	def void seleccionarPersonaje(Personaje personaje1){
@@ -35,11 +38,11 @@ import posicion.Posicion
 	}
 	
 	def void seleccionarPosicion(Posicion posicion){
-		this.personaje1.setPosicionActual(posicion)
+		this.posicionPersonaje1 = posicion
 		this.juego.buscarContrincante(this)
-		this.personaje2.setPosicionActual(this.personaje2.getPosicionIdeal())
-		this.poderDeAtaquePersonaje1 = this.personaje1.getPoderDeAtaque() * this.numeroAlAzar
-		this.poderDeAtaquePersonaje2 = this.personaje2.getPoderDeAtaque() * this.numeroAlAzar
+		this.posicionPersonaje2 = this.personaje2.getPosicionIdeal()
+		this.poderDeAtaquePersonaje1 = this.jugador1.getPoderDeAtaque(this.personaje1) * this.numeroAlAzar
+		this.poderDeAtaquePersonaje2 = this.jugador2.getPoderDeAtaque(this.personaje2) * this.numeroAlAzar
 		this.jugar()
 	}
 	
@@ -53,46 +56,36 @@ import posicion.Posicion
 	
 	def void retarAMRX(){
 		this.jugador2 = new Jugador_MR_X("MR_X", this.juego)
-		this.jugador2.cargarPersonajesParaUsar()
 		this.personaje2 = this.jugador2.getPersonajeAlazar()
 		this.jugar()
 	}
 
 	def void luchar(){
 		if(this.poderDeAtaquePersonaje1 > this.poderDeAtaquePersonaje2){
-			this.jugadorGanador = this.jugador1
+			this.resultadoJugador1 = new Resultado(true,this.personaje1,this.posicionPersonaje1,true,false)
+			this.resultadoJugador2 = new Resultado(false,this.personaje2,this.posicionPersonaje2,false,false)
 		}
 		else{
 			if(this.poderDeAtaquePersonaje1 < this.poderDeAtaquePersonaje2){
-				this.jugadorGanador = this.jugador2
+				this.resultadoJugador1 = new Resultado(true,this.personaje1,this.posicionPersonaje1,false,false)
+				this.resultadoJugador2 = new Resultado(false,this.personaje2,this.posicionPersonaje2,true,false)
 			}
 			else{
-				this.jugadorGanador = new No_Jugador("Jugador creado en caso de empate", this.jugador1.getJuego()) //En caso de empate devuelve un No_Jugador
+				this.resultadoJugador1 = new Resultado(true,this.personaje1,this.posicionPersonaje1,false,true)
+				this.resultadoJugador2 = new Resultado(false,this.personaje2,this.posicionPersonaje2,false,true)
 			}
 		}
 	}
 	
 	def void jugar(){
 		this.luchar()
-		this.actualizarPersonajesUsados()
-		this.actualizarEstadisticas()
-		this.actualizarPoderDeAtaque()
+		this.guardarResultado()
 		this.actualizarLosPuntajes()
 	}
 	
-	def void actualizarEstadisticas(){
-		this.personaje1.actualizarEstadisticas(this)
-		this.personaje2.actualizarEstadisticas(this)
-	}
-	
-	def void actualizarPoderDeAtaque(){
-		this.personaje1.actualizarPoderDeAtaque()
-		this.personaje2.actualizarPoderDeAtaque()
-	}
-	
-	def void actualizarPersonajesUsados(){
-		this.jugador1.actualizarPersonajesUsados(personaje1)
-		this.jugador2.actualizarPersonajesUsados(personaje2)
+	def guardarResultado(){
+		this.jugador1.agregarResultado(this.resultadoJugador1)
+		this.jugador2.agregarResultado(this.resultadoJugador2)
 	}
 	
 	def void actualizarLosPuntajes(){

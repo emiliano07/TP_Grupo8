@@ -34,18 +34,17 @@ class DueloApplicationModel {
 	}
 	
 	def String getPersonajeRetado() {
-		this.duelo.personaje2.nombre
+		this.duelo.personaje2.nombre 
 	}
 	
 	def void resultadoRetador(){
-		var String ganador = this.duelo.getJugadorGanador().getNombre()
-		if (ganador == this.getRetador()){
-			this.ganador = ganador
+		if (this.duelo.resultadoJugador1.ganeDuelo){
+			this.ganador = this.duelo.getJugador1().getNombre()
 			this.resultado = "Le ganaste a " + this.getRetado()
 			this.aceptarButton = "Aceptar"
 		}else{
-			if(ganador == this.getRetado()){
-				this.ganador = ganador
+			if(this.duelo.resultadoJugador2.ganeDuelo){
+				this.ganador = this.duelo.getJugador2().getNombre()
 				this.resultado = "Perdiste contra " + this.getRetado()
 				this.aceptarButton = "Aceptar derrota con honor"
 			}else{
@@ -57,11 +56,11 @@ class DueloApplicationModel {
 	}
 	
 	def Estadisticas getEstadisticasRetado(){
-		this.duelo.personaje2.estadisticas
+		this.duelo.jugador2.estadisticas
 	}
 	
 	def Estadisticas getEstadisticasRetador(){
-		this.duelo.personaje1.estadisticas
+		this.duelo.jugador1.estadisticas
 	}
 	
 	def puntosRetador(){

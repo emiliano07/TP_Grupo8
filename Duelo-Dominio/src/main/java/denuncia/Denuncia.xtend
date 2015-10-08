@@ -1,38 +1,41 @@
 package denuncia
 
+import java.util.List
 import java.util.StringTokenizer
 import jugador.Jugador
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.utils.Observable
 
 @Observable
-@Accessors abstract class Denuncia {
+@Accessors class Denuncia {
 	
-	var int peso
+	var Motivo motivo
 	var String descripcion
 	var Jugador denunciante
 	var Jugador denunciado
 	
-	new(int peso, Jugador jugadorDenunciante, Jugador jugadorDenunciado){
-		this.peso = peso
+	new(Jugador jugadorDenunciante, Jugador jugadorDenunciado){
+		this.motivo = null
 		this.denunciante = jugadorDenunciante
 		this.denunciado = jugadorDenunciado
 		this.descripcion = ""
 	}
 	
-	def Jugador analizarDenuncia() {
+	def ResultadoDenuncia evaluar() {
 		var Jugador jugadorDenunciado = null
 		if(this.esValida()){
 			jugadorDenunciado = denunciado
 			jugadorDenunciado.agregarNuevaDenuncia(this)
+			ResultadoDenuncia.denunciaExitosa(this)
 		}
 		else{
 			jugadorDenunciado = denunciante
-			var Denuncia denunciaNueva = new AbusoDelSistemaDeDenuncias(this.denunciante, this.denunciante)
+			var Denuncia denunciaNueva = new Denuncia(this.denunciante,this.denunciado)
+			denunciaNueva.setMotivo(Motivo.AbusoDelSistemaDeDenuncias)
 			denunciaNueva.setDescripcion("El jugador intenta denunciar a: " + this.denunciado.getNombre() + ". Por abuso del Sistema de Denuncias, sin tener una justificacion suficiente: " + descripcion)
-			denunciante.agregarNuevaDenuncia(denunciaNueva)	
+			denunciante.agregarNuevaDenuncia(denunciaNueva)
+			ResultadoDenuncia.denunciaEnContra()
 		}
-		jugadorDenunciado
 	}
 	
 	def esValida() {
@@ -48,5 +51,11 @@ import org.uqbar.commons.utils.Observable
 		return this.descripcion.length() >= 20
 	}
 	
-	def abstract String getNombre()
+	def List<Motivo> getMotivosPosibles(){
+		var List<Motivo> motivos = newArrayList
+		motivos.add(Motivo.AbusoDeHabilidad)
+		motivos.add(Motivo.ComunicacionAbusiva)
+		motivos.add(Motivo.FeedIntencional)
+		return motivos
+	}
 }

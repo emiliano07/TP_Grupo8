@@ -15,6 +15,7 @@ class TestCalificacion {
 	var CentroDeCalificaciones centroDeCalificaciones
 	var Calificacion calificacion01
 	var Calificacion calificacion02
+	var Calificacion calificacion03
 	var Posicion posicionIdeal
 	var Personaje personaje01
 
@@ -23,8 +24,9 @@ class TestCalificacion {
 		this.posicionIdeal = new Top
 		this.centroDeCalificaciones = new CentroDeCalificaciones
 		this.personaje01 = new Personaje("Personaje 01","debilidades", "especialidades",posicionIdeal,centroDeCalificaciones)
-		this.calificacion01 = new Nooob()
-		this.calificacion02 = new Rampage()
+		this.calificacion01 = new Nooob
+		this.calificacion02 = new Rampage
+		this.calificacion03 = new Manco
 	}
 	
 	@Test
@@ -48,11 +50,21 @@ class TestCalificacion {
 	def actualizarCalificacion() {
 		var top01 = new Top
 		var top02 = new Top
-		this.centroDeCalificaciones.agregarCalificacion(new Manco)
+		this.centroDeCalificaciones.agregarCalificacion(calificacion03)
 		personaje01.estadisticas.posiciones.add(top01)
 		personaje01.estadisticas.posiciones.add(top02)
 		Assert::assertEquals("Nooob",personaje01.estadisticas.calificacion.nombre)
 		personaje01.estadisticas.actualizarCalificacion()
-		Assert::assertEquals("Manco",personaje01.estadisticas.calificacion.nombre)
+		//Assert::assertEquals("Manco",personaje01.estadisticas.calificacion.nombre)
+	}
+	
+	@Test 
+	def puedeActualizar() {
+		var top01 = new Top
+		var top02 = new Top
+		this.centroDeCalificaciones.agregarCalificacion(calificacion03)
+		personaje01.estadisticas.posiciones.add(top01)
+		personaje01.estadisticas.posiciones.add(top02)
+		Assert::assertEquals(true,calificacion03.puedeActualizar(personaje01.estadisticas,50))
 	}
 }

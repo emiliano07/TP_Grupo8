@@ -39,7 +39,7 @@ class TestDenuncia {
 		this.feed.descripcion = "Una descripcion"
 		this.feed.denunciado = jugador02
 		this.feed.denunciante = jugador01
-		this.feed.analizarDenuncia()
+		this.feed.evaluar()
 		Assert::assertEquals(1,this.jugador01.denuncias.size())
 	}
 	
@@ -48,7 +48,7 @@ class TestDenuncia {
 		this.feed.descripcion = "Una descripcion de una denuncia"
 		this.feed.denunciado = jugador02
 		this.feed.denunciante = jugador01
-		this.feed.analizarDenuncia()
+		this.feed.evaluar()
 		Assert::assertEquals(1,this.jugador02.denuncias.size())
 	}
 }
